@@ -1,11 +1,11 @@
-/** Class representing a point. */
+/** Class representing a question. */
 class Question {
   #text;
   #choices;
   #correctChoice;
 
   /**
-   * Create a point.
+   * Create a question.
    * @param {string} text - The question text.
    * @param {Array<string>} choices - The multiple choices.
    * @param {string} correctChoice - The correct choice.
