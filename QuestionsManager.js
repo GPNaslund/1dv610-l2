@@ -54,7 +54,7 @@ class QuestionsManager {
    * @returns {Question} - The Question object at the new index. 
    */
   getNextQuestion() {
-    if (this.hasMoreQuestions) {
+    if (this.hasMoreQuestions()) {
       this.#currentIndex++;
       return this.#allQuestions[this.#currentIndex];
     }

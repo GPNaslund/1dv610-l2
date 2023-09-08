@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "A quiz engine module",
   "main": "app.js",
-  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/GPNaslund/1dv610-l2-quiz-engine/issues"
   },
-  "homepage": "https://github.com/GPNaslund/1dv610-l2-quiz-engine#readme"
+  "homepage": "https://github.com/GPNaslund/1dv610-l2-quiz-engine#readme",
+  "devDependencies": {
+    "jest": "^29.6.4"
+  }
 }

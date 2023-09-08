@@ -1,4 +1,7 @@
-/** Class representing a question. */
+/** 
+ * Represents a question. Contains the question text, different choices and the index of the correct choice
+ * in choices.
+ */
 class Question {
   #text;
   #choices;
@@ -76,11 +79,11 @@ class Question {
     if (typeof correctChoiceIndex !== 'number') {
       throw new TypeError("The correct choice index must be a number!");
     }
-    if (correctChoiceIndex < 0 || correctChoiceIndex > this.#choices.length) {
+    if (correctChoiceIndex < 0 || correctChoiceIndex > this.#choices.length - 1) {
       if (this.#choices.length === 1) {
         throw new RangeError("There is only one choice option, correct choice index can only be 0");
       } else {
-        throw new RangeError("The correct choice index must be between 0 - " + this.#choices.length);
+        throw new RangeError("The correct choice index must be between 0 - " + this.#choices.length - 1);
       }
     }
     this.#correctChoiceIndex = correctChoiceIndex;
@@ -88,4 +91,4 @@ class Question {
 
 }
 
-export default Question;
+module.exports = Question;
