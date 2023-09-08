@@ -2,18 +2,18 @@
 class Question {
   #text;
   #choices;
-  #correctChoice;
+  #correctChoiceIndex;
 
   /**
    * Create a question.
    * @param {string} text - The question text.
    * @param {Array<string>} choices - The multiple choices.
-   * @param {string} correctChoice - The correct choice.
+   * @param {number} correctChoiceIndex - The correct choice index.
    */
-  constructor(text, choices, correctChoice) {
+  constructor(text, choices, correctChoiceIndex) {
     this.text = text;
     this.choices = choices;
-    this.correctChoice = correctChoice;
+    this.correctChoiceIndex = correctChoiceIndex;
   }
 
   /**
@@ -62,21 +62,28 @@ class Question {
 
   /**
    * Gets the correct choice.
-   * @returns {string} this.#correctChoice - The correct choice to the question.
+   * @returns {string} this.#correctChoiceIndex - The correct choice to the question.
    */
-  get correctChoice() {
-    return this.#correctChoice;
+  get correctChoiceIndex() {
+    return this.#correctChoiceIndex;
   }
 
   /**
    * Sets the correct choice to the question.
-   * @param {string} correctChoice- The correct choice.
+   * @param {string} correctChoiceIndex- The correct choice.
    */
-  set correctChoice(correctChoice) {
-    if (typeof correctChoice !== 'string') {
-      throw new TypeError("The correct choice must be a string!");
+  set correctChoiceIndex(correctChoiceIndex) {
+    if (typeof correctChoiceIndex !== 'number') {
+      throw new TypeError("The correct choice index must be a number!");
     }
-    this.#correctChoice = correctChoice;
+    if (correctChoiceIndex < 0 || correctChoiceIndex > this.#choices.length) {
+      if (this.#choices.length === 1) {
+        throw new RangeError("There is only one choice option, correct choice index can only be 0");
+      } else {
+        throw new RangeError("The correct choice index must be between 0 - " + this.#choices.length);
+      }
+    }
+    this.#correctChoiceIndex = correctChoiceIndex;
   }
 
 }

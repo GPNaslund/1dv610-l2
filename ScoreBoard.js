@@ -1,5 +1,5 @@
 /** Class representing a scoreboard */
-class ScoreBoard {
+class Scoreboard {
   #playerName;
   #score;
 
@@ -92,6 +92,10 @@ class ScoreBoard {
     this.#score -= amountOfPoints;
   }
 
+  reset() {
+    this.#score = 0;
+  }
+
 }
 
-export default ScoreBoard;
+export default Scoreboard;
