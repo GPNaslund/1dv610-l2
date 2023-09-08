@@ -7,10 +7,17 @@ import Question from './Question.js'
 class QuestionBank {
   #allQuestions;
 
+  /**
+   * Creates a QuestionBank instance.
+   */
   constructor() {
     this.#allQuestions = [];
   }
 
+  /**
+   * Method used for adding a pre composed Question object to #allQuestions field.
+   * @param {Question} questionObject - The precomposed Question object.
+   */
   addQuestion(questionObject) {
     if (questionObject instanceof Question) {
       this.#allQuestions.push(questionObject);
@@ -19,10 +26,21 @@ class QuestionBank {
     }
   }
 
+
+  /**
+   * Creates a Question and adds the instance to #allQuestions.
+   * @param {String} questionText - The questions text.
+   * @param {String} questionAnswers - The possible awnsers.
+   * @param {Number} questionCorrectAnswer - A number corresponding with the correct awnsers index in questionsAnswer.
+   */
   createAndAddQuestion(questionText, questionAnswers, questionCorrectAnswer) {
     this.#allQuestions.push(new Question(questionText, questionAnswers, questionCorrectAnswer));
   }
 
+  /**
+   * Removes the question at the specified index from #allQuestions.
+   * @param {Number} indexOfQuestion 
+   */
   removeQuestion(indexOfQuestion) {
     if (typeof indexOfQuestion !== "number") {
       throw new TypeError("The index of the question to remove must be a number");
@@ -36,8 +54,12 @@ class QuestionBank {
     this.#allQuestions.splice(indexOfQuestion, 1);
   }
 
-  
-
+  /**
+   * Method for returning the Question at a specified index from #allQuestions.
+   * 
+   * @param {Number} index - The index of the Question to return.
+   * @returns The Question object at the specified index.
+   */
   getQuestion(index) {
    if (typeof index !== "number") {
     throw new TypeError("Index must be a number");
@@ -47,11 +69,19 @@ class QuestionBank {
    }
    return this.#allQuestions[index];
   }
-
+  
+  /**
+   * Method for getting all the Questions in #allQuestions.
+   * @returns - An array containing all the stored Questions in #allQuestions.
+   */
   getAllQuestions() {
     return this.#allQuestions;
   }
 
+  /**
+   * Method for checking if there are any stored Questions in #allQuestions.
+   * @returns boolean value indicating if there are any Questions in #allQuestions list.
+   */
   hasQuestions() {
     return this.#allQuestions.size > 0;
   }

@@ -5,7 +5,7 @@ class Question {
   #correctChoiceIndex;
 
   /**
-   * Create a question.
+   * Create a question instance.
    * @param {string} text - The question text.
    * @param {Array<string>} choices - The multiple choices.
    * @param {number} correctChoiceIndex - The correct choice index.
