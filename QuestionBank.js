@@ -83,7 +83,7 @@ class QuestionBank {
    * @returns boolean value indicating if there are any Questions in #allQuestions list.
    */
   hasQuestions() {
-    return this.#allQuestions.size > 0;
+    return this.#allQuestions.length > 0;
   }
 
 }
