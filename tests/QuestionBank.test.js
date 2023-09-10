@@ -8,27 +8,30 @@ describe("QuestionBank class", () => {
     expect(questionBank.hasQuestions()).toBeFalsy();
   })
 
-  describe("should be able to add an Option to the bank", () => {
-    it("via addQuestion()", () => {
+  describe("addQuestion()", () => {
+    it("should add a new Question object to allQuestions", () => {
       const questionBank = new QuestionBank();
       const question = new Question("Is water wet?", ["Yes", "No"], 0);
       questionBank.addQuestion(question);
       expect(questionBank.getAllQuestions()).toStrictEqual([question]);
     })
-    it("via addQuestion(), but throws error if passed wrong type of object", () => {
+    it("throws error if passed wrong type of object", () => {
       const questionBank = new QuestionBank();
       expect(() => questionBank.addQuestion("Not a question object!")).toThrow(TypeError);
     })
-    it("via createAndAddQuestion()", () => {
+  });
+
+  describe("createAndAddQuestion()", () => {
+    it("should add a new question", () => {
       const questionBank = new QuestionBank();
       questionBank.createAndAddQuestion("Is water wet?", ["Yes", "No"], 0);
       expect(questionBank.getAllQuestions()[0] instanceof Question).toBeTruthy();
       expect(questionBank.getAllQuestions()[0].text).toBe("Is water wet?");
-    });
+    })
   });
 
-  describe("should be able to remove a question via removeQuestion()", () => {
-    it("works successfully with correct usage", () => {
+  describe("removeQuestion()", () => {
+    it("removes a question with correct arguments", () => {
       const questionBank = new QuestionBank();
       const question = new Question("Does a dog bark?", ["Yes", "No"], 0);
       const question2 = new Question("Does a fish swim", ["Yes", "No"], 1);
@@ -44,8 +47,8 @@ describe("QuestionBank class", () => {
     });
   });
 
-  describe("Should be able to get a question via getQuestion()", () => {
-    it("works when provided a correct index to get", () => {
+  describe("getQuestion()", () => {
+    it("returns a question a correct index to get", () => {
       const questionBank = new QuestionBank();
       const question = new Question("Is coding the best?", ["Yes", "No"], 0);
       questionBank.addQuestion(question);
@@ -59,7 +62,7 @@ describe("QuestionBank class", () => {
     });
   });
 
-  describe("should return all the questions via getAllQuestions()", () => {
+  describe("getAllQuestions()", () => {
     it("should work with Question objects stored", () => {
       const questionBank = new QuestionBank();
       const question = new Question("Does cat say meow?", ["Yes", "No"], 0);
@@ -74,7 +77,7 @@ describe("QuestionBank class", () => {
     })
   });
 
-  describe("should return a boolean indicating existence of stored question objects via hasQuestions()", () => {
+  describe("hasQuestions()", () => {
     it("should return true when question exists", () => {
       const questionBank = new QuestionBank();
       const question = new Question("Is testing fun?", ["Yes", "No"], 0);
