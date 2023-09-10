@@ -12,6 +12,9 @@ The scoreboard holds the player name and keeps track of the user score, and can 
 ### Randomization
 You decide if the questions should be displayed in a random order or sequential order.
 
+## Highscore
+Easily integrate a persistent highscore system that uses either local storage for browser or the local filesystem for use with node.js.
+
 ## Example
 
 
