@@ -1,7 +1,6 @@
-const QuizEngine = require('../QuizEngine.js');
-const Scoreboard = require('../Scoreboard.js');
-const Question = require('../Question.js');
-const QuestionBank = require('../QuestionBank.js');
+import QuizEngine from '../QuizEngine.js';
+import Scoreboard from '../Scoreboard.js';
+import QuestionBank from '../QuestionBank.js';
 
 describe("QuizEngine class", () => {
   let scoreboard;

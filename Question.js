@@ -91,4 +91,4 @@ class Question {
 
 }
 
-module.exports = Question;
+export default Question;

@@ -3,39 +3,46 @@ let fs;
 let path;
 let os;
 if (runningInNode) {
-  fs = require('fs/promises');
-  path = require('path');
-  os = require('os');
+  import('fs/promises').then(module => {
+    fs = module;
+  })
+  import('path').then(module => {
+    path = module;
+  })
+  import('os').then(module => {
+    os = module;
+  })
 }
-
-
 
 class HighscorePersistence {
   #config
+  #fs;
+  #path;
+  #os;
 
   constructor(config = {}) {
     this.#config = config;
     this.#initLocalStorage();
     this.#initFileSystemStorage();
-
   }
+  
 
-  saveData(username, points) {
+  async saveData(username, points) {
     if (this.#config.localStorage) {
       this.#localStorageSaveData(username, points);
     }
     if (this.#config.fileSystemStorage) {
-      this.#fileSystemStorageSaveData(username, points);
+      await this.#fileSystemStorageSaveData(username, points);
     }
   };
   
 
-  getData() {
+  async getData() {
     if (this.#config.localStorage) {
       return this.#localStorageGetData();
     }
     if (this.#config.fileSystemStorage) {
-      return this.#fileSystemStorageGetData();
+      return await this.#fileSystemStorageGetData();
     }
   }
 
@@ -62,23 +69,37 @@ class HighscorePersistence {
   
   async #fileSystemStorageSaveData(username, points) {
     try {
+      const path = this.#config.fileSystemStorage.path;
+      await this.#directoryExistenceValidation(path);
+      await this.#fileExistenceValidation(path);
       const data = await this.#fileSystemStorageGetData();
-      data[username] = points;
-      const sortedData = await this.#sortByPointsDescending(data);
-      await fs.writeFile(this.#config.fileSystemStorage.path, JSON.stringify(sortedData));
+      if (data[username]) {
+        data[username].push(points);
+      } else {
+        data[username] = [points];
+      }
+      data[username] = data[username].sort((a, b) => b - a);
+      const sortedData = this.#sortByPointsDescending(data);
+
+      await fs.writeFile(path, JSON.stringify(sortedData));
     } catch (e) {
+      console.log(e);
       throw new Error("Could not write to file system!");
     }
   }
 
   async #fileSystemStorageGetData() {
     try {
-      const data = await fs.readFile(this.#config.fileSystemStorage.path, {encoding: "utf-8"});
+      const path = this.#config.fileSystemStorage.path;
+      await this.#directoryExistenceValidation(path);
+      await this.#fileExistenceValidation(path);
+      const data = await fs.readFile(path, {encoding: "utf-8"});
       return JSON.parse(data);
     } catch (e) {
       if (e.code === "ENOENT") {
         return {};
       }
+      console.log(e);
       throw Error("Could not read from filesystem!");
     }
   }
@@ -92,6 +113,27 @@ class HighscorePersistence {
   #initFileSystemStorage() {
     if(this.#config.fileSystemStorage) {
       this.#config.fileSystemStorage.path = this.#config.fileSystemStorage.path || this.#getDefaultFilesystemPath();
+    }
+  }
+
+  async #directoryExistenceValidation(fullPath) {
+    const directory = path.dirname(fullPath);
+    try {
+      await fs.access(directory);
+    } catch (e) {
+      if (e.code === "ENOENT") {
+        await fs.mkdir(directory, {recursive: true})
+      }
+    }
+  }
+
+  async #fileExistenceValidation(fullPath) {
+    try {
+      await fs.access(fullPath);
+    } catch (e) {
+      if (e.code === "ENOENT") {
+        await fs.writeFile(fullPath, JSON.stringify({}));
+      }
     }
   }
 
@@ -116,8 +158,10 @@ class HighscorePersistence {
 
   #sortByPointsDescending(highscoresJSON) {
     const arrayFromJSON = Object.entries(highscoresJSON);
-    arrayFromJSON.sort((a, b) => b[1] - a[1]);
+    arrayFromJSON.sort((a, b) => Math.max(...b[1]) - Math.max(...a[1]));
     const objectFromArray = Object.fromEntries(arrayFromJSON);
     return objectFromArray;
   }
 }
+
+export default HighscorePersistence;

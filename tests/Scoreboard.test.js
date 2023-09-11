@@ -1,4 +1,4 @@
-const Scoreboard = require('../Scoreboard.js');
+import Scoreboard from '../Scoreboard.js';
 
 describe("Scoreboard class", () => {
   describe("constructor", () => {

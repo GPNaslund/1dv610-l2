@@ -1,4 +1,4 @@
-const Question = require('./Question.js');
+import Question from './Question.js';
 
 /** 
  * Class responsible for creating/adding questions, storing questions and 
@@ -88,4 +88,4 @@ class QuestionBank {
 
 }
 
-module.exports = QuestionBank;
+export default QuestionBank;

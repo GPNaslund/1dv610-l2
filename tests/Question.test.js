@@ -1,4 +1,4 @@
-const Question = require('../Question.js');
+import Question from '../Question.js';
 
 describe(
   "Question class", () => {

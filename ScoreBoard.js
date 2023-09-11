@@ -98,4 +98,4 @@ class Scoreboard {
 
 }
 
-module.exports = Scoreboard;
+export default Scoreboard;

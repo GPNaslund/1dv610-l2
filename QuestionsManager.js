@@ -101,4 +101,4 @@ class QuestionsManager {
   
 }
 
-module.exports = QuestionsManager;
+export default QuestionsManager;

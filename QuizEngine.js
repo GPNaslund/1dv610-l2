@@ -1,5 +1,5 @@
-const QuestionsManager = require('./QuestionsManager.js');
-const Scoreboard = require('./Scoreboard.js');
+import  QuestionsManager from './QuestionsManager.js';
+import Scoreboard from './Scoreboard.js';
 
 /** Handles the coordination and quiz logic */
 class QuizEngine {
@@ -88,4 +88,4 @@ class QuizEngine {
 
 }
 
-module.exports = QuizEngine;
+export default QuizEngine;

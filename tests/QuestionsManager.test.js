@@ -1,6 +1,6 @@
-const QuestionsManager = require('../QuestionsManager.js');
-const QuestionBank = require('../QuestionBank.js');
-const Question = require('../Question.js');
+import QuestionsManager from '../QuestionsManager.js';
+import QuestionBank from '../QuestionBank.js';
+import Question from '../Question.js';
 
 describe("QuestionsManager class", () => {
   let questionBank;
