@@ -98,10 +98,18 @@ class Question {
     this.#correctChoiceIndex = correctChoiceIndex;
   }
 
+  /**
+   * Getter for this.#category
+   * @returns {string} - The category.
+   */
   get category() {
     return this.#category;
   }
 
+  /**
+   * Method for setting the category name.
+   * @param {string} categoryName - The name of the category.
+   */
   #setCategory(categoryName) {
     if (typeof categoryName !== 'string') {
       throw new TypeError('Category must be a string');
