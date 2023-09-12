@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "checkJs": true,
+      "target": "ES2015",
+    },
+    "include": [
+      "*.js"
+    ]
+  }
+  

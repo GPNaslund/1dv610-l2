@@ -24,16 +24,16 @@ quizEngine.on("question", (questionData) => {
   });
 });
 
-quizEngine.on('correct', (scoreData) => {
+quizEngine.on('correct', async (scoreData) => {
   console.log("=== CORRECT AWNSER! === ");
   console.log(`${scoreData.playerName} - Score: ${scoreData.score}`);
-  quizEngine.continueQuiz();
+  await quizEngine.continueQuiz();
 });
 
-quizEngine.on('false', (scoreData) => {
+quizEngine.on('false', async (scoreData) => {
   console.log("=== WRONG AWNSER! === ");
   console.log(`${scoreData.playerName} - Score: ${scoreData.score}`);
-  quizEngine.continueQuiz();
+  await quizEngine.continueQuiz();
 });
 
 quizEngine.on('done', (scoreData) => {

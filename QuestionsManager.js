@@ -1,3 +1,6 @@
+import Question from "./Question";
+import QuestionBank from "./QuestionBank";
+
 /** Class that manages the questions. Ordering, current index and correctness of answer. */
 class QuestionsManager {
   #questionBank;
@@ -5,22 +8,23 @@ class QuestionsManager {
   #allQuestions;
 
   /**
-   * Constructs a QuestionManager object
+   * Constructs a QuestionManager object.
+   * 
    * @param {QuestionBank} questionBankObject - The question bank containing Questions.
    */
   constructor (questionBankObject) {
-    this.#questionBank = questionBankObject;
+    this.#setQuestionBank(questionBankObject);
     this.#allQuestions = questionBankObject.getAllQuestions();
     this.#currentIndex = 0;
   }
 
   /**
-   * Setter that validates the questionBankObject.
+   * Method that validates the questionBankObject and assigns this.#questionBank if valid.
    *
    * @memberof QuestionsManager
    */
-  set questionBank(questionBankObject) {
-    if (!questionBankObject instanceof QuestionBank) {
+  #setQuestionBank(questionBankObject) {
+    if (questionBankObject instanceof QuestionBank === false) {
       throw new TypeError("Argument must be an QuestionBank instance.");
     }
     if (!questionBankObject.hasQuestions()) {
@@ -44,15 +48,18 @@ class QuestionsManager {
    * @returns {Question} - The Question object at the current index. 
    */
   getQuestion() {
-    if (this.#allQuestions[this.#currentIndex]) return this.#allQuestions[this.#currentIndex];
+    return this.#allQuestions[this.#currentIndex];
   }
 
   /**
-   * Method for advancing the current index by one.
+   * Method for advancing the current index by one if it corresponds
+   * with available indexes in #allQuestions.
    * 
    */
   advanceCurrentIndex() {
-    this.#currentIndex++;
+    if (this.#currentIndex + 1 < this.#allQuestions.length) {
+      this.#currentIndex++;
+    }
   }
   
 

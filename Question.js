@@ -14,13 +14,14 @@ class Question {
    * @param {number} correctChoiceIndex - The correct choice index.
    */
   constructor(text, choices, correctChoiceIndex) {
-    this.text = text;
-    this.choices = choices;
-    this.correctChoiceIndex = correctChoiceIndex;
+    this.#setText(text);
+    this.#setChoices(choices);
+    this.#setCorrectChoiceIndex(correctChoiceIndex);
   }
 
   /**
    * Gets the question text.
+   * 
    * @returns {string} this.#text - The question text.
    */
   get text() {  
@@ -29,9 +30,10 @@ class Question {
 
   /**
    * Sets the question text.
-   * @param {string} text- The question text.
+   * 
+   * @param {string} text - The question text.
    */
-  set text(text) {
+  #setText(text) {
     if (typeof text !== 'string') {
       throw new TypeError("Question text must be a string!");
     }
@@ -40,6 +42,7 @@ class Question {
 
   /**
    * Gets the choices.
+   * 
    * @returns {Array<string>} this.#choices - The multiple choices.
    */
   get choices() {
@@ -48,9 +51,10 @@ class Question {
 
   /**
    * Sets the question choices.
-   * @param {Array<string>} choices- The question choices.
+   * 
+   * @param {Array<string>} choices - The question choices.
    */
-  set choices(choices) {
+  #setChoices(choices) {
     if (!Array.isArray(choices)) {
       throw new TypeError("Choices must be an array!");
     }
@@ -65,6 +69,7 @@ class Question {
 
   /**
    * Gets the correct choice.
+   * 
    * @returns {string} this.#correctChoiceIndex - The correct choice to the question.
    */
   get correctChoiceIndex() {
@@ -73,9 +78,10 @@ class Question {
 
   /**
    * Sets the correct choice to the question.
-   * @param {string} correctChoiceIndex- The correct choice.
+   * 
+   * @param {number} correctChoiceIndex - The correct choice.
    */
-  set correctChoiceIndex(correctChoiceIndex) {
+  #setCorrectChoiceIndex(correctChoiceIndex) {
     if (typeof correctChoiceIndex !== 'number') {
       throw new TypeError("The correct choice index must be a number!");
     }
@@ -83,7 +89,7 @@ class Question {
       if (this.#choices.length === 1) {
         throw new RangeError("There is only one choice option, correct choice index can only be 0");
       } else {
-        throw new RangeError("The correct choice index must be between 0 - " + this.#choices.length - 1);
+        throw new RangeError("The correct choice index must be between 0 - " + (this.#choices.length - 1));
       }
     }
     this.#correctChoiceIndex = correctChoiceIndex;

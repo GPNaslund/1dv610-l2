@@ -10,8 +10,8 @@ class Scoreboard {
    * @param {number} score - The starting score of the player.
    */
   constructor(playerName, score = 0) {
-    this.playerName = playerName;
-    this.score = score;
+    this.#setPlayerName(playerName);
+    this.#setScore(score);
   }
 
   /**
@@ -20,7 +20,7 @@ class Scoreboard {
    * @param {string} name - The name to be assigned to the player.
    * @memberof ScoreBoard
    */
-  set playerName(name) {
+  #setPlayerName(name) {
     if (typeof name !== 'string') {
       throw new TypeError("The player name must be a string!");
     }
@@ -45,7 +45,7 @@ class Scoreboard {
    * 
    * @param {number} scorePoints
    */
-  set score(scorePoints) {
+  #setScore(scorePoints) {
     if (typeof scorePoints !== "number") {
       throw new TypeError("The score must be a number!");
     }

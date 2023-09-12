@@ -16,6 +16,7 @@ class QuestionBank {
 
   /**
    * Method used for adding a pre composed Question object to #allQuestions field.
+   * 
    * @param {Question} questionObject - The precomposed Question object.
    */
   addQuestion(questionObject) {
@@ -28,9 +29,10 @@ class QuestionBank {
 
 
   /**
-   * Creates a Question and adds the instance to #allQuestions.
+   * Creates a Question object and adds the instance to #allQuestions.
+   * 
    * @param {String} questionText - The questions text.
-   * @param {String} questionAnswers - The possible awnsers.
+   * @param {string[]} questionAnswers - The possible awnsers.
    * @param {Number} questionCorrectAnswer - A number corresponding with the correct awnsers index in questionsAnswer.
    */
   createAndAddQuestion(questionText, questionAnswers, questionCorrectAnswer) {
@@ -39,6 +41,7 @@ class QuestionBank {
 
   /**
    * Removes the question at the specified index from #allQuestions.
+   * 
    * @param {Number} indexOfQuestion 
    */
   removeQuestion(indexOfQuestion) {
@@ -65,13 +68,14 @@ class QuestionBank {
     throw new TypeError("Index must be a number");
    }
    if (index < 0 || index > this.#allQuestions.length - 1) {
-    throw new RangeError("Index out of range. Must be between 0 - " + this.#allQuestions.length - 1 + ".");
+    throw new RangeError("Index out of range. Must be between 0 - " + (this.#allQuestions.length - 1) + ".");
    }
    return this.#allQuestions[index];
   }
   
   /**
    * Method for getting all the Questions in #allQuestions.
+   * 
    * @returns - An array containing all the stored Questions in #allQuestions.
    */
   getAllQuestions() {
@@ -80,6 +84,7 @@ class QuestionBank {
 
   /**
    * Method for checking if there are any stored Questions in #allQuestions.
+   * 
    * @returns boolean value indicating if there are any Questions in #allQuestions list.
    */
   hasQuestions() {

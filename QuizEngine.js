@@ -1,14 +1,14 @@
 import QuestionsManager from './QuestionsManager.js';
-import Scoreboard from './Scoreboard.js';
+import Scoreboard from './ScoreBoard.js';
 import CustomEventEmitter from './CustomEventEmitter.js';
 import FilesystemPersistence from './FilesystemPersistence.js';
 import LocalStoragePersistence from './LocalStoragePersistence.js';
+import QuestionBank from './QuestionBank.js';
 
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {
   #questionsManager
   #scoreboard;
-  #config;
   #highscorePersistence;
 
   /**
@@ -33,10 +33,19 @@ class QuizEngine extends CustomEventEmitter {
 
   /**
    * Method for starting the quiz.
-   * @param {function} [this.#config.callbacks.onQuestion] - Called with the question text and choices as arguments.
+   * @emits QuizEngine#question 
    */
   startQuiz() {
     const firstQuestion = this.#questionsManager.getQuestion();
+
+    /**
+     * Question event.
+     * 
+     * @event QuizEngine#question
+     * @type {object}
+     * @property {string} text - The question text
+     * @property {string[]} choices - The questions choices
+     */
     this.emit("question", {text: firstQuestion.text, choices: firstQuestion.choices});
   }
 
@@ -46,13 +55,33 @@ class QuizEngine extends CustomEventEmitter {
    * If not correct, calls the onFalse callback.
    * 
    * @param {Number} answer - The user input, an number corresponding to one of the choices of the Question.
-   * @param {function} [this.#config.callbacks.onAnswerFeedback] - Used to indicate a false answer.
+   * @emits QuizEngine#correct
+   * @emits QuizEngine#false
+   * 
    */
   answerQuestion(answer) {
     if (this.#questionsManager.isAnswerCorrect(answer)) {
       this.#scoreboard.addPoints(1);
+
+      /**
+       * Correct event
+       * 
+       * @event QuizEngine#correct
+       * @type {object}
+       * @property {string} playerName - The current player name.
+       * @property {number} score - The current players score.
+       */
       this.emit('correct', {playerName: this.#scoreboard.playerName, score: this.#scoreboard.score});
     } else {
+
+      /**
+       * False event
+       * 
+       * @event QuizEngine#false
+       * @type {object}
+       * @property {string} playerName - The current player name.
+       * @property {number} score - The current players score.
+       */
       this.emit('false', {playerName: this.#scoreboard.playerName, score: this.#scoreboard.score});
     }
   }
@@ -60,42 +89,86 @@ class QuizEngine extends CustomEventEmitter {
   /**
    * Method for checking if quiz is done or not, and if not it calls the onNextQuestion callback.
    * 
-   * @param {function} [this.#config.onNextQuestion] - Used to handle the information from the next question.
-   * Recieves two arguments, the question text and question choices.
+   * @emits QuizEngine#question
    */
-  continueQuiz() {
+  async continueQuiz() {
     if (this.#questionsManager.hasMoreQuestions()) {
       this.#questionsManager.advanceCurrentIndex();
       const nextQuestion = this.#questionsManager.getQuestion();
+
+    /**
+     * Question event.
+     * 
+     * @event QuizEngine#question
+     * @type {object}
+     * @property {string} text - The question text
+     * @property {string[]} choices - The questions choices
+     */
       this.emit('question', {text: nextQuestion.text, choices: nextQuestion.choices});
     } else {
-      this.#quizDone();
+      await this.#quizDone();
     }
   }
 
+  /**
+   * Method for reseting the quiz. Will reset
+   * this.#questionsManagers #currentIndex to 0 and re-fetch 
+   * the questions in its original order. Will also reset the scoreboard score to 0.
+   * 
+   */
   resetQuiz() {
     this.#questionsManager.reset();
     this.#scoreboard.reset();
   }
 
-  getHighScore() {
-    if (this.#highscorePersistence) return this.#highscorePersistence.getData();
+  /**
+   * Method for getting the highscore data from persistence class if assigned.
+   * 
+   * @returns {Promise<Object>} - A Promise resolving to an object containing the highscore data.
+   */
+  async getHighScore() {
+    if (this.#highscorePersistence) return await this.#highscorePersistence.getData();
   }
 
+  /**
+   * Method for checking if there are any more questions available.
+   * 
+   * @returns {boolean} - Indicating if questionsManager has more questions available.
+   */
   hasMoreQuestions() {
     return this.#questionsManager.hasMoreQuestions();
   }
 
-  #quizDone() {
+  /**
+   * Method for finalize the quiz. If highscore persistence is initialized,
+   * the final score will be saved to it.
+   * 
+   * @emits QuizEngine#done
+   */
+  async #quizDone() {
     const playerName = this.#scoreboard.playerName;
     const score = this.#scoreboard.score;
-    this.#saveToPersistence(playerName, score);
+    await this.#saveToPersistence(playerName, score);
+
+    /**
+     * Done event.
+     * @event QuizEngine#done
+     * @type {object}
+     * @property {string} playerName - The player name.
+     * @property {number} score - The player score.
+     */
     this.emit('done', {playerName: playerName, score: score});
   }
 
-  #saveToPersistence(playerName, playerScore) {
+  /**
+   * Method for saving the player name and score to highscore persistence if provided.
+   * 
+   * @param {string} playerName - The player name.
+   * @param {number} playerScore - The player score.
+   */
+  async #saveToPersistence(playerName, playerScore) {
     if (this.#highscorePersistence) {
-      this.#highscorePersistence.saveData(playerName, playerScore);
+     await this.#highscorePersistence.saveData(playerName, playerScore);
     }
   }
 
