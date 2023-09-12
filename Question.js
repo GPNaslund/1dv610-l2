@@ -6,17 +6,20 @@ class Question {
   #text;
   #choices;
   #correctChoiceIndex;
+  #category
 
   /**
    * Create a question instance.
    * @param {string} text - The question text.
    * @param {Array<string>} choices - The multiple choices.
    * @param {number} correctChoiceIndex - The correct choice index.
+   * @param {string} category - The category of the question.
    */
-  constructor(text, choices, correctChoiceIndex) {
+  constructor(text, choices, correctChoiceIndex, category = 'undefined') {
     this.#setText(text);
     this.#setChoices(choices);
     this.#setCorrectChoiceIndex(correctChoiceIndex);
+    this.#setCategory(category);
   }
 
   /**
@@ -93,6 +96,20 @@ class Question {
       }
     }
     this.#correctChoiceIndex = correctChoiceIndex;
+  }
+
+  get category() {
+    return this.#category;
+  }
+
+  #setCategory(categoryName) {
+    if (typeof categoryName !== 'string') {
+      throw new TypeError('Category must be a string');
+    }
+    if (categoryName.length < 1) {
+      throw new RangeError('The name of the category cannot be empty');
+    }
+    this.#category = categoryName;
   }
 
 }

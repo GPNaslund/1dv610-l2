@@ -1,5 +1,5 @@
-import Question from "./Question";
-import QuestionBank from "./QuestionBank";
+import Question from "./Question.js";
+import QuestionBank from "./QuestionBank.js";
 
 /** Class that manages the questions. Ordering, current index and correctness of answer. */
 class QuestionsManager {

@@ -20,7 +20,7 @@ quizEngine.on("question", (questionData) => {
     console.log(`${i + 1}. ${questionData.choices[i]}`);
   }
   rl.question("Your answer: ").then((answer) => {
-    quizEngine.answerQuestion(answer - 1);
+    quizEngine.answerQuestion(parseInt(answer) - 1);
   });
 });
 
