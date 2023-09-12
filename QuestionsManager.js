@@ -39,26 +39,22 @@ class QuestionsManager {
   }
 
   /**
-   * Method for getting the first question.
+   * Method returning the Question at the current index.
    * 
-   * @returns {Question} The first Question in #allQuestions.
+   * @returns {Question} - The Question object at the current index. 
    */
-  getFirstQuestion() {
-    return this.#allQuestions[0];
+  getQuestion() {
+    if (this.#allQuestions[this.#currentIndex]) return this.#allQuestions[this.#currentIndex];
   }
 
   /**
-   * Method for advancing the currentIndex one step and returning
-   * the Question at the new index.
+   * Method for advancing the current index by one.
    * 
-   * @returns {Question} - The Question object at the new index. 
    */
-  getNextQuestion() {
-    if (this.hasMoreQuestions()) {
-      this.#currentIndex++;
-      return this.#allQuestions[this.#currentIndex];
-    }
+  advanceCurrentIndex() {
+    this.#currentIndex++;
   }
+  
 
   /**
    * Method for checking if the answer input is correct.

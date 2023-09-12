@@ -1,38 +1,43 @@
-import  QuestionsManager from './QuestionsManager.js';
+import QuestionsManager from './QuestionsManager.js';
 import Scoreboard from './Scoreboard.js';
+import CustomEventEmitter from './CustomEventEmitter.js';
+import FilesystemPersistence from './FilesystemPersistence.js';
+import LocalStoragePersistence from './LocalStoragePersistence.js';
 
 /** Handles the coordination and quiz logic */
-class QuizEngine {
-  #questionManager
+class QuizEngine extends CustomEventEmitter {
+  #questionsManager
   #scoreboard;
-  #config
+  #config;
+  #highscorePersistence;
 
   /**
    * Constructs a QuizEngine instance.
    * 
    * @param {QuestionBank} questionBank - The QuestionBank instance used to instanciate a QuestionManager.
-   * @param {Scoreboard} scoreboard - The Scoreboard instance used to keep the player name and score.
-   * @param {Object} config - An object containing various configuartion properties.
    */
-  constructor(questionBank, scoreboard = new Scoreboard("Anynomous"), config = {}) {
-    this.#questionManager = new QuestionsManager(questionBank);
-    this.#scoreboard = scoreboard;
-    this.#config = config;
+  constructor(questionBank, playerName) {
+    super();
+    this.#highscorePersistence = null;
+    this.#questionsManager = new QuestionsManager(questionBank);
+    this.#scoreboard = new Scoreboard(playerName);
+  }
+
+  initFilesystemStorage(path) {
+    this.#highscorePersistence = new FilesystemPersistence(path);
+  }
+
+  initLocalStorage(keyName) {
+    this.#highscorePersistence = new LocalStoragePersistence(keyName)
   }
 
   /**
    * Method for starting the quiz.
-   * @param {function} [this.#config.onQuizStart] - used to act on the first questions text and choices. 
-   * Recieves two arguments, the question text and question choices.
+   * @param {function} [this.#config.callbacks.onQuestion] - Called with the question text and choices as arguments.
    */
   startQuiz() {
-    this.#questionManager.reset();
-    this.#scoreboard.reset();
-
-    if (this.configHasCallbackFunction("onQuizStart")) {
-      const firstQuestion = this.#questionManager.getFirstQuestion();
-      this.#config.onQuizStart(firstQuestion.text, firstQuestion.choices);
-    }
+    const firstQuestion = this.#questionsManager.getQuestion();
+    this.emit("question", {text: firstQuestion.text, choices: firstQuestion.choices});
   }
 
   /**
@@ -41,19 +46,14 @@ class QuizEngine {
    * If not correct, calls the onFalse callback.
    * 
    * @param {Number} answer - The user input, an number corresponding to one of the choices of the Question.
-   * @param {function} [this.#config.onCorrectAnswer] - Used to indicate a correct anwser. 
-   * @param {function} [this.#config.onCorrectAnswer] - Used to indiicate a false answer.
+   * @param {function} [this.#config.callbacks.onAnswerFeedback] - Used to indicate a false answer.
    */
   answerQuestion(answer) {
-    if (this.#questionManager.isAnswerCorrect(answer)) {
+    if (this.#questionsManager.isAnswerCorrect(answer)) {
       this.#scoreboard.addPoints(1);
-      if (this.configHasCallbackFunction("onCorrectAnswer")) {
-        this.#config.onCorrectAnswer();
-      }
+      this.emit('correct', {playerName: this.#scoreboard.playerName, score: this.#scoreboard.score});
     } else {
-      if (this.configHasCallbackFunction("onFalseAnswer")) {
-        this.#config.onFalseAnswer();
-      }
+      this.emit('false', {playerName: this.#scoreboard.playerName, score: this.#scoreboard.score});
     }
   }
 
@@ -63,27 +63,40 @@ class QuizEngine {
    * @param {function} [this.#config.onNextQuestion] - Used to handle the information from the next question.
    * Recieves two arguments, the question text and question choices.
    */
-  nextQuestion() {
-    if (!this.#questionManager.hasMoreQuestions()) {
-      if (this.configHasCallbackFunction("onQuizDone")) {
-        this.#config.onQuizDone();
-      }
+  continueQuiz() {
+    if (this.#questionsManager.hasMoreQuestions()) {
+      this.#questionsManager.advanceCurrentIndex();
+      const nextQuestion = this.#questionsManager.getQuestion();
+      this.emit('question', {text: nextQuestion.text, choices: nextQuestion.choices});
     } else {
-      if (this.configHasCallbackFunction("onNextQuestion")) {
-        const nextQuestion = this.#questionManager.getNextQuestion();
-        this.#config.onNextQuestion(nextQuestion.text, nextQuestion.choices);
-      }
+      this.#quizDone();
     }
   }
 
-  /**
-   * Method for checking if a named callback function is provided.
-   * 
-   * @param {String} property - The name of the callback property.
-   * @returns {boolean} Indicating if this.#config contains the named callback function.
-   */
-  configHasCallbackFunction(property) {
-    return typeof this.#config[property] === 'function';
+  resetQuiz() {
+    this.#questionsManager.reset();
+    this.#scoreboard.reset();
+  }
+
+  getHighScore() {
+    if (this.#highscorePersistence) return this.#highscorePersistence.getData();
+  }
+
+  hasMoreQuestions() {
+    return this.#questionsManager.hasMoreQuestions();
+  }
+
+  #quizDone() {
+    const playerName = this.#scoreboard.playerName;
+    const score = this.#scoreboard.score;
+    this.#saveToPersistence(playerName, score);
+    this.emit('done', {playerName: playerName, score: score});
+  }
+
+  #saveToPersistence(playerName, playerScore) {
+    if (this.#highscorePersistence) {
+      this.#highscorePersistence.saveData(playerName, playerScore);
+    }
   }
 
 }
