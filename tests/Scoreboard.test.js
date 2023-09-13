@@ -1,4 +1,4 @@
-import Scoreboard from '../Scoreboard.js';
+import Scoreboard from "../Scoreboard";
 
 describe("Scoreboard class", () => {
   describe("constructor", () => {

@@ -1,5 +1,5 @@
 import QuestionsManager from './QuestionsManager.js';
-import Scoreboard from './ScoreBoard.js';
+import Scoreboard from './Scoreboard.js';
 import CustomEventEmitter from './CustomEventEmitter.js';
 import FilesystemPersistence from './FilesystemPersistence.js';
 import LocalStoragePersistence from './LocalStoragePersistence.js';

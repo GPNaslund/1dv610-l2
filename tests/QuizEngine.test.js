@@ -1,19 +1,15 @@
 import QuizEngine from '../QuizEngine.js';
-import Scoreboard from '../Scoreboard.js';
 import QuestionBank from '../QuestionBank.js';
 
 describe("QuizEngine class", () => {
-  let scoreboard;
   let quizEngine;
   let questionBank;
-  let config = {};
 
   beforeEach(() => {
     questionBank = new QuestionBank();
-    questionBank.createAndAddQuestion("Is this a String?", ["Yes", "No"], 0);
-    questionBank.createAndAddQuestion("Is this a number?", ["Yes", "No"], 1);
-    scoreboard = new Scoreboard("Tester");
-    quizEngine = new QuizEngine(questionBank, scoreboard, config);
+    questionBank.createAndAddQuestion({text: "Is this a String?", choices: ["Yes", "No"], correctChoiceIndex: 0});
+    questionBank.createAndAddQuestion({text: "Is this a number?", choices: ["Yes", "No"], correctChoiceIndex: 1});
+    quizEngine = new QuizEngine(questionBank, "TestPerson");
   });
 
   describe("constructor()", () => {
@@ -23,44 +19,76 @@ describe("QuizEngine class", () => {
     it("should throw error if not provided correct arguments", () => {
       expect(() => new QuizEngine().toThrow(TypeError));
       expect(() => new QuizEngine(scoreboard).toThrow(TypeError));
-      expect(() => new QuizEngine(questionBank).toThrow(TypeError));
+      expect(() => new QuizEngine("TestPerson").toThrow(TypeError));
     })
   });
 
-  describe("onQuizStart()", () => {
-    it("should start the quiz and call onQuizStart if provided", () => {
-      config.onQuizStart = jest.fn();
+  describe("startQuiz()", () => {
+    it("should emit 'question' event containing the text and choices data", () => {
+      let text;
+      let choices;
+
+      quizEngine.on('question', (data) => {
+        text = data.text;
+        choices = data.choices;
+      });
+
       quizEngine.startQuiz();
-      expect(config.onQuizStart).toHaveBeenCalledWith("Is this a String?", ["Yes", "No"]);
+      expect(text).toBe("Is this a String?");
+      expect(choices).toStrictEqual(["Yes", "No"]);
     });
   });
 
-  describe("onCorrectAnswer()", () => {
-    it("should call onCorrectAnswer if present in config and call addPoints() on right answer", () => {
-      config.onCorrectAnswer = jest.fn();
+  describe("answerQuestion(answer)", () => {
+    it("should emit 'correct' event if answer is correct, with playername and player score data", () => {
+      let playerName;
+      let score;
+      quizEngine.on('correct', (data) => {
+        playerName = data.playerName;
+        score = data.score;
+      });
       quizEngine.answerQuestion(0);
-      expect(config.onCorrectAnswer).toHaveBeenCalledWith();
-      expect(scoreboard.score).toBe(1);
+      expect(playerName).toBe("TestPerson");
+      expect(score).toBe(1);
+      quizEngine.resetQuiz();
     });
-    it("should call onFalseAnswer if present in config on false answer", () => {
-      config.onFalseAnswer = jest.fn();
+
+    it("should emit 'false' event if answer is incorrect, with playername and player score data", () => {
+      let playerName;
+      let score;
+      quizEngine.on('false', (data) => {
+        playerName = data.playerName;
+        score = data.score;
+      });
       quizEngine.answerQuestion(1);
-      expect(config.onFalseAnswer).toHaveBeenCalledWith();
-    })
+      expect(playerName).toBe("TestPerson");
+      expect(score).toBe(0);
+    });
   });
 
-  describe("nextQuestion()", () => {
-    it("should call onNextQuestion if present in config and if there are more questions left", () => {
-      config.onNextQuestion = jest.fn();
-      quizEngine.nextQuestion();
-      expect(config.onNextQuestion).toHaveBeenCalledWith("Is this a number?", ["Yes", "No"]);
+  describe("continueQuiz()", () => {
+    it("if more questions, should advance index by one and emit question event", () => {
+      let text;
+      let choices;
+      quizEngine.on('question', (data) => {
+        text = data.text;
+        choices = data.choices;
+      });
+      quizEngine.continueQuiz();
+      expect(text).toBe("Is this a number?");
+      expect(choices).toStrictEqual(["Yes", "No"]);
     });
-    it("should call onQuizDone if present in config and there are no more questions left", () => {
-      config.onQuizDone = jest.fn();
-      quizEngine.nextQuestion();
-      quizEngine.nextQuestion();
-      expect(config.onQuizDone).toHaveBeenCalledWith();
-    })
+
+    it("if no more questions, should emit 'done' event with playername and player score data", () => {
+      quizEngine.on('done', (data) => {        
+        expect(data.playerName).toBe("TestPerson");
+        expect(data.score).toBe(0);
+      });
+
+      quizEngine.continueQuiz();
+      quizEngine.continueQuiz();
+    });
+    
   })
 
 })

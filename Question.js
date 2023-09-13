@@ -10,12 +10,13 @@ class Question {
 
   /**
    * Create a question instance.
-   * @param {string} text - The question text.
-   * @param {Array<string>} choices - The multiple choices.
-   * @param {number} correctChoiceIndex - The correct choice index.
-   * @param {string} category - The category of the question.
+   * @param {object} arguments - An object containing all the arguments for the constructor.
+   * @param {string} arguments.text - The question text.
+   * @param {Array<string>} arguments.choices - The multiple choices.
+   * @param {number} arguments.correctChoiceIndex - The correct choice index.
+   * @param {string} [arguments.category] - The category of the question.
    */
-  constructor(text, choices, correctChoiceIndex, category = 'undefined') {
+  constructor({text, choices, correctChoiceIndex, category = 'undefined'}) {
     this.#setText(text);
     this.#setChoices(choices);
     this.#setCorrectChoiceIndex(correctChoiceIndex);

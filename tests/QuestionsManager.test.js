@@ -7,11 +7,11 @@ describe("QuestionsManager class", () => {
   let questionsManager;
 
   beforeEach(() => {
-    const q1 = new Question("Is the sky blue?", ["Yes", "No", "Sometimes"], 2);
-    const q2 = new Question("Is there clouds in the sky?", ["Yes", "No"], 0);
-    const q3 = new Question("Does a dog bark?", ["Yes", "No"], 0);
-    const q4 = new Question("Is music sound?", ["Yes", "No"], 0);
-    const q5 = new Question("Do you get wet in rain?", ["Yes", "No"], 0);
+    const q1 = new Question({text: "Is the sky blue?", choices: ["Yes", "No", "Sometimes"], correctChoiceIndex: 2});
+    const q2 = new Question({text: "Is there clouds in the sky?", choices: ["Yes", "No"], correctChoiceIndex: 0});
+    const q3 = new Question({text: "Does a dog bark?", choices: ["Yes", "No"], correctChoiceIndex: 0});
+    const q4 = new Question({text: "Is music sound?", choices: ["Yes", "No"], correctChoiceIndex: 0});
+    const q5 = new Question({text: "Do you get wet in rain?", choices: ["Yes", "No"], correctChoiceIndex: 0});
 
     questionBank = new QuestionBank();
     questionBank.addQuestion(q1);
@@ -25,29 +25,27 @@ describe("QuestionsManager class", () => {
   });
 
   it("should initialize successfully", () => {
-    expect(questionsManager.getFirstQuestion().text).toBe("Is the sky blue?");
-    expect(questionsManager.getNextQuestion().choices).toStrictEqual(["Yes", "No"]);
+    expect(questionsManager).toBeDefined();
+    expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
   })
 
   describe("hasMoreQuestions()", () => {
     it("should return true if more questions are available", () => {
       expect(questionsManager.hasMoreQuestions()).toBeTruthy();
-      questionsManager.getNextQuestion();
-      questionsManager.getNextQuestion();
-      questionsManager.getNextQuestion();
-      questionsManager.getNextQuestion();
+      questionsManager.advanceCurrentIndex();
+      questionsManager.advanceCurrentIndex();
+      questionsManager.advanceCurrentIndex();
+      questionsManager.advanceCurrentIndex();
       expect(questionsManager.hasMoreQuestions()).toBeFalsy();
     })
   });
 
-  describe("getNextQuestion()", () => {
-    it("should advance currentIndex and return the question at that index", () => {
-      expect(questionsManager.getNextQuestion().text).toBe("Is there clouds in the sky?");
-      questionsManager.getNextQuestion();
-      questionsManager.getNextQuestion();
-      questionsManager.getNextQuestion();
-      expect(questionsManager.hasMoreQuestions()).toBeFalsy();
-    });
+  describe("getQuestion()", () => {
+    it("should return the question at the current index", () => {
+      expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
+      questionsManager.advanceCurrentIndex();
+      expect(questionsManager.getQuestion().text).toBe("Is there clouds in the sky?");
+    })
   });
 
   describe("isAnswerCorrect()", () => {
@@ -65,10 +63,11 @@ describe("QuestionsManager class", () => {
 
   describe("reset()", () => {
     it("should reset the currentIndex to 0", () => {
-      const question = questionsManager.getNextQuestion();
-      expect(question === questionsManager.getNextQuestion()).toBeFalsy();
+      const question = questionsManager.getQuestion();
+      questionsManager.advanceCurrentIndex();
+      expect(question === questionsManager.getQuestion()).toBeFalsy();
       questionsManager.reset();
-      expect(question).toBe(questionsManager.getNextQuestion());
+      expect(question).toBe(questionsManager.getQuestion());
     })
   })
 })
