@@ -70,8 +70,8 @@ class QuestionsManager {
    * @returns {boolean} - Indicating if the awnserInput is correct or not.
    */
   isAnswerCorrect(answerInput) {
-    if (typeof answerInput !== "number") {
-      throw new TypeError("The index of choice for answerQuestion must be a number.");
+    if (typeof answerInput !== "number" || isNaN(answerInput)) {
+      throw new TypeError("The index of choice for must be a number.");
     }
 
     const currentQuestion = this.#allQuestions[this.#currentIndex];

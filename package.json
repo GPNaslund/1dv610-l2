@@ -12,7 +12,11 @@
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
-    }
+    },
+    "reporters": [
+      "default",
+      "./CustomMarkdownReporter.js"
+    ]
   },
   "repository": {
     "type": "git",

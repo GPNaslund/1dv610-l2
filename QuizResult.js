@@ -39,6 +39,16 @@ class QuizResult {
   }
 
   /**
+   * Method for incrementing the score.
+   * 
+   * @param {number} amount - The amount to increment the score with.
+   */
+  incrementScore(amount) {
+    if (typeof amount !== 'number') throw new TypeError('Score must be a number');
+    this.#score += amount;
+  }
+
+  /**
    * Getter for #questionsResultDetails.
    * 
    * @returns {Array} - Containing all the added question result objects.

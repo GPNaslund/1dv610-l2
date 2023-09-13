@@ -2,7 +2,7 @@ import Question from '../Question.js';
 
 describe("Question class", () => {
   
-  describe("Creating a question object", () => {
+  describe("constructor", () => {
     
     it("should correctly create a new instance", () => {
       const question = new Question({

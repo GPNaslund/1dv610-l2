@@ -4,12 +4,14 @@ import CustomEventEmitter from './CustomEventEmitter.js';
 import FilesystemPersistence from './FilesystemPersistence.js';
 import LocalStoragePersistence from './LocalStoragePersistence.js';
 import QuestionBank from './QuestionBank.js';
+import QuizResult from './QuizResult.js';
 
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {
   #questionsManager
   #scoreboard;
   #highscorePersistence;
+  #quizResult;
 
   /**
    * Constructs a QuizEngine instance.
@@ -21,6 +23,7 @@ class QuizEngine extends CustomEventEmitter {
     this.#highscorePersistence = null;
     this.#questionsManager = new QuestionsManager(questionBank);
     this.#scoreboard = new Scoreboard(playerName);
+    this.#quizResult = new QuizResult(playerName, 0);
   }
 
   initFilesystemStorage(path) {
@@ -60,8 +63,20 @@ class QuizEngine extends CustomEventEmitter {
    * 
    */
   answerQuestion(answer) {
-    if (this.#questionsManager.isAnswerCorrect(answer)) {
+    const correctAnswer =this.#questionsManager.isAnswerCorrect(answer);
+    const currentQuestion = this.#questionsManager.getQuestion();
+    const resultDetails = {
+      questionText: currentQuestion.text,
+      questionChoices: currentQuestion.choices,
+      correctChoice: currentQuestion.choices[currentQuestion.correctChoiceIndex],
+      selectedChoice: currentQuestion.choices[answer],
+      wasCorrect: correctAnswer,
+      category: currentQuestion.category
+    }
+    this.#quizResult.addQuestionResult(resultDetails);
+    if (correctAnswer) {
       this.#scoreboard.addPoints(1);
+      this.#quizResult.incrementScore(1);
 
       /**
        * Correct event
@@ -73,7 +88,6 @@ class QuizEngine extends CustomEventEmitter {
        */
       this.emit('correct', {playerName: this.#scoreboard.playerName, score: this.#scoreboard.score});
     } else {
-
       /**
        * False event
        * 
