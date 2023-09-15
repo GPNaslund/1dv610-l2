@@ -47,7 +47,7 @@ class App {
       this.#askQuestion(questionData);
       const userInput = await this.#getUserInput("Enter your choice: ");
       const answer = parseInt(userInput) - 1;
-      this.quizEngine.answerQuestion(answer);
+      this.quizEngine.answerQuestion(questionData.choices[answer]);
     } catch (e) {
       console.log(e.message);
       this.onQuestion(questionData);

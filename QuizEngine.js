@@ -7,6 +7,7 @@ import QuestionBank from './QuestionBank.js';
 import QuizResult from './QuizResult.js';
 import QuestionResult from './QuestionResult.js';
 import QuizScore from './QuizScore.js';
+import Highscore from './Highscore.js';
 
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {
@@ -28,12 +29,29 @@ class QuizEngine extends CustomEventEmitter {
     this.#quizResult = new QuizResult(playerName, 0);
   }
 
+  /**
+   * Used to initialize a persistent highscore using the local filesystem.
+   * 
+   * @param {string} path - The path to the file. Must be .json extension name.
+   */
   initFilesystemStorage(path) {
     this.#highscorePersistence = new FilesystemPersistence(path);
   }
 
+  /**
+   * Used to initialize a persistent highscore using the local storage of the browser.
+   * 
+   * @param {string} keyName - The key name to use in the broswer local storage for persistence.
+   */
   initLocalStorage(keyName) {
     this.#highscorePersistence = new LocalStoragePersistence(keyName)
+  }
+
+  /**
+   * Method used to randomize the order of the questions.
+   */
+  randomizeQuestions() {
+    this.#questionsManager.randomizeQuestions();
   }
 
   /**
@@ -59,14 +77,14 @@ class QuizEngine extends CustomEventEmitter {
    * If correct, adds one point and calls the onCorrectAnswer callback.
    * If not correct, calls the onFalse callback.
    * 
-   * @param {Number} answer - The user input, an number corresponding to one of the choices of the Question.
+   * @param {String} answer - The user input.
    * @emits QuizEngine#correct
    * @emits QuizEngine#false
    * 
    */
   answerQuestion(answer) {
     const question = this.#questionsManager.getQuestion();
-    const questionResult = new QuestionResult(question, question.choices[answer]);
+    const questionResult = new QuestionResult(question, answer);
     this.#quizResult.addQuestionResult(questionResult);
     if (questionResult.wasCorrect) {
       this.#scoreboard.addPoints(1);
@@ -132,7 +150,7 @@ class QuizEngine extends CustomEventEmitter {
   /**
    * Method for getting the highscore data from persistence class if assigned.
    * 
-   * @returns {Promise<Object>} - A Promise resolving to an object containing the highscore data.
+   * @returns {Promise<Highscore>} - A Promise resolving to an object containing the highscore data.
    */
   async getHighScore() {
     if (this.#highscorePersistence) return await this.#highscorePersistence.getHighscore();

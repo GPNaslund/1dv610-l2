@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const choiceButton = document.createElement('button');
       choiceButton.innerText = choice;
       choiceButton.addEventListener('click', () => {
-        quizEngine.answerQuestion(index);
+        quizEngine.answerQuestion(choice);
       });
       answerButtons.appendChild(choiceButton);
     });

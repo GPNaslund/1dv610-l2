@@ -61,6 +61,7 @@ class QuestionsManager {
       this.#currentIndex++;
     }
   }
+  
 
   /**
    * A method used for randomizing the order of #allQuestions.
