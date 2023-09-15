@@ -2,8 +2,7 @@ import Question from '../Question.js';
 
 describe("Question class", () => {
   
-  describe("constructor", () => {
-    
+  describe("constructor()", () => {
     it("should correctly create a new instance", () => {
       const question = new Question({
         text: "What comes after rain?",

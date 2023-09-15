@@ -2,12 +2,14 @@ import QuizResultSummary from '../QuizResultSummary.js';
 import QuizCategorySummary from '../QuizCategorySummary.js';
 
 describe("QuizResultSummary class", () => {
-  it("should initialize successfully", () => {
-    const summary = new QuizResultSummary("TestPerson", 0);
-    expect(summary.username).toBe("TestPerson");
-    expect(summary.score).toBe(0);
-    expect(summary.allCategorySummaries.length).toBe(0);
-  });
+  describe("constructor()", () => {
+    it("should initialize successfully", () => {
+      const summary = new QuizResultSummary("TestPerson", 0);
+      expect(summary.username).toBe("TestPerson");
+      expect(summary.score).toBe(0);
+      expect(summary.allCategorySummaries.length).toBe(0);
+    });
+  })
 
   describe("addCategorySummary()", () => {
     it("should add a QuizCategorySummary successfully", () => {

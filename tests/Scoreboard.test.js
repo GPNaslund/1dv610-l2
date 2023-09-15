@@ -1,7 +1,7 @@
 import Scoreboard from "../Scoreboard";
 
 describe("Scoreboard class", () => {
-  describe("constructor", () => {
+  describe("constructor()", () => {
     it("should initiate succesfully with correct argument", () => {
       expect(new Scoreboard("Tester")).toBeDefined();
     });

@@ -5,7 +5,7 @@ import Question from '../Question.js';
 
 describe('QuizResult class', () => {
 
-  describe('Creating a QuizResult object', () => {
+  describe('constructor()', () => {
     it('should successfully be created with correct constructor arguments', () => {
       const quizResult = new QuizResult("TestPerson", 10);
       expect(quizResult).toBeDefined();

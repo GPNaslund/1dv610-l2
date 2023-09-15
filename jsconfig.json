@@ -5,6 +5,6 @@
     },
     "include": [
       "*.js"
-    ]
+, "console_app/app.js"    ]
   }
   

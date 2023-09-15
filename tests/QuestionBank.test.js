@@ -2,12 +2,14 @@ import QuestionBank from '../QuestionBank.js';
 import Question from '../Question.js';
 
 describe("QuestionBank class", () => {
-  
-  it("should initialize empty", () => {
-    const questionBank = new QuestionBank();
-    expect(questionBank.getAllQuestions()).toStrictEqual([]);
-    expect(questionBank.hasQuestions()).toBeFalsy();
-  });
+
+  describe("constructor()", () => {
+    it("should initialize empty", () => {
+      const questionBank = new QuestionBank();
+      expect(questionBank.getAllQuestions()).toStrictEqual([]);
+      expect(questionBank.hasQuestions()).toBeFalsy();
+    });
+  })
 
   describe("addQuestion()", () => {
     it("should add a new Question object to allQuestions", () => {

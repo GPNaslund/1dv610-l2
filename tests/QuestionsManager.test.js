@@ -24,9 +24,11 @@ describe("QuestionsManager class", () => {
     questionsManager = new QuestionsManager(questionBank);
   });
 
-  it("should initialize successfully", () => {
-    expect(questionsManager).toBeDefined();
-    expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
+  describe("constructor()", () => {
+    it("should initialize successfully", () => {
+      expect(questionsManager).toBeDefined();
+      expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
+    })
   })
 
   describe("hasMoreQuestions()", () => {
