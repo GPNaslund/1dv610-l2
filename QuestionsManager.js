@@ -61,27 +61,6 @@ class QuestionsManager {
       this.#currentIndex++;
     }
   }
-  
-
-  /**
-   * Method for checking if the answer input is correct.
-   * 
-   * @param {Number} answerInput - The user choice, corresponding with one of the choices of the current question.
-   * @returns {boolean} - Indicating if the awnserInput is correct or not.
-   */
-  isAnswerCorrect(answerInput) {
-    if (typeof answerInput !== "number" || isNaN(answerInput)) {
-      throw new TypeError("The index of choice for must be a number.");
-    }
-
-    const currentQuestion = this.#allQuestions[this.#currentIndex];
-    
-    if (answerInput < 0 || answerInput >= currentQuestion.choices.length) {
-      throw new RangeError("The index of the choice is out of range.");
-    }
-
-    return answerInput === currentQuestion.correctChoiceIndex;
-  }
 
   /**
    * A method used for randomizing the order of #allQuestions.

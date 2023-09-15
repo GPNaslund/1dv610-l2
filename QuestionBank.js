@@ -33,14 +33,14 @@ class QuestionBank {
    * @param {Object} arguments - The object containing the arguments.
    * @param {String} arguments.text - The question's text.
    * @param {string[]} arguments.choices - The possible answers.
-   * @param {Number} arguments.correctChoiceIndex - A number corresponding to the correct answer's index in questionsAnswer.
+   * @param {string} arguments.correctChoice - The correct choice.
    * @param {string} [arguments.category] - The category of the question.
    */
-  createAndAddQuestion({ text, choices, correctChoiceIndex, category = 'undefined' }) {
+  createAndAddQuestion({ text, choices, correctChoice, category = 'undefined' }) {
     this.#allQuestions.push(new Question({
       text,
       choices,
-      correctChoiceIndex,
+      correctChoice,
       category
     }));
   }

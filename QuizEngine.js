@@ -1,10 +1,12 @@
 import QuestionsManager from './QuestionsManager.js';
 import Scoreboard from './Scoreboard.js';
 import CustomEventEmitter from './CustomEventEmitter.js';
-import FilesystemPersistence from './FilesystemPersistence.js';
+import FilesystemPersistence from './FilesystemPersistentHighscore.js';
 import LocalStoragePersistence from './LocalStoragePersistence.js';
 import QuestionBank from './QuestionBank.js';
 import QuizResult from './QuizResult.js';
+import QuestionResult from './QuestionResult.js';
+import QuizScore from './QuizScore.js';
 
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {
@@ -63,18 +65,10 @@ class QuizEngine extends CustomEventEmitter {
    * 
    */
   answerQuestion(answer) {
-    const correctAnswer =this.#questionsManager.isAnswerCorrect(answer);
-    const currentQuestion = this.#questionsManager.getQuestion();
-    const resultDetails = {
-      questionText: currentQuestion.text,
-      questionChoices: currentQuestion.choices,
-      correctChoice: currentQuestion.choices[currentQuestion.correctChoiceIndex],
-      selectedChoice: currentQuestion.choices[answer],
-      wasCorrect: correctAnswer,
-      category: currentQuestion.category
-    }
-    this.#quizResult.addQuestionResult(resultDetails);
-    if (correctAnswer) {
+    const question = this.#questionsManager.getQuestion();
+    const questionResult = new QuestionResult(question, question.choices[answer]);
+    this.#quizResult.addQuestionResult(questionResult);
+    if (questionResult.wasCorrect) {
       this.#scoreboard.addPoints(1);
       this.#quizResult.incrementScore(1);
 
@@ -141,7 +135,7 @@ class QuizEngine extends CustomEventEmitter {
    * @returns {Promise<Object>} - A Promise resolving to an object containing the highscore data.
    */
   async getHighScore() {
-    if (this.#highscorePersistence) return await this.#highscorePersistence.getData();
+    if (this.#highscorePersistence) return await this.#highscorePersistence.getHighscore();
   }
 
   /**
@@ -182,7 +176,7 @@ class QuizEngine extends CustomEventEmitter {
    */
   async #saveToPersistence(playerName, playerScore) {
     if (this.#highscorePersistence) {
-     await this.#highscorePersistence.saveData(playerName, playerScore);
+     await this.#highscorePersistence.saveQuizScore(new QuizScore(playerName, playerScore));
     }
   }
 

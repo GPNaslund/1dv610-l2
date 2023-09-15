@@ -1,11 +1,13 @@
 import fs from 'fs/promises';
 import path from 'path';
 import os from 'os';
+import Highscore from './Highscore.js';
+import QuizScore from './QuizScore.js';
 
 /**
  * Class for reading and writing the quiz highscore to local filesystem.
  */
-class FilesystemPersistence {
+class FilesystemPersistentHighscore {
   #persistencePath
 
   /**
@@ -19,7 +21,7 @@ class FilesystemPersistence {
   }
 
   /**
-   * Method for assigning this.#persistencePath. 
+   * Method for assigning #persistencePath. 
    * 
    * @param {string} persistencePath - The path to validate and assign.
    */
@@ -48,46 +50,38 @@ class FilesystemPersistence {
   }
 
   /**
-   * Method for saving the username and points.
+   * Method for saving a quiz score.
    * 
-   * @param {string} username - The username to save.
-   * @param {string} points - The points to save associated to the user.
+   * @param {QuizScore} quizScore - The quizScore to save.
    */
-  async saveData(username, points) {
-    await this.#fileSystemStorageSaveData(username, points);
+  async saveQuizScore(quizScore) {
+    await this.#filesystemSaveQuizScore(quizScore);
   }
 
   /**
    * Method for getting the stored highscore data.
    * 
-   * @returns {Promise<Object>} - Promise that resolves to an object containing the saved scores.
+   * @returns {Promise<Highscore>} - Promise that resolves to a Highscore object.
    */
 
-  async getData() {
-    return await this.#fileSystemStorageGetData();
+  async getHighscore() {
+    return await this.#filesystemGetHighscore();
   }
   
   /**
-   * Private method for saving the provided username and points to 
+   * Private method for saving the provided QuizScore to 
    * the highscore file.
    * 
-   * @param {string} username - The username to save.
-   * @param {string} points - The points associated with the username to save.
+   * @param {QuizScore} quizScore - The quizScore to save.
    */
-  async #fileSystemStorageSaveData(username, points) {
+  async #filesystemSaveQuizScore(quizScore) {
     try {
       await this.#directoryExistenceValidation(this.#persistencePath);
       await this.#fileExistenceValidation(this.#persistencePath);
-      const data = await this.#fileSystemStorageGetData();
-      if (data[username]) {
-        data[username].push(points);
-      } else {
-        data[username] = [points];
-      }
-      data[username] = data[username].sort((a, b) => b - a);
-      const sortedData = this.#sortByPointsDescending(data);
-
-      await fs.writeFile(this.#persistencePath, JSON.stringify(sortedData));
+      const highscore = await this.#filesystemGetHighscore();
+      highscore.addQuizScore(quizScore);
+      highscore.sortQuizScores();
+      await fs.writeFile(this.#persistencePath, highscore.toJSON());
     } catch (e) {
       console.log(e);
       throw new Error("Could not write to file system!");
@@ -96,18 +90,20 @@ class FilesystemPersistence {
 
   /**
    * Private method for reading the file containing the highscores and returning
-   * a parsed object from that data.
-   * @returns {Promise<Object>} - Promise resolving to object containing the highscore data.
+   * a Highscore object based on that data.
+   * @returns {Promise<>} - Promise resolving to an Highscore object.
    */
-  async #fileSystemStorageGetData() {
+  async #filesystemGetHighscore() {
     try {
       await this.#directoryExistenceValidation(this.#persistencePath);
       await this.#fileExistenceValidation(this.#persistencePath);
       const data = await fs.readFile(this.#persistencePath, { encoding: "utf-8" });
-      return JSON.parse(data);
+      const highscore = new Highscore();
+      highscore.fromJSON(data);
+      return highscore;
     } catch (e) {
       if (e.code === "ENOENT") {
-        return {};
+        return new Highscore();
       }
       console.log(e);
       throw Error("Could not read from filesystem!");
@@ -158,18 +154,6 @@ class FilesystemPersistence {
     return path.join(homeDirectory, 'QuizHighscores', 'highscores.json');
   }
 
-  /**
-   * Private method for sorting the highscore entries by points descending.
-   * @param {Object} highscores - The highscores to sort.
-   * @returns {Object} The sorted highscores.
-   */
-  #sortByPointsDescending(highscores) {
-    const highscoresArray = Object.entries(highscores);
-    highscoresArray.sort((a, b) => Math.max(...b[1]) - Math.max(...a[1]));
-    const highscoresObject = Object.fromEntries(highscoresArray);
-    return highscoresObject;
-  }
-
 }
 
-export default FilesystemPersistence;
+export default FilesystemPersistentHighscore;

@@ -5,7 +5,7 @@
 class Question {
   #text;
   #choices;
-  #correctChoiceIndex;
+  #correctChoice;
   #category
 
   /**
@@ -13,13 +13,13 @@ class Question {
    * @param {object} arguments - An object containing all the arguments for the constructor.
    * @param {string} arguments.text - The question text.
    * @param {Array<string>} arguments.choices - The multiple choices.
-   * @param {number} arguments.correctChoiceIndex - The correct choice index.
+   * @param {string} arguments.correctChoice - The correct choice.
    * @param {string} [arguments.category] - The category of the question.
    */
-  constructor({text, choices, correctChoiceIndex, category = 'undefined'}) {
+  constructor({text, choices, correctChoice, category = 'undefined'}) {
     this.#setText(text);
     this.#setChoices(choices);
-    this.#setCorrectChoiceIndex(correctChoiceIndex);
+    this.#setcorrectChoice(correctChoice);
     this.#setCategory(category);
   }
 
@@ -74,29 +74,22 @@ class Question {
   /**
    * Gets the correct choice.
    * 
-   * @returns {string} this.#correctChoiceIndex - The correct choice to the question.
+   * @returns {string} this.#correctChoice - The correct choice to the question.
    */
-  get correctChoiceIndex() {
-    return this.#correctChoiceIndex;
+  get correctChoice() {
+    return this.#correctChoice;
   }
 
   /**
    * Sets the correct choice to the question.
    * 
-   * @param {number} correctChoiceIndex - The correct choice.
+   * @param {string} correctChoice - The correct choice.
    */
-  #setCorrectChoiceIndex(correctChoiceIndex) {
-    if (typeof correctChoiceIndex !== 'number') {
-      throw new TypeError("The correct choice index must be a number!");
+  #setcorrectChoice(correctChoice) {
+    if (typeof correctChoice !== 'string') {
+      throw new TypeError("The correct choice must be a string!");
     }
-    if (correctChoiceIndex < 0 || correctChoiceIndex > this.#choices.length - 1) {
-      if (this.#choices.length === 1) {
-        throw new RangeError("There is only one choice option, correct choice index can only be 0");
-      } else {
-        throw new RangeError("The correct choice index must be between 0 - " + (this.#choices.length - 1));
-      }
-    }
-    this.#correctChoiceIndex = correctChoiceIndex;
+    this.#correctChoice = correctChoice;
   }
 
   /**

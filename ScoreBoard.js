@@ -92,6 +92,9 @@ class Scoreboard {
     this.#score -= amountOfPoints;
   }
 
+  /**
+   * Resets #score to 0.
+   */
   reset() {
     this.#score = 0;
   }

@@ -38,6 +38,7 @@ quizEngine.on('done', (scoreData) => {
   console.log(`${scoreData.playerName} - Score: ${scoreData.score}`);
   createSpace(2);
   printHighscore().catch((e) => console.log(e));
+  process.exit(0);
 })
 
 quizEngine.initFilesystemStorage();
@@ -79,7 +80,5 @@ function askQuestion(questionData) {
 async function printHighscore() {
   const highscore = await quizEngine.getHighScore();
   console.log("=== HIGHSCORE ===");
-  for (const key in highscore) {
-    console.log(`Player: ${key} - Scores: ${highscore[key].join(', ')}`)
-  }
+  highscore.toArray().forEach((string) => console.log(string));
 }

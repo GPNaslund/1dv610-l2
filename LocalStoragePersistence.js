@@ -1,3 +1,6 @@
+import Highscore from "./Highscore.js";
+import QuizScore from "./QuizScore.js";
+
 /**
  * Class for saving highscore to local storage in browser.
  */
@@ -28,35 +31,33 @@ class LocalStoragePersistence {
   }
 
   /**
-   * Method for saving the username and points to local storage.
+   * Method for saving a QuizScore to local storage.
    * 
-   * @param {string} username - The username to save. 
-   * @param {string} points - The points associated with the user to save.
+   * @param {QuizScore} quizScore - The quizScore to save. 
    */
-  async saveData(username, points) {
-    Promise.resolve(this.#localStorageSaveData(username, points));
+  async saveQuizScore(quizScore) {
+    Promise.resolve(this.#localStorageSaveQuizScore(quizScore));
   }
 
   /**
-   * Method for getting the data in local storage.
-   * @returns {Promise<Object>} - A promise that resolves to an object containing the highscore data.
+   * Method for getting the Highscore from local storage.
+   * @returns {Promise<Highscore>} - A promise that resolves to an object containing the highscore data.
    */
-  async getData() {
-    return Promise.resolve(this.#localStorageGetData());
+  async getHighscore() {
+    return Promise.resolve(this.#localStorageGetHighscore());
   }
 
   /**
-   * Method for saving the username and points to local storage.
+   * Method for saving a QuizScore to local storage.
    * 
-   * @param {string} username - The username to be saved.
-   * @param {string} points - The points to be saved.
+   * @param {QuizScore} quizScore - The quizScore to be saved.
    */
-  #localStorageSaveData(username, points) {
+  #localStorageSaveQuizScore(quizScore) {
     if (this.#localStorageIsAvailable()) {
-      const highScores = this.#localStorageGetData();
-      highScores[username] = points;
-      const sortedHighscores = this.#sortByPointsDescending(highScores);
-      localStorage.setItem(this.#keyName, JSON.stringify(sortedHighscores));
+      const highscore = this.#localStorageGetHighscore();
+      highscore.addQuizScore(quizScore);
+      highscore.sortQuizScores();
+      localStorage.setItem(this.#keyName, highscore.toJSON());
     } else {
       throw new Error("Local storage is not available for usage");
     }
@@ -65,29 +66,19 @@ class LocalStoragePersistence {
   /**
    * Method for getting the highscore data from localstorage.
    * 
-   * @returns {Object} - An object containing the highscore data.
+   * @returns {Highscore} - An object containing the highscore data.
    */
-  #localStorageGetData() {
+  #localStorageGetHighscore() {
     if (this.#localStorageIsAvailable()) {
       const exisitingHighscores = localStorage.getItem(this.#keyName);
-      return exisitingHighscores ? JSON.parse(exisitingHighscores) : {};
+      const highscore = new Highscore();
+      highscore.fromJSON(exisitingHighscores);
+      return highscore;
     } else {
       throw new Error("Local storage is not available for usage");
     }
   }
 
-  /**
-   * Method for sorting the highscore by points descending.
-   * 
-   * @param {Object} highscore - The object containing highscore data.
-   * @returns {Object} - An object containing the highscore data sorted by points.
-   */
-  #sortByPointsDescending(highscore) {
-    const highscoreArray = Object.entries(highscore);
-    highscoreArray.sort((a, b) => Math.max(...b[1]) - Math.max(...a[1]));
-    const highscoreObject = Object.fromEntries(highscoreArray);
-    return highscoreObject;
-  }
 
   /**
    * Method for checking the availability of localstorage.
