@@ -57,7 +57,7 @@ class CustomMarkdownReporter {
     });
 
     // Write all the info to file.
-    fs.writeFileSync('testSummary.md', output);
+    fs.writeFileSync('testrapport.md', output);
   }
 }
 

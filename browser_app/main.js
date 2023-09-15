@@ -1,12 +1,12 @@
 
-import QuizEngine from './QuizEngine.js';
-import QuestionBank from './QuestionBank.js';
+import QuizEngine from '../QuizEngine.js';
+import QuestionBank from '../QuestionBank.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const questionBank = new QuestionBank();
-  questionBank.createAndAddQuestion("Is the sky blue?", ["Yes", "No"], 0);
-  questionBank.createAndAddQuestion("Is water wet?", ["Yes", "No"], 0);
-  questionBank.createAndAddQuestion("Are puppies cute?", ["Yes", "No"], 0);
+  questionBank.createAndAddQuestion({text: "Is the sky blue?", choices: ["Yes", "No"], correctChoice: "Yes"});
+  questionBank.createAndAddQuestion({text: "Is water wet?", choices: ["Yes", "No"], correctChoice: "Yes"});
+  questionBank.createAndAddQuestion({text: "Are puppies cute?", choices: ["Yes", "No"], correctChoice: "Yes"});
 
   const quizEngine = new QuizEngine(questionBank, "Gustav");
   quizEngine.initLocalStorage();
@@ -49,10 +49,16 @@ document.addEventListener('DOMContentLoaded', function () {
     quizEngine.continueQuiz();
   })
 
-  quizEngine.on('done', (playerData) => {
+  quizEngine.on('done', async (playerData) => {
     answerButtons.replaceChildren();
     questionElement.innerText = "QUIZ DONE!";
     scoreElement.innerText = playerData.playerName + ', Score - ' + playerData.score;
+    const highscore = await quizEngine.getHighScore();
+    highscore.toArray().forEach((highscore) => {
+      const pElement = document.createElement('p');
+      pElement.innerText = highscore;
+      highscoreElement.appendChild(pElement);
+    })
   })
 
 
