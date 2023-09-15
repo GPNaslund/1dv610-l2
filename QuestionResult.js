@@ -7,6 +7,7 @@ class QuestionResult {
   #correctChoice;
   #selectedChoice;
   #wasCorrect;
+  #category
 
   /**
    * Creates a QuestionResult object.
@@ -22,6 +23,7 @@ class QuestionResult {
     this.#correctChoice = question.correctChoice;
     this.#selectedChoice = selectedChoice;
     this.#wasCorrect = question.correctChoice === selectedChoice;
+    this.#category = question.category;
   }
 
   /**
@@ -32,6 +34,16 @@ class QuestionResult {
    */
   get wasCorrect() {
     return this.#wasCorrect;
+  }
+
+  /**
+   * Getter for #category
+   *
+   * @readonly
+   * @memberof QuestionResult
+   */
+  get category() {
+    return this.#category;
   }
 
   /**

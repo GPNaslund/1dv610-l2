@@ -1,4 +1,7 @@
+import QuestionResult from '../QuestionResult.js';
+import QuizCategorySummary from '../QuizCategorySummary.js';
 import QuizResult from '../QuizResult.js';
+import Question from '../Question.js';
 
 describe('QuizResult class', () => {
 
@@ -28,59 +31,12 @@ describe('QuizResult class', () => {
       questionResultObjects.forEach(questionResult => {
         quizResult.addQuestionResult(questionResult);
       });
-      expect(quizResult.questionResultDetails).toStrictEqual(questionResultObjects);
+      expect(quizResult.questionResults).toStrictEqual(questionResultObjects);
     });
 
     it('should throw error if invalid argument is passed', () => {
-      expect(() => quizResult.addQuestionResult({questionText: 2})).toThrow(TypeError);
-      expect(() => quizResult.addQuestionResult({questionText: ""})).toThrow(RangeError);
-      expect(() => quizResult.addQuestionResult({questionText: "Test", questionChoices: "Not an array"})).toThrow(TypeError);
-      expect(() => quizResult.addQuestionResult({questionText: "Test", questionChoices: []})).toThrow(RangeError);
-      expect(() => quizResult.addQuestionResult({
-        questionText: "Test",
-        questionChoices: ["Choice1"],
-        correctChoice: 1
-      })).toThrow(TypeError);
-      expect(() => quizResult.addQuestionResult({
-        questionText: "Test",
-        questionChoices: ["Choice1"],
-        correctChoice: ""
-      })).toThrow(RangeError);
-      expect(() => quizResult.addQuestionResult({
-        questionText: "Test",
-        questionChoices: ["Choice1"],
-        correctChoice: "Choice",
-        selectedChoice: 1
-      })).toThrow(TypeError);
-      expect(() => quizResult.addQuestionResult({
-        questionText: "Test",
-        questionChoices: ["Choice1"],
-        correctChoice: "Choice",
-        selectedChoice: ""
-      })).toThrow(RangeError);
-      expect(() => quizResult.addQuestionResult({
-        questionText: "Test",
-        questionChoices: ["Choice1"],
-        correctChoice: "Choice",
-        selectedChoice: "Choice",
-        wasCorrect: "Not boolean"
-      })).toThrow(TypeError);
-      expect(() => quizResult.addQuestionResult({
-        questionText: "Test",
-        questionChoices: ["Choice1"],
-        correctChoice: "Choice",
-        selectedChoice: "Choice",
-        wasCorrect: true,
-        category: 1
-      })).toThrow(TypeError);
-      expect(() => quizResult.addQuestionResult({
-        questionText: "Test",
-        questionChoices: ["Choice1"],
-        correctChoice: "Choice",
-        selectedChoice: "Choice",
-        wasCorrect: true,
-        category: ""
-      })).toThrow(RangeError);
+      expect(() => quizResult.addQuestionResult("Not a QuestionResult object")).toThrow(TypeError);
+      expect(() => quizResult.addQuestionResult({})).toThrow(TypeError);
     });
 
   });
@@ -90,32 +46,15 @@ describe('QuizResult class', () => {
       const quizResult = new QuizResult('TestPerson', 0);
       const resultsObjects = generateQuestionResultObjects();
       resultsObjects.forEach(result => quizResult.addQuestionResult(result));
-      const generatedSummary = quizResult.generateSummary();
-      const expectedSummary = {
-        username: "TestPerson",
-        score: 0, 
-        summary: {
-          Category1: {
-            category: "Category1",
-            questionAmount: 3,
-            correctAnswers: 2,
-            percentageOfCorrect: 66.67,
-          },
-          Category2: {
-            category: "Category2",
-            questionAmount: 3,
-            correctAnswers: 1,
-            percentageOfCorrect: 33.33,
-          },
-          Category3: {
-            category: "Category3",
-            questionAmount: 4,
-            correctAnswers: 0,
-            percentageOfCorrect: 0,
-          }
-        }
-      };
-      expect(generatedSummary).toEqual(expectedSummary);
+      const quizResultSummary = quizResult.generateSummary();
+      const categorySummaries = quizResultSummary.allCategorySummaries;
+
+      const findCategorySummary = (categoryName) => {
+        return categorySummaries.find(summary => summary.nameOfCategory === categoryName);
+      }
+      expect(findCategorySummary("Category1")).toStrictEqual(new QuizCategorySummary("Category1", 3, 2));
+      expect(findCategorySummary("Category2")).toStrictEqual(new QuizCategorySummary("Category2", 3, 1));
+      expect(findCategorySummary("Category3")).toStrictEqual(new QuizCategorySummary("Category3", 4, 0));
     });
   })
 });
@@ -124,14 +63,15 @@ const generateQuestionResultsForCategory = (category, count, correctAnswerIndex)
   const allQuestionResults = [];
   for (let i = 0; i < count; i++) {
     const correctAnswer = correctAnswerIndex.includes(i);
-    allQuestionResults.push({
-      questionText: "TestResult",
-      questionChoices: ["Choice1", "Choice2", "Choice3"],
+    const question = new Question({
+      text: "TestResult",
+      choices: ["Choice1", "Choice2", "Choice3"],
       correctChoice: "Choice1",
-      selectedChoice: correctAnswer ? "Choice1" : "Choice2",
-      wasCorrect: correctAnswer,
-      category: category,
+      category: category
     });
+    const selectedChoice = correctAnswer ? "Choice1" : "Choice2";
+    const questionResult = new QuestionResult(question, selectedChoice);
+    allQuestionResults.push(questionResult)
   }
   return allQuestionResults;
 }

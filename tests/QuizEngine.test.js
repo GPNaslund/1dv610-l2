@@ -7,8 +7,8 @@ describe("QuizEngine class", () => {
 
   beforeEach(() => {
     questionBank = new QuestionBank();
-    questionBank.createAndAddQuestion({text: "Is this a String?", choices: ["Yes", "No"], correctChoiceIndex: 0});
-    questionBank.createAndAddQuestion({text: "Is this a number?", choices: ["Yes", "No"], correctChoiceIndex: 1});
+    questionBank.createAndAddQuestion({text: "Is this a String?", choices: ["Yes", "No"], correctChoice: "Yes"});
+    questionBank.createAndAddQuestion({text: "Is this a number?", choices: ["Yes", "No"], correctChoice: "No"});
     quizEngine = new QuizEngine(questionBank, "TestPerson");
   });
 
@@ -18,7 +18,7 @@ describe("QuizEngine class", () => {
     })
     it("should throw error if not provided correct arguments", () => {
       expect(() => new QuizEngine().toThrow(TypeError));
-      expect(() => new QuizEngine(scoreboard).toThrow(TypeError));
+      expect(() => new QuizEngine(questionBank).toThrow(TypeError));
       expect(() => new QuizEngine("TestPerson").toThrow(TypeError));
     })
   });

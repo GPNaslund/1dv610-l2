@@ -1,4 +1,4 @@
-/** Class representing a scoreboard */
+/** Class representing a scoreboard to keep track for the user score during quiz */
 class Scoreboard {
   #playerName;
   #score;

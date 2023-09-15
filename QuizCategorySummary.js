@@ -16,6 +16,7 @@ class QuizCategorySummary {
     this.#amountOfQuestions = amountOfQuestions;
     this.#amountOfCorrectAnswers = amountOfCorrectAnswers;
     const percentageOfCorrect = parseFloat(((amountOfCorrectAnswers / amountOfQuestions) * 100).toFixed(2));
+    this.#percentageOfCorrect = percentageOfCorrect;
   }
 
   /**

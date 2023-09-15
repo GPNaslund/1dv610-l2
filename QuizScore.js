@@ -1,3 +1,4 @@
+/** Represents data structure for holding username and score */
 class QuizScore {
   #name;
   #score;

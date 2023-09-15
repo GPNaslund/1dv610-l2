@@ -7,11 +7,11 @@ describe("QuestionsManager class", () => {
   let questionsManager;
 
   beforeEach(() => {
-    const q1 = new Question({text: "Is the sky blue?", choices: ["Yes", "No", "Sometimes"], correctChoiceIndex: 2});
-    const q2 = new Question({text: "Is there clouds in the sky?", choices: ["Yes", "No"], correctChoiceIndex: 0});
-    const q3 = new Question({text: "Does a dog bark?", choices: ["Yes", "No"], correctChoiceIndex: 0});
-    const q4 = new Question({text: "Is music sound?", choices: ["Yes", "No"], correctChoiceIndex: 0});
-    const q5 = new Question({text: "Do you get wet in rain?", choices: ["Yes", "No"], correctChoiceIndex: 0});
+    const q1 = new Question({text: "Is the sky blue?", choices: ["Yes", "No", "Sometimes"], correctChoice: "Sometimes"});
+    const q2 = new Question({text: "Is there clouds in the sky?", choices: ["Yes", "No"], correctChoice: "Yes"});
+    const q3 = new Question({text: "Does a dog bark?", choices: ["Yes", "No"], correctChoice: "Yes"});
+    const q4 = new Question({text: "Is music sound?", choices: ["Yes", "No"], correctChoice: "Yes"});
+    const q5 = new Question({text: "Do you get wet in rain?", choices: ["Yes", "No"], correctChoice: "Yes"});
 
     questionBank = new QuestionBank();
     questionBank.addQuestion(q1);
@@ -45,19 +45,6 @@ describe("QuestionsManager class", () => {
       expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
       questionsManager.advanceCurrentIndex();
       expect(questionsManager.getQuestion().text).toBe("Is there clouds in the sky?");
-    })
-  });
-
-  describe("isAnswerCorrect()", () => {
-    it("should return true if provided the correct index", () => {
-      expect(questionsManager.isAnswerCorrect(2)).toBeTruthy();
-    });
-    it("should return false if provided the wrong index", () => {
-      expect(questionsManager.isAnswerCorrect(1)).toBeFalsy();
-    })
-    it("should throw error if arguments are not valid", () => {
-      expect(() => questionsManager.isAnswerCorrect("Im a string").toThrow(TypeError));
-      expect(() => questionsManager.isAnswerCorrect(15).toThrow(RangeError));
     })
   });
 

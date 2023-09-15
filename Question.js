@@ -86,9 +86,8 @@ class Question {
    * @param {string} correctChoice - The correct choice.
    */
   #setcorrectChoice(correctChoice) {
-    if (typeof correctChoice !== 'string') {
-      throw new TypeError("The correct choice must be a string!");
-    }
+    if (typeof correctChoice !== 'string') throw new TypeError("The correct choice must be a string!");
+    if (correctChoice.length < 1) throw new RangeError("Correct choice cannot be empty!")
     this.#correctChoice = correctChoice;
   }
 

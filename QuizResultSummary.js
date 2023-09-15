@@ -48,6 +48,16 @@ class QuizResultSummary {
     return this.#score;
   }
 
+  /**
+   * Getter for #allCategorySummaries.
+   *
+   * @readonly
+   * @memberof QuizResultSummary
+   */
+  get allCategorySummaries() {
+    return this.#allCategorySummaries;
+  }
+
 }
 
 export default QuizResultSummary;
