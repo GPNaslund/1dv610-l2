@@ -1,5 +1,4 @@
 import QuestionsManager from './QuestionsManager.js';
-import Scoreboard from './Scoreboard.js';
 import CustomEventEmitter from './CustomEventEmitter.js';
 import FilesystemPersistence from './FilesystemPersistentHighscore.js';
 import LocalStoragePersistence from './LocalStoragePersistence.js';
@@ -12,7 +11,6 @@ import Highscore from './Highscore.js';
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {
   #questionsManager
-  #scoreboard;
   #highscorePersistence;
   #quizResult;
 
@@ -25,7 +23,6 @@ class QuizEngine extends CustomEventEmitter {
     super();
     this.#highscorePersistence = null;
     this.#questionsManager = new QuestionsManager(questionBank);
-    this.#scoreboard = new Scoreboard(playerName);
     this.#quizResult = new QuizResult(playerName, 0);
   }
 
@@ -34,8 +31,8 @@ class QuizEngine extends CustomEventEmitter {
    * 
    * @param {string} path - The path to the file. Must be .json extension name.
    */
-  initFilesystemStorage(path) {
-    this.#highscorePersistence = new FilesystemPersistence(path);
+  initFilesystemStorage(path, maxAmountOfScores = 25) {
+    this.#highscorePersistence = new FilesystemPersistence(path, maxAmountOfScores);
   }
 
   /**
@@ -43,8 +40,8 @@ class QuizEngine extends CustomEventEmitter {
    * 
    * @param {string} keyName - The key name to use in the broswer local storage for persistence.
    */
-  initLocalStorage(keyName) {
-    this.#highscorePersistence = new LocalStoragePersistence(keyName)
+  initLocalStorage(keyName, maxAmountOfScores = 25) {
+    this.#highscorePersistence = new LocalStoragePersistence(keyName, maxAmountOfScores);
   }
 
   /**
@@ -87,7 +84,6 @@ class QuizEngine extends CustomEventEmitter {
     const questionResult = new QuestionResult(question, answer);
     this.#quizResult.addQuestionResult(questionResult);
     if (questionResult.wasCorrect) {
-      this.#scoreboard.addPoints(1);
       this.#quizResult.incrementScore(1);
 
       /**
@@ -98,7 +94,7 @@ class QuizEngine extends CustomEventEmitter {
        * @property {string} playerName - The current player name.
        * @property {number} score - The current players score.
        */
-      this.emit('correct', {playerName: this.#scoreboard.playerName, score: this.#scoreboard.score});
+      this.emit('correct', {playerName: this.#quizResult.playerName, score: this.#quizResult.score});
     } else {
       /**
        * False event
@@ -108,7 +104,7 @@ class QuizEngine extends CustomEventEmitter {
        * @property {string} playerName - The current player name.
        * @property {number} score - The current players score.
        */
-      this.emit('false', {playerName: this.#scoreboard.playerName, score: this.#scoreboard.score});
+      this.emit('false', {playerName: this.#quizResult.playerName, score: this.#quizResult.score});
     }
   }
 
@@ -144,7 +140,7 @@ class QuizEngine extends CustomEventEmitter {
    */
   resetQuiz() {
     this.#questionsManager.reset();
-    this.#scoreboard.reset();
+    this.#quizResult.reset();
   }
 
   /**
@@ -154,6 +150,14 @@ class QuizEngine extends CustomEventEmitter {
    */
   async getHighScore() {
     if (this.#highscorePersistence) return await this.#highscorePersistence.getHighscore();
+  }
+
+  /**
+   * Method for getting a QuizResultSummary, containing summary data.
+   * @returns 
+   */
+  async getSummary() {
+    return this.#quizResult.generateSummary();
   }
 
   /**
@@ -172,8 +176,8 @@ class QuizEngine extends CustomEventEmitter {
    * @emits QuizEngine#done
    */
   async #quizDone() {
-    const playerName = this.#scoreboard.playerName;
-    const score = this.#scoreboard.score;
+    const playerName = this.#quizResult.playerName;
+    const score = this.#quizResult.score;
     await this.#saveToPersistence(playerName, score);
 
     /**

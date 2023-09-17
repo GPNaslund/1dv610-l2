@@ -4,7 +4,7 @@ import path from 'path'
 /** Reporter to use with Jest to generate an .md file with the results */
 class CustomMarkdownReporter {
   /**
-   * Creates an CustomMarkDownReporter intance.
+   * Creates an CustomMarkDownReporter instance.
    * @param {*} globalConfig - Jest config argument.
    * @param {*} reporterOptions - Jest config argument.
    * @param {*} reporterContext - Jest config argument.

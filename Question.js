@@ -101,6 +101,7 @@ class Question {
 
   /**
    * Method for setting the category name.
+   * 
    * @param {string} categoryName - The name of the category.
    */
   #setCategory(categoryName) {

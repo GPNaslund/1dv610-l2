@@ -46,6 +46,7 @@ class App {
     try {
       this.#askQuestion(questionData);
       const userInput = await this.#getUserInput("Enter your choice: ");
+      this.#validateUserInput(userInput, questionData.choices.length);
       const answer = parseInt(userInput) - 1;
       this.quizEngine.answerQuestion(questionData.choices[answer]);
     } catch (e) {
@@ -69,6 +70,7 @@ class App {
       console.log(`${scoreData.playerName} - Score: ${scoreData.score}`);
       this.#createNewLines(2);
       await this.#printHighscore();
+      await this.#printSummary();
       process.exit(0);
     } catch (e) {
       console.log(e.message);
@@ -88,10 +90,23 @@ class App {
     return userInput;
   }
 
+  #validateUserInput(input, amountOfChoices) {
+    if (isNaN(parseInt(input))) throw new TypeError("Input must be a number.");
+    const index = parseInt(input)
+    if (index < 0 || index > amountOfChoices) throw new RangeError("Input must be between 1 - " + amountOfChoices);
+  }
+
   async #printHighscore() {
     const highscore = await this.quizEngine.getHighScore();
     console.log("=== HIGHSCORE ===");
     highscore.toArray().forEach((string) => console.log(string));
+  }
+
+  async #printSummary() {
+    const summary = await this.quizEngine.getSummary();
+    this.#createNewLines(2);
+    console.log("=== QUIZ RESULT SUMMARY ===");
+    summary.toArray().forEach((infoString) => console.log(infoString));
   }
 
   #createNewLines(lineAmount){
@@ -103,11 +118,11 @@ class App {
   async #getUsername() {
     try {
       const username = await rl.question("Enter your name: ");
-      if (username.length < 0 || username.length > 50) throw new RangeError("Username cannot be empty or longer than 50 characters");
+      if (!username || username.length < 1 || username.length > 50) throw new RangeError("Username cannot be empty or longer than 50 characters");
       return username;
     } catch (e) {
       console.log(e.message);
-      this.#getUsername();
+      return this.#getUsername();
     }
   }
 }

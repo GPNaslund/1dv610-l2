@@ -1,14 +1,13 @@
 
 import QuizEngine from '../QuizEngine.js';
 import QuestionBank from '../QuestionBank.js';
+import { quizQuestions } from '../console_app/appQuestions.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const questionBank = new QuestionBank();
-  questionBank.createAndAddQuestion({text: "Is the sky blue?", choices: ["Yes", "No"], correctChoice: "Yes"});
-  questionBank.createAndAddQuestion({text: "Is water wet?", choices: ["Yes", "No"], correctChoice: "Yes"});
-  questionBank.createAndAddQuestion({text: "Are puppies cute?", choices: ["Yes", "No"], correctChoice: "Yes"});
+  quizQuestions.forEach(question => questionBank.createAndAddQuestion(question));
 
-  const quizEngine = new QuizEngine(questionBank, "Gustav");
+  const quizEngine = new QuizEngine(questionBank, "Player1");
   quizEngine.initLocalStorage();
 
   const startButton = document.getElementById('start-button');
@@ -16,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const questionElement = document.getElementById('question');
   const scoreElement = document.getElementById('score');
   const highscoreElement = document.getElementById('highscore');
+  const summaryElement = document.getElementById('summary');
 
   startButton.addEventListener('click', () => {
     quizEngine.startQuiz();
@@ -37,27 +37,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   quizEngine.on('correct', (playerData) => {
     answerButtons.replaceChildren();
-    questionElement.innerText = "CORRECT ANSWER!";
-    scoreElement.innerText = playerData.playerName + ', Score - ' + playerData.score;
+    scoreElement.innerText = playerData.playerName + ': ' + playerData.score + ' points.';
     quizEngine.continueQuiz();
   });
 
   quizEngine.on('false', (playerData) => {
     answerButtons.replaceChildren();
-    questionElement.innerText = "WRONG ANSWER!";
-    scoreElement.innerText = playerData.playerName + ', Score - ' + playerData.score;
+    scoreElement.innerText = playerData.playerName + ': ' + playerData.score + ' points.';
     quizEngine.continueQuiz();
   })
 
   quizEngine.on('done', async (playerData) => {
     answerButtons.replaceChildren();
     questionElement.innerText = "QUIZ DONE!";
-    scoreElement.innerText = playerData.playerName + ', Score - ' + playerData.score;
+    scoreElement.innerText = playerData.playerName + ': ' + playerData.score + ' points.';
     const highscore = await quizEngine.getHighScore();
     highscore.toArray().forEach((highscore) => {
       const pElement = document.createElement('p');
       pElement.innerText = highscore;
       highscoreElement.appendChild(pElement);
+    })
+
+    const summaryHeader = document.createElement('h1');
+    summaryHeader.innerText = 'SUMMARY';
+    summaryElement.appendChild(summaryHeader);
+    const quizSummary = await quizEngine.getSummary();
+    quizSummary.toArray().forEach((infoElement) => {
+      const pElement = document.createElement('p');
+      pElement.innerHTML = infoElement;
+      summaryElement.appendChild(pElement);
     })
   })
 

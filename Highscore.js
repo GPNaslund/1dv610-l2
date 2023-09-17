@@ -12,13 +12,14 @@ class Highscore {
   }
 
   /**
-   * Method for adding a QuizScore to #allQuizScores.
+   * Method for adding a QuizScore to #allQuizScores. Will check for existing score with the same name, and
+   * keep the higher of the two if there allready is one stored.
    * 
    * @param {QuizScore} newQuizScore - The QuizScore to add.
    */
   addQuizScore(newQuizScore) {
     if (newQuizScore instanceof QuizScore === false) throw TypeError("Argument must be an instance of QuizScore");
-    const existingUserIndex = this.#allQuizScores.findIndex(quizScore => quizScore.name === newQuizScore.name);
+    const existingUserIndex = this.#allQuizScores.findIndex(quizScore => quizScore.playerName === newQuizScore.playerName);
     if (existingUserIndex === -1) {
       this.#allQuizScores.push(newQuizScore);
     } else {
@@ -33,6 +34,17 @@ class Highscore {
    */
   sortQuizScores() {
     this.#allQuizScores.sort((a, b) => b.score - a.score);
+  }
+
+  /**
+   * Limits the amount of saved scores in the #allQuizScores field.
+   * 
+   * @param {number} maxAmountOfScores - The maximum amount of scores to save in the highscore.
+   */
+  limitAmountOfScores(maxAmountOfScores) {
+    if (this.#allQuizScores.length > maxAmountOfScores) {
+      this.#allQuizScores = this.#allQuizScores.slice(0, maxAmountOfScores);
+    }
   }
 
   /**
@@ -57,7 +69,7 @@ class Highscore {
     if(this.#allQuizScores.length > 0) {
       const quizScoresObject = {};
       this.#allQuizScores.forEach((quizScore) => {
-        quizScoresObject[quizScore.name] = quizScore.score;
+        quizScoresObject[quizScore.playerName] = quizScore.score;
       })
       return JSON.stringify(quizScoresObject);
     }
@@ -73,7 +85,7 @@ class Highscore {
   toArray() {
     const infoArray = [];
     for (let i = 0; i < this.#allQuizScores.length; i++) {
-      infoArray.push(`${i + 1}) ${this.#allQuizScores[i].name} : ${this.#allQuizScores[i].score}`)
+      infoArray.push(`${i + 1}) ${this.#allQuizScores[i].playerName} : ${this.#allQuizScores[i].score}`)
     }
     return infoArray;
   }
@@ -91,20 +103,3 @@ class Highscore {
 
 export default Highscore;
 
-/*
-toString() => "1) PlayerName : 10 points, 2) PlayerName : 8 points"
-toArray() => ["1) PlayerName : 10 points", "2) PlayerName : 8 points"];
-toJson() => { PlayerName: 10, PlayerName: 8 }
-fromJson() => [QuizScore(PlayerName, 10), QuizScore(PlayerName 8)]
-
-
-
-1) PlayerName : 10 points
-2) PlayerName : 8 points
-
-{
-  PlayerName: 10
-  PlayerName: 8
-}
-
-*/

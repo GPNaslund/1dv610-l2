@@ -6,14 +6,27 @@ import QuizScore from "./QuizScore.js";
  */
 class LocalStoragePersistence {
   #keyName
+  #maxAmountOfScoresToSave
 
   /**
    * Initializes the keyName field.
    * @param {string} keyName - The name of the key to be used in the local storage.
    */
-  constructor(keyName = 'quizHighscores') {
+  constructor(keyName = 'quizHighscores', maxAmountOfScores = 25) {
+    this.#setMaxAmountOfScoresToSave(maxAmountOfScores);
     this.#setKeyName(keyName);
   }
+
+  /**
+   * Validates and sets the maxAmountOfScores variable.
+   * 
+   * @param {number} maxAmountOfScores - The maximum amount of scores to save peristently.
+   */
+    #setMaxAmountOfScoresToSave(maxAmountOfScores) {
+      if (typeof maxAmountOfScores !== 'number') throw TypeError('maxAmountOfScores must be a number');
+      if (maxAmountOfScores < 1) throw new RangeError("maxAmountOfScores must be 1 or more");
+      this.#maxAmountOfScoresToSave = maxAmountOfScores;
+    }
 
   /**
    * Private method for validating and assigning the key name used for local storage.
@@ -57,6 +70,7 @@ class LocalStoragePersistence {
       const highscore = this.#localStorageGetHighscore();
       highscore.addQuizScore(quizScore);
       highscore.sortQuizScores();
+      highscore.limitAmountOfScores(this.#maxAmountOfScoresToSave);
       localStorage.setItem(this.#keyName, highscore.toJSON());
     } else {
       throw new Error("Local storage is not available for usage");
@@ -73,6 +87,7 @@ class LocalStoragePersistence {
       const exisitingHighscores = localStorage.getItem(this.#keyName);
       const highscore = new Highscore();
       highscore.fromJSON(exisitingHighscores);
+      highscore.sortQuizScores();
       return highscore;
     } else {
       throw new Error("Local storage is not available for usage");

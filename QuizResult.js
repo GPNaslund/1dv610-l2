@@ -4,32 +4,54 @@ import QuizResultSummary from "./QuizResultSummary.js";
 
 /** Class for storing the outcome of answers and generating a summary */
 class QuizResult {
-  #username;
+  #playerName;
   #score;
   #questionResults;
 
   /**
    * Initializes username, score and questionResult.
    * 
-   * @param {string} username - The username
+   * @param {string} playerName - The playerName.
    * @param {number} score - The users score.
    */
 
-  constructor(username, score) {
-    this.#setUsername(username);
+  constructor(playerName, score) {
+    this.#setPlayerName(playerName);
     this.#setScore(score);
     this.#questionResults = [];
+  }
+
+
+  /**
+   * Returns #playerName
+   *
+   * @readonly
+   * @memberof QuizResult
+   */
+  get playerName() {
+    return this.#playerName;
+  }
+
+
+  /**
+   * Returns #score
+   *
+   * @readonly
+   * @memberof QuizResult
+   */
+  get score() {
+    return this.#score;
   }
 
   /**
    * Validates and sets #username field.
    * 
-   * @param {string} username - The username provided.
+   * @param {string} playerName - The playerName provided.
    */
-  #setUsername(username) {
-    if (typeof username !== 'string') throw new TypeError('Username must be a string');
-    if (username.length < 1) throw new RangeError('Username cannot be empty');
-    this.#username = username;
+  #setPlayerName(playerName) {
+    if (typeof playerName !== 'string') throw new TypeError('Username must be a string');
+    if (playerName.length < 1) throw new RangeError('Username cannot be empty');
+    this.#playerName = playerName;
   }
 
   /**
@@ -64,6 +86,14 @@ class QuizResult {
   }
 
   /**
+   * Method for resetting the score and question results.
+   */
+  reset() {
+    this.#score = 0;
+    this.#questionResults = [];
+  }
+
+  /**
    * Adds a QuestionResult object to #questionResult
    * 
    * @param {QuestionResult} questionResult - The QuestionResult to add.
@@ -80,7 +110,7 @@ class QuizResult {
    */
   generateSummary() {
     const allCategories = new Set(this.#questionResults.map(result => result.category));
-    const quizResultSummary = new QuizResultSummary(this.#username, this.#score);
+    const quizResultSummary = new QuizResultSummary(this.#playerName, this.#score);
     for (const category of allCategories) {
       quizResultSummary.addCategorySummary(this.#generateCategorySummary(category));
     }

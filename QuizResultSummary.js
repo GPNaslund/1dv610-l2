@@ -1,20 +1,19 @@
-import QuestionResult from "./QuestionResult.js";
 import QuizCategorySummary from "./QuizCategorySummary.js";
 
 /** Holds all the summary data of a Quiz */
 class QuizResultSummary {
-  #username;
+  #playerName;
   #score;
   #allCategorySummaries;
 
   /**
    * Creates a QuizResultSummary object.
    * 
-   * @param {string} username - The username of the player.
+   * @param {string} playerName - The playerName of the player.
    * @param {number} score - The score of the player.
    */
-  constructor(username, score) {
-    this.#username = username;
+  constructor(playerName, score) {
+    this.#playerName = playerName;
     this.#score = score;
     this.#allCategorySummaries = [];
   }
@@ -29,13 +28,39 @@ class QuizResultSummary {
   }
 
   /**
-   * Getter for #username.
+   * Returns the summary in string format.
+   * 
+   * @returns {string} - String containing all the summary information.
+   */
+  toString() {
+    return this.toArray().join(', ');
+  }
+
+  /**
+   * Returns the summary in the format of an array with strings.
+   * 
+   * @returns {string[]} - An array of strings containing the summary information.
+   */
+  toArray() {
+    let summary = [`playerName: ${this.#playerName}`, `score: ${this.#score}`];
+    this.#allCategorySummaries.forEach((categorySummary) => {
+      const categoryArray = categorySummary.toArray();
+      summary.push("- " + categoryArray[0]);
+      for (let i = 1; i < categoryArray.length; i++) {
+        summary.push("  - " + categoryArray[i]);
+      }
+    });
+    return summary;
+  }
+
+  /**
+   * Getter for #playerName.
    *
    * @readonly
    * @memberof QuizResultSummary
    */
-  get username() {
-    return this.#username;
+  get playerName() {
+    return this.#playerName;
   }
 
   /**

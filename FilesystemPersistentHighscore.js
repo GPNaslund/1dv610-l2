@@ -9,6 +9,7 @@ import QuizScore from './QuizScore.js';
  */
 class FilesystemPersistentHighscore {
   #persistencePath
+  #maxAmountOfScoresToSave;
 
   /**
    * Initializes the path, if undefined it gets set to a default 
@@ -16,8 +17,20 @@ class FilesystemPersistentHighscore {
    * 
    * @param {string} persistencePath - The path to the .json file for saving the data.
    */
-  constructor(persistencePath = undefined) {
+  constructor(persistencePath = undefined, maxAmountOfScores = 25) {
+    this.#setMaxAmountOfScoresToSave(maxAmountOfScores);
     this.#setPath(persistencePath);
+  }
+
+  /**
+   * Validates and sets the maxAmountOfScores variable.
+   * 
+   * @param {number} maxAmountOfScores - The maximum amount of scores to save peristently.
+   */
+  #setMaxAmountOfScoresToSave(maxAmountOfScores) {
+    if (typeof maxAmountOfScores !== 'number') throw TypeError('maxAmountOfScores must be a number');
+    if (maxAmountOfScores < 1) throw new RangeError("maxAmountOfScores must be 1 or more");
+    this.#maxAmountOfScoresToSave = maxAmountOfScores;
   }
 
   /**
@@ -81,6 +94,8 @@ class FilesystemPersistentHighscore {
       const highscore = await this.#filesystemGetHighscore();
       highscore.addQuizScore(quizScore);
       highscore.sortQuizScores();
+      highscore.limitAmountOfScores(this.#maxAmountOfScoresToSave);
+      console.log("Sorted Scores: ", highscore.toArray());
       await fs.writeFile(this.#persistencePath, highscore.toJSON());
     } catch (e) {
       console.log(e);
@@ -100,6 +115,7 @@ class FilesystemPersistentHighscore {
       const data = await fs.readFile(this.#persistencePath, { encoding: "utf-8" });
       const highscore = new Highscore();
       highscore.fromJSON(data);
+      highscore.sortQuizScores();
       return highscore;
     } catch (e) {
       if (e.code === "ENOENT") {
