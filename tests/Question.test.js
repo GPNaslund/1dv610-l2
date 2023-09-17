@@ -18,6 +18,7 @@ describe("Question class", () => {
 
     it("should throw type errors for invalid constructor arguments", () => {
       expect(() => {new Question({text: 2, choices: ["Snow", "More rain", "Sunshine"], correctChoice: "Sunshine"});}).toThrow(TypeError);
+      expect(() => {new Question({text: undefined, choices: ["Snow", "More rain", "Sunshine"], correctChoice: "Sunshine"});}).toThrow(TypeError);
       expect(() => {new Question({text: "What comes after rain?", choices: "Wrong argument", correctChoice: "Sunshine"});}).toThrow(TypeError);
       expect(() => {new Question({text: "What comes after rain?", choices: ["Snow", "More rain", "Sunshine"], correctChoice: 0});}).toThrow(TypeError);
       expect(() => {new Question({text: "What comes after rain?", choices: ["Snow", "More rain", "Sunshine"], correctChoice: ""});}).toThrow(RangeError);

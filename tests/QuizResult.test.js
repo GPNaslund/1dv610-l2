@@ -9,6 +9,7 @@ describe('QuizResult class', () => {
     it('should successfully be created with correct constructor arguments', () => {
       const quizResult = new QuizResult("TestPerson", 10);
       expect(quizResult).toBeDefined();
+      expect(quizResult.score).toBe(10);
     });
 
     it('should throw error if provided invalid constructor arguments', () => {
@@ -56,7 +57,22 @@ describe('QuizResult class', () => {
       expect(findCategorySummary("Category2")).toStrictEqual(new QuizCategorySummary("Category2", 3, 1));
       expect(findCategorySummary("Category3")).toStrictEqual(new QuizCategorySummary("Category3", 4, 0));
     });
-  })
+  });
+  
+  describe("incrementScore()", () => {
+    it("should successfully increment the score", () => {
+      const quizResult = new QuizResult("TestPerson", 10);
+      expect(quizResult.score).toBe(10);
+      quizResult.incrementScore(5);
+      expect(quizResult.score).toBe(15);
+    });
+  });
+
+  it("should throw error with invalid arguments", () => {
+    const quizResult = new QuizResult("TestPerson", 10);
+    expect(() => quizResult.incrementScore(undefined).toThrow(TypeError));
+    expect(() => quizResult.incrementScore("not a number").toThrow(TypeError));
+  });
 });
 
 const generateQuestionResultsForCategory = (category, count, correctAnswerIndex) => {

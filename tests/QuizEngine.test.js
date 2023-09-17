@@ -47,7 +47,7 @@ describe("QuizEngine class", () => {
         playerName = data.playerName;
         score = data.score;
       });
-      quizEngine.answerQuestion(0);
+      quizEngine.answerQuestion("Yes");
       expect(playerName).toBe("TestPerson");
       expect(score).toBe(1);
       quizEngine.resetQuiz();
@@ -60,7 +60,7 @@ describe("QuizEngine class", () => {
         playerName = data.playerName;
         score = data.score;
       });
-      quizEngine.answerQuestion(1);
+      quizEngine.answerQuestion("No");
       expect(playerName).toBe("TestPerson");
       expect(score).toBe(0);
     });
@@ -88,7 +88,44 @@ describe("QuizEngine class", () => {
       quizEngine.continueQuiz();
       quizEngine.continueQuiz();
     });
-    
+  });
+
+  describe("hasMoreQuestions()", () => {
+    it("should return true if there are more questions", () => {
+      expect(quizEngine.hasMoreQuestions()).toBe(true);
+    });
+
+    it("should return false if there are no more questions", () => {
+      quizEngine.continueQuiz();
+      quizEngine.continueQuiz();
+      expect(quizEngine.hasMoreQuestions()).toBe(false);
+    });
+
+    it("should return true after a reset, even if previously false", () => {
+      quizEngine.continueQuiz();
+      quizEngine.continueQuiz();
+      quizEngine.resetQuiz(); 
+      expect(quizEngine.hasMoreQuestions()).toBe(true);
+    });
+  });
+
+  describe("getSummary()", () => {
+    it("should return a QuizResultSummary object", async () => {
+      const summary = await quizEngine.getSummary();
+      expect(summary).toBeDefined();
+      expect(summary).toHaveProperty("playerName");
+      expect(summary).toHaveProperty("score");
+      expect(summary).toHaveProperty("allCategorySummaries");
+    });
+
+    it("should return summary data based on answers", async () => {
+      quizEngine.answerQuestion("Yes");
+      const summary = await quizEngine.getSummary();
+      expect(summary.allCategorySummaries.length).toBe(1);
+      const categorySummary = summary.allCategorySummaries[0];
+      expect(categorySummary.amountOfCorrectAnswers).toBe(1);
+      expect(categorySummary.amountOfQuestions).toBe(1);
+    })
   })
 
 })
