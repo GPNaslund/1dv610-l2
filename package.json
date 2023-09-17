@@ -1,8 +1,8 @@
 {
   "name": "1dv610-l2-quiz-engine",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A quiz engine module",
-  "main": "app.js",
+  "main": "package.js",
   "type": "module",
   "scripts": {
     "test": "jest",
@@ -24,7 +24,9 @@
   },
   "keywords": [
     "Quiz",
-    "Engine"
+    "Engine",
+    "Quiz Engine",
+    "JavaScript"
   ],
   "author": "Gustav Näslund",
   "license": "ISC",

@@ -1,0 +1,7 @@
+browser_app
+console_app
+dist
+node_modules
+out
+.gitignore
+*.md
