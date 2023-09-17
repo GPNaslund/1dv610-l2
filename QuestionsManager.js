@@ -68,7 +68,7 @@ class QuestionsManager {
    */
   randomizeQuestions() {
     // Fisher-yates shuffle algorithm
-    for (let i = this.#allQuestions.length -1; i > this.#allQuestions.length; i--) {
+    for (let i = this.#allQuestions.length -1; i >= 0; i--) {
       const randomIndex = Math.floor(Math.random() * (i + 1));
       [this.#allQuestions[i], this.#allQuestions[randomIndex]] = [this.#allQuestions[randomIndex], this.#allQuestions[i]];
     }

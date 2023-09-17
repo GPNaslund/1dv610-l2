@@ -38,7 +38,7 @@ class App {
     this.quizEngine.on('done', async (scoreData) => {
       await this.onDone(scoreData);
     })
-
+    
     this.quizEngine.startQuiz();
   }
 
