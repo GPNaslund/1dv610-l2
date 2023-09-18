@@ -9,5 +9,5 @@ tests
 .gitignore
 .npmignore
 package-lock.json
-package.json
 webpack.config.cjs
+.babelrc
