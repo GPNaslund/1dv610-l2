@@ -5,3 +5,9 @@ node_modules
 out
 .gitignore
 *.md
+tests
+.gitignore
+.npmignore
+package-lock.json
+package.json
+webpack.config.cjs
