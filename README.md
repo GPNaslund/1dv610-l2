@@ -19,14 +19,14 @@ Easily integrate a persistent highscore system that uses either local storage fo
 
 ## Installation
 ```
-npm install quiz-engine
+npm install gn222gq-quiz-engine
 ```
 
 ## The API
 ## Example
 Since the QuizEngine is the main part of the module, and it uses a event emitting way of communicating to listeners, the module works great for both node.js applications aswell as in browser environment.
 ```js
-import {QuizEngine, QuestionBank, Question} from 'quiz-engine';
+import {QuizEngine, QuestionBank, Question} from 'gn222gq-quiz-engine';
 
 const questionBank = new QuestionBank();
 
@@ -110,7 +110,7 @@ quizEngine.getSummary();
 
 ### Create a QuestionBank and questions
 ```js
-import {QuestionBank, Question} from 'quiz-engine';
+import {QuestionBank, Question} from 'gn222gq-quiz-engine';
 
 const questionBank = new QuestionBank();
 
@@ -133,7 +133,7 @@ questionBank.createAndAddQuestion({text: "text", choices:["choice", "choice2"], 
 
 ### Highscore and QuizResultSummary
 ```js
-import {QuizEngine, QuestionBank, Question} from 'quiz-engine';
+import {QuizEngine, QuestionBank, Question} from 'gn222gq-quiz-engine';
 
 // Implemented setup etc..
 
