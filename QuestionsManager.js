@@ -18,11 +18,6 @@ class QuestionsManager {
     this.#currentIndex = 0;
   }
 
-  /**
-   * Method that validates the questionBankObject and assigns this.#questionBank if valid.
-   *
-   * @memberof QuestionsManager
-   */
   #setQuestionBank(questionBankObject) {
     if (questionBankObject instanceof QuestionBank === false) {
       throw new TypeError("Argument must be an QuestionBank instance.");

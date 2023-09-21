@@ -14,23 +14,11 @@ class QuizScore {
     this.#setScore(score);
   }
 
-  /**
-   * Returns #playerName
-   *
-   * @readonly
-   * @memberof QuizScore
-   */
-  get playerName() {
+ get playerName() {
     return this.#playerName;
   }
 
-  /**
-   * Returns #score
-   *
-   * @readonly
-   * @memberof QuizScore
-   */
-  get score() {
+ get score() {
     return this.#score;
   }
 

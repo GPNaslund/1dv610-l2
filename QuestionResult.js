@@ -26,43 +26,21 @@ class QuestionResult {
     this.#category = question.category;
   }
 
-  /**
-   * Getter for #wasCorrect.
-   *
-   * @readonly
-   * @memberof QuestionResult
-   */
-  get wasCorrect() {
+ get wasCorrect() {
     return this.#wasCorrect;
   }
 
-  /**
-   * Getter for #category
-   *
-   * @readonly
-   * @memberof QuestionResult
-   */
-  get category() {
+ get category() {
     return this.#category;
   }
 
-  /**
-   * Validates that the passed argument is an instanceof Question.
-   * 
-   * @param {*} question - The argument to validate.
-   */
-  #validatequestionObject(question) {
+ #validatequestionObject(question) {
     if (question instanceof Question === false) {
       throw new TypeError("Argument must be of type Question");
     }
   }
 
-  /**
-   * Validates that the passed argument is a string that is not empty.
-   * 
-   * @param {*} selectedChoice - The argument to validate.
-   */
-  #validateSelectedChoice(selectedChoice) {
+ #validateSelectedChoice(selectedChoice) {
     if (typeof selectedChoice !== "string") {
       throw new TypeError("Selected choice must be a string");
     }

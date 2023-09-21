@@ -22,44 +22,22 @@ class QuizResult {
   }
 
 
-  /**
-   * Returns #playerName
-   *
-   * @readonly
-   * @memberof QuizResult
-   */
-  get playerName() {
+ get playerName() {
     return this.#playerName;
   }
 
 
-  /**
-   * Returns #score
-   *
-   * @readonly
-   * @memberof QuizResult
-   */
-  get score() {
+ get score() {
     return this.#score;
   }
 
-  /**
-   * Validates and sets #username field.
-   * 
-   * @param {string} playerName - The playerName provided.
-   */
-  #setPlayerName(playerName) {
+ #setPlayerName(playerName) {
     if (typeof playerName !== 'string') throw new TypeError('Username must be a string');
     if (playerName.length < 1) throw new RangeError('Username cannot be empty');
     this.#playerName = playerName;
   }
 
-  /**
-   * Validates and sets the #score field.
-   * 
-   * @param {number} score 
-   */
-  #setScore(score) {
+ #setScore(score) {
     if (typeof score !== 'number') throw new TypeError('Score must be a number');
     this.#score = score;
   }

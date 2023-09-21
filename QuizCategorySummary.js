@@ -19,43 +19,19 @@ class QuizCategorySummary {
     this.#percentageOfCorrectAnswers = percentageOfCorrectAnswers;
   }
 
-  /**
-   * Getter for #nameOfCategory.
-   *
-   * @readonly
-   * @memberof QuizCategorySummary
-   */
-  get nameOfCategory() {
+ get nameOfCategory() {
     return this.#nameOfCategory;
   }
 
-  /**
-   * Getter for #amountOfQuestions.
-   *
-   * @readonly
-   * @memberof QuizCategorySummary
-   */
-  get amountOfQuestions() {
+ get amountOfQuestions() {
     return this.#amountOfQuestions;
   }
 
-  /**
-   * Getter for #amountOfCorrectAnswers.
-   *
-   * @readonly
-   * @memberof QuizCategorySummary
-   */
-  get amountOfCorrectAnswers() {
+ get amountOfCorrectAnswers() {
     return this.#amountOfCorrectAnswers;
   }
 
-  /**
-   * Getter for #percentageOfCorrectAnswers.
-   *
-   * @readonly
-   * @memberof QuizCategorySummary
-   */
-  get percentageOfCorrectAnswers() {
+ get percentageOfCorrectAnswers() {
     return this.#percentageOfCorrectAnswers;
   }
 

@@ -22,22 +22,12 @@ class FilesystemPersistentHighscore {
     this.#setPath(persistencePath);
   }
 
-  /**
-   * Validates and sets the maxAmountOfScores variable.
-   * 
-   * @param {number} maxAmountOfScores - The maximum amount of scores to save peristently.
-   */
   #setMaxAmountOfScoresToSave(maxAmountOfScores) {
     if (typeof maxAmountOfScores !== 'number') throw TypeError('maxAmountOfScores must be a number');
     if (maxAmountOfScores < 1) throw new RangeError("maxAmountOfScores must be 1 or more");
     this.#maxAmountOfScoresToSave = maxAmountOfScores;
   }
 
-  /**
-   * Method for assigning #persistencePath. 
-   * 
-   * @param {string} persistencePath - The path to validate and assign.
-   */
   #setPath(persistencePath) {
     if (!persistencePath) {
       this.#persistencePath = this.#getDefaultFilesystemPath();

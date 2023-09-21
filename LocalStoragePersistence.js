@@ -17,24 +17,14 @@ class LocalStoragePersistence {
     this.#setKeyName(keyName);
   }
 
-  /**
-   * Validates and sets the maxAmountOfScores variable.
-   * 
-   * @param {number} maxAmountOfScores - The maximum amount of scores to save peristently.
-   */
-    #setMaxAmountOfScoresToSave(maxAmountOfScores) {
-      if (typeof maxAmountOfScores !== 'number') throw TypeError('maxAmountOfScores must be a number');
-      if (maxAmountOfScores < 1) throw new RangeError("maxAmountOfScores must be 1 or more");
-      this.#maxAmountOfScoresToSave = maxAmountOfScores;
-    }
+  #setMaxAmountOfScoresToSave(maxAmountOfScores) {
+    if (typeof maxAmountOfScores !== 'number') throw TypeError('maxAmountOfScores must be a number');
+    if (maxAmountOfScores < 1) throw new RangeError("maxAmountOfScores must be 1 or more");
+    this.#maxAmountOfScoresToSave = maxAmountOfScores;
+  }
 
-  /**
-   * Private method for validating and assigning the key name used for local storage.
-   * 
-   * @param {string} keyName - The name of the key to be used with local storage.
-   */
   #setKeyName(keyName) {
-    if(typeof keyName !== 'string') {
+    if (typeof keyName !== 'string') {
       throw new TypeError('The key name for local storage must be a string');
     }
     if (keyName.length < 1 || keyName.length > 50) {
