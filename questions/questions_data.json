@@ -1,0 +1,16 @@
+{
+  "questions": [
+    {
+      "text": "Is the sky blue",
+      "choices": ["Yes", "No", "Sometimes"],
+      "correctChoice": "Sometimes",
+      "category": "Chapter 1"
+    },
+    {
+      "text": "Is water wet?",
+      "choices": ["Yes", "No"],
+      "correctChoice": "Yes",
+      "category": "Chapter 1"
+    }
+  ]
+}
