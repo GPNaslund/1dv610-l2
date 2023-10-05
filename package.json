@@ -40,6 +40,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "apexcharts": "^3.43.0",
     "electron-squirrel-startup": "^1.0.0",
     "gn222gq-quiz-engine": "^0.1.4"
   }

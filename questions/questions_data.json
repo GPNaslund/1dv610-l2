@@ -10,7 +10,31 @@
       "text": "Is water wet?",
       "choices": ["Yes", "No"],
       "correctChoice": "Yes",
-      "category": "Chapter 1"
+      "category": "Chapter 2"
+    },
+    {
+      "text": "Is the sky blue",
+      "choices": ["Yes", "No", "Sometimes"],
+      "correctChoice": "Sometimes",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "Is water wet?",
+      "choices": ["Yes", "No"],
+      "correctChoice": "Yes",
+      "category": "Chapter 4"
+    },
+    {
+      "text": "Is the sky blue",
+      "choices": ["Yes", "No", "Sometimes"],
+      "correctChoice": "Sometimes",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "Is water wet?",
+      "choices": ["Yes", "No"],
+      "correctChoice": "Yes",
+      "category": "Chapter 6"
     }
   ]
 }

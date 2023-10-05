@@ -1,0 +1,46 @@
+{
+  "chapter1": {
+    "firstPage": "1",
+    "lastPage": "15"
+  },
+  "chapter2": {
+    "firstPage": "17",
+    "lastPage": "30"
+  },
+  "chapter3": {
+    "firstPage": "31",
+    "lastPage": "52"
+  },
+  "chapter4": {
+    "firstPage": "53",
+    "lastPage": "74"
+  },
+  "chapter5": {
+    "firstPage": "75",
+    "lastPage": "90"
+  },
+  "chapter6": {
+    "firstPage": "93",
+    "lastPage": "101"
+  },
+  "chapter7": {
+    "firstPage": "103",
+    "lastPage": "112"
+  },
+  "chapter8": {
+    "firstPage": "113",
+    "lastPage": "120"
+  },
+  "chapter9": {
+    "firstPage": "121",
+    "lastPage": "133"
+  },
+  "chapter10": {
+    "firstPage": "135",
+    "lastPage": "151"
+  },
+  "chapter11": {
+    "firstPage": "153",
+    "lastPage": "169"
+  }
+}
