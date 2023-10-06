@@ -1,5 +1,6 @@
-import {QuizEngine, Question, QuestionBank} from 'gn222gq-quiz-engine';
+import {QuizEngine, QuestionBank} from 'gn222gq-quiz-engine';
 import questionsData from './questions/questions_data.json';
+import generatedQuestionData from './questions/questionsDataGenerator.js'
 import feedbackMessages from './feedback_messages/feedback_messages.json';
 import ChartGenerator from './ChartGenerator';
 
@@ -17,6 +18,7 @@ class CleanCodeQuizApplication {
   #summaryList
   #chartContainer
   #resetQuizButton
+  #chartGenerator
 
   constructor() {
     this.#startQuizButton = document.querySelector("#start-quiz-btn");
@@ -33,6 +35,7 @@ class CleanCodeQuizApplication {
     this.#summaryList = document.querySelector("#summary-list");
     this.#chartContainer = document.querySelector("#chart-container");
     this.#resetQuizButton = document.querySelector("#restart-quiz-btn");
+    this.#chartGenerator = new ChartGenerator();
   }
 
   init() {
@@ -44,7 +47,7 @@ class CleanCodeQuizApplication {
 
   #initQuizEngine() {
     const questionBank = new QuestionBank();
-    questionsData.questions.map(q => questionBank.createAndAddQuestion({text: q.text, choices: q.choices, correctChoice: q.correctChoice, category: q.category}));
+    generatedQuestionData.questions.map(q => questionBank.createAndAddQuestion({text: q.text, choices: q.choices, correctChoice: q.correctChoice, category: q.category}));
     this.#quizEngine = new QuizEngine(questionBank, "Player");
     this.#quizEngine.on("question", (questionData) => {
       this.#displayQuestion(questionData);
@@ -118,16 +121,13 @@ class CleanCodeQuizApplication {
   }
 
   async #displaySummary() {
-    this.#chartContainer.replaceChildren();
     this.#questionResult.style.display = "none";
     this.#summarySection.style.display = "block";
     this.#summaryList.replaceChildren();
     const allSummaries = await this.#quizEngine.getSummary()
     const categories = allSummaries.allCategorySummaries.map(catSummary => catSummary.nameOfCategory);
     const scores = allSummaries.allCategorySummaries.map(catSummary => catSummary.percentageOfCorrectAnswers);
-    const chartGenerator = new ChartGenerator();
-    const chart = chartGenerator.generateApexChart(this.#chartContainer, scores, categories);
-    chart.render();
+    this.#chartGenerator.generateChartJS(this.#chartContainer, scores, categories);
   }
 
 }
