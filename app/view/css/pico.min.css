@@ -2804,4 +2804,15 @@ textarea {
 .centered-text {
   text-align: center;
 }
+
+
+#summary-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hide {
+  display: none !important;
+}
 /*# sourceMappingURL=pico.min.css.map */
