@@ -52,3 +52,5 @@ class FeedbackGenerator {
   }
 
 }
+
+export default FeedbackGenerator;

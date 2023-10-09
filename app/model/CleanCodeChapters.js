@@ -23,9 +23,10 @@ class CleanCodeChapters {
     ]
     this.#allChapters = allChapters;
   }
-
-  get allChapters() {
-    return this.#allChapters;
+  
+  findChapterByNumber(chapterNum) {
+    return this.#allChapters.find(chapter => chapter.chapterNumber === chapterNum);
   }
 }
 
+export default CleanCodeChapters;

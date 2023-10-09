@@ -1,17 +1,18 @@
-class IntroPageController {
+import CustomEventEmitter from "./CustomEventEmitter.js"
+
+class IntroPageController extends CustomEventEmitter {
   #introSection
   #introHeader
   #introParagraph
   #startQuizButton
-  #quizEngine
   
-  constructor(quizEngine) {
+  constructor() {
+    super();
     this.#introSection = document.querySelector("#intro-section");
     this.#introHeader = document.querySelector("#intro-header");
     this.#introParagraph = document.querySelector("#intro-paragraph");
     this.#startQuizButton = document.querySelector("#start-quiz-button");
     this.#initView();
-    this.#quizEngine = quizEngine;
   }
 
   #initView() {
@@ -22,8 +23,7 @@ class IntroPageController {
     this.#startQuizButton.textContent = "Start quiz!";
 
     this.#startQuizButton.addEventListener("click", () => {
-      this.hideView();
-      this.#quizEngine.startQuiz();
+      this.emit("startQuizButtonClicked", {});
     })
   }
 

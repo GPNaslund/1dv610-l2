@@ -1,21 +1,22 @@
-class QuestionResultPageController {
+import CustomEventEmitter from "./CustomEventEmitter.js"
+
+class QuestionResultPageController extends CustomEventEmitter {
   #questionResultSection
   #questionResultHeader
   #nextQuestionButton
-  #quizEngine;
 
-  constructor(quizEngine) {
+  constructor() {
+    super();
     this.#questionResultSection = document.querySelector("#question-result-section");
     this.#questionResultHeader = document.querySelector("#question-result-header");
     this.#nextQuestionButton = document.querySelector("#next-question-button");
-    this.#quizEngine = quizEngine;
     this.#initView();
   }
 
   #initView() {
     this.#nextQuestionButton.textContent = "Next question";
     this.#nextQuestionButton.addEventListener("click", () => {
-      this.#quizEngine.continueQuiz();
+      this.emit("nextQuestionButtonClicked", {});
     })
   }
 

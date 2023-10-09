@@ -1,6 +1,5 @@
-import CleanCodeQuizApplication from "./CleanCodeQuizApplication";
+import App from "./app/controller/App.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const cleanCodeQuizApplication = new CleanCodeQuizApplication();
-  cleanCodeQuizApplication.init();
+  const app = new App();
 });

@@ -1,4 +1,6 @@
-class SummaryPageController {
+import CustomEventEmitter from "./CustomEventEmitter.js"
+
+class SummaryPageController extends CustomEventEmitter {
   #summarySection
   #chartContainer
   #redRecommendations
@@ -6,9 +8,10 @@ class SummaryPageController {
   #allCorrectMessage
   #restartQuizButton
   #chartGenerator
-  #quizEngine
+  #cleanCodeChapters
 
-  constructor(quizEngine, chartGenerator) {
+  constructor(chartGenerator, cleanCodeChapters) {
+    super();
     this.#summarySection = document.querySelector("#summary-section");
     this.#chartContainer = document.querySelector("#chart-container");
     this.#redRecommendations = document.querySelector("#red-recommendations");
@@ -16,7 +19,7 @@ class SummaryPageController {
     this.#allCorrectMessage = document.querySelector("#all-correct-message");
     this.#restartQuizButton = document.querySelector("#restart-quiz-button");
     this.#chartGenerator = chartGenerator;
-    this.#quizEngine = quizEngine;
+    this.#cleanCodeChapters = cleanCodeChapters;
     this.#initView();
   }
 
@@ -24,8 +27,7 @@ class SummaryPageController {
     this.#summarySection.classList.add("centered-text");
     this.#restartQuizButton.textContent = "Restart quiz";
     this.#restartQuizButton.addEventListener("click", () => {
-      this.#quizEngine.resetQuiz();
-      this.hideView();
+      this.emit("restartQuizButtonClicked", {});
     })
   }
 
@@ -71,39 +73,44 @@ class SummaryPageController {
     this.#allCorrectMessage.appendChild(pElement);
   }
 
-  // FIX THE PAGES INTEGRATION FOR THIS AND FOR YELLOW
+
   #displayRedCategoryReadingRecommendations(redCategories) {
     const headerElement = document.createElement("h4");
-      headerElement.innerText = "You really need to read up on these chapters: ";
-      this.#redRecommendations.appendChild(headerElement);
+    headerElement.innerText = "You really need to read up on these chapters: ";
+    this.#redRecommendations.appendChild(headerElement);
 
-      redCategories.forEach(categorySummary => {
-        const pElement = document.createElement("p");
-        const pages = cleanCodeChapterPages[categorySummary.nameOfCategory];
-        if (pages) {
-          pElement.innerText = `${categorySummary.nameOfCategory}: Pages ${pages.firstPage}-${pages.lastPage}`;
-        } else {
-          pElement.innerText = `${categorySummary.nameOfCategory}: Page information not available.`;
-        }
-        this.#redRecommendations.appendChild(pElement);
-      });
+    redCategories.forEach(categorySummary => {
+      const pElement = document.createElement("p");
+      const chapterNumber = parseInt(categorySummary.nameOfCategory.split(" ")[1]);
+      const chapter = this.#cleanCodeChapters.findChapterByNumber(chapterNumber);
+      console.log(chapter);
+
+      if (chapter) {
+        pElement.innerText = `${categorySummary.nameOfCategory}: Pages ${chapter.firstPage}-${chapter.lastPage}`;
+      } else {
+        pElement.innerText = `${categorySummary.nameOfCategory}: Page information not available.`;
+      }
+      this.#redRecommendations.appendChild(pElement);
+    });
   }
 
   #displayYellowCategoryReadingRecommendations(yellowCategories) {
     const headerElement = document.createElement("h4");
-      headerElement.innerText = "You probably should brush up on these chapter: ";
-      this.#yellowRecommendations.appendChild(headerElement);
+    headerElement.innerText = "You probably should brush up on these chapter: ";
+    this.#yellowRecommendations.appendChild(headerElement);
 
-      yellowCategories.forEach(categorySummary => {
-        const pElement = document.createElement("p");
-        const pages = cleanCodeChapterPages[categorySummary.nameOfCategory];
-        if (pages) {
-          pElement.innerText = `${categorySummary.nameOfCategory}: Pages ${pages.firstPage}-${pages.lastPage}`;
-        } else {
-          pElement.innerText = `${categorySummary.nameOfCategory}: Page information not available.`;
-        }
-        this.#yellowRecommendations.appendChild(pElement);
-      })
+    yellowCategories.forEach(categorySummary => {
+      const pElement = document.createElement("p");
+      const chapterNumber = parseInt(categorySummary.nameOfCategory.split(" ")[1]);
+      const chapter = this.#cleanCodeChapters.findChapterByNumber(chapterNumber);
+
+      if (chapter) {
+        pElement.innerText = `${categorySummary.nameOfCategory}: Pages ${chapter.firstPage}-${chapter.lastPage}`;
+      } else {
+        pElement.innerText = `${categorySummary.nameOfCategory}: Page information not available.`;
+      }
+      this.#yellowRecommendations.appendChild(pElement);
+    })
   }
 }
 
