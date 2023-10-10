@@ -1,24 +1,21 @@
-class QuestionsGenerator {
-  
-  generateChapterQuestions(amountOfChapters, amountOfQuestions) {
-    let questions = {
-      "questions": []
+function generateChapterQuestions(amountOfChapters, amountOfQuestions) {
+  const questions = {
+    questions: [],
+  };
+  for (let i = 0; i < amountOfChapters; i += 1) {
+    const chapter = `Chapter ${i + 1}`;
+    for (let y = 0; y < amountOfQuestions; y += 1) {
+      questions.questions.push(
+        {
+          text: `Question #${y + 1}`,
+          choices: ['Yes', 'No'],
+          correctChoice: 'Yes',
+          category: chapter,
+        },
+      );
     }
-    for (let i = 0; i < amountOfChapters; i++) {
-      const chapter = "Chapter " + (i + 1);
-      for (let y = 0; y < amountOfQuestions; y++) {
-        questions.questions.push(
-          {
-            "text": "Question #" + (y + 1),
-            "choices": ["Yes", "No"],
-            "correctChoice": "Yes",
-            "category": chapter
-          }
-        )
-      }
-    }
-    return questions;
   }
+  return questions;
 }
 
-export default QuestionsGenerator;
+export default generateChapterQuestions;

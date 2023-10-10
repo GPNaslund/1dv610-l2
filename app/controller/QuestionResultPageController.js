@@ -1,31 +1,33 @@
-import CustomEventEmitter from "./CustomEventEmitter.js"
+import CustomEventEmitter from './CustomEventEmitter';
 
 class QuestionResultPageController extends CustomEventEmitter {
-  #questionResultSection
-  #questionResultHeader
-  #nextQuestionButton
+  #questionResultSection;
+
+  #questionResultHeader;
+
+  #nextQuestionButton;
 
   constructor() {
     super();
-    this.#questionResultSection = document.querySelector("#question-result-section");
-    this.#questionResultHeader = document.querySelector("#question-result-header");
-    this.#nextQuestionButton = document.querySelector("#next-question-button");
+    this.#questionResultSection = document.querySelector('#question-result-section');
+    this.#questionResultHeader = document.querySelector('#question-result-header');
+    this.#nextQuestionButton = document.querySelector('#next-question-button');
     this.#initView();
   }
 
   #initView() {
-    this.#nextQuestionButton.textContent = "Next question";
-    this.#nextQuestionButton.addEventListener("click", () => {
-      this.emit("nextQuestionButtonClicked", {});
-    })
+    this.#nextQuestionButton.textContent = 'Next question';
+    this.#nextQuestionButton.addEventListener('click', () => {
+      this.emit('nextQuestionButtonClicked', {});
+    });
   }
 
   hideView() {
-    this.#questionResultSection.classList.add("hide");
+    this.#questionResultSection.classList.add('hide');
   }
 
   displayView() {
-    this.#questionResultSection.classList.remove("hide");
+    this.#questionResultSection.classList.remove('hide');
   }
 
   addResultHeaderText(headerText) {

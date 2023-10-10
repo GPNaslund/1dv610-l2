@@ -1,7 +1,9 @@
 class Chapter {
-  #chapterNumber
-  #firstPage
-  #lastPage
+  #chapterNumber;
+
+  #firstPage;
+
+  #lastPage;
 
   constructor(chapterNumber, firstPage, lastPage) {
     this.#chapterNumber = chapterNumber;

@@ -1,29 +1,31 @@
-import CustomEventEmitter from "./CustomEventEmitter.js"
+import CustomEventEmitter from './CustomEventEmitter';
 
 class QuestionPageController extends CustomEventEmitter {
-  #questionSection
-  #questionText
-  #answerButtons
+  #questionSection;
+
+  #questionText;
+
+  #answerButtons;
 
   constructor() {
     super();
-    this.#questionSection = document.querySelector("#question-section");
-    this.#questionText = document.querySelector("#question-text");
-    this.#answerButtons = document.querySelector("#answer-buttons");
+    this.#questionSection = document.querySelector('#question-section');
+    this.#questionText = document.querySelector('#question-text');
+    this.#answerButtons = document.querySelector('#answer-buttons');
     this.#initView();
   }
 
   #initView() {
-    this.#questionSection.classList.add("centered-text");
-    this.#answerButtons.classList.add("grid");
+    this.#questionSection.classList.add('centered-text');
+    this.#answerButtons.classList.add('grid');
   }
 
   hideView() {
-    this.#questionSection.classList.add("hide");
+    this.#questionSection.classList.add('hide');
   }
 
   displayView() {
-    this.#questionSection.classList.remove("hide");
+    this.#questionSection.classList.remove('hide');
   }
 
   addQuestionText(questionText) {
@@ -32,17 +34,16 @@ class QuestionPageController extends CustomEventEmitter {
 
   addAnswerButtons(choices) {
     this.#answerButtons.replaceChildren();
-    for (let i = 0; i < choices.length; i++) {
-      const answerBtn = document.createElement("div");
-      answerBtn.setAttribute("role", "button");
+    for (let i = 0; i < choices.length; i += 1) {
+      const answerBtn = document.createElement('div');
+      answerBtn.setAttribute('role', 'button');
       answerBtn.innerText = choices[i];
-      answerBtn.addEventListener("click", () => {
-        this.emit("answerButtonPressed", { answer: choices[i] });
-      })
+      answerBtn.addEventListener('click', () => {
+        this.emit('answerButtonPressed', { answer: choices[i] });
+      });
       this.#answerButtons.appendChild(answerBtn);
     }
   }
-
 }
 
 export default QuestionPageController;

@@ -1,8 +1,8 @@
-import Chapter from "./Chapter.js";
+import Chapter from './Chapter';
 
 class CleanCodeChapters {
   #allChapters;
-  
+
   constructor() {
     this.#loadChapters();
   }
@@ -19,13 +19,13 @@ class CleanCodeChapters {
       new Chapter(8, 113, 120),
       new Chapter(9, 121, 133),
       new Chapter(10, 135, 151),
-      new Chapter(11, 153, 169)
-    ]
+      new Chapter(11, 153, 169),
+    ];
     this.#allChapters = allChapters;
   }
-  
+
   findChapterByNumber(chapterNum) {
-    return this.#allChapters.find(chapter => chapter.chapterNumber === chapterNum);
+    return this.#allChapters.find((chapter) => chapter.chapterNumber === chapterNum);
   }
 }
 

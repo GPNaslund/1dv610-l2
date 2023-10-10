@@ -1,23 +1,29 @@
 import { QuizEngine, QuestionBank } from 'gn222gq-quiz-engine';
-import QuestionsGenerator from '../model/QuestionsGenerator.js'
+import generateChapterQuestions from '../model/questionsGenerator';
 import IntroPageController from './IntroPageController';
 import QuestionPageController from './QuestionPageController';
 import QuestionResultPageController from './QuestionResultPageController';
 import SummaryPageController from './SummaryPageController';
-import ChartGenerator from '../model/ChartGenerator.js';
-import FeedbackGenerator from '../model/FeedbackGenerator.js';
-import CleanCodeChapters from '../model/CleanCodeChapters.js';
+import ChartGenerator from '../model/ChartGenerator';
+import FeedbackGenerator from '../model/FeedbackGenerator';
+import CleanCodeChapters from '../model/CleanCodeChapters';
 
 class App {
-  #quizEngine
-  #introPageController
-  #questionPageController
-  #questionResultPageController
-  #summaryPageController
-  #chartGenerator
-  #feedbackGenerator
-  #cleanCodeChapters
+  #quizEngine;
 
+  #introPageController;
+
+  #questionPageController;
+
+  #questionResultPageController;
+
+  #summaryPageController;
+
+  #chartGenerator;
+
+  #feedbackGenerator;
+
+  #cleanCodeChapters;
 
   constructor() {
     this.#initQuizEngine();
@@ -26,43 +32,51 @@ class App {
     this.#questionResultPageController = new QuestionResultPageController();
     this.#chartGenerator = new ChartGenerator();
     this.#cleanCodeChapters = new CleanCodeChapters();
-    this.#summaryPageController = new SummaryPageController(this.#chartGenerator, this.#cleanCodeChapters);
+    this.#summaryPageController = new SummaryPageController(
+      this.#chartGenerator,
+      this.#cleanCodeChapters,
+    );
     this.#feedbackGenerator = new FeedbackGenerator();
     this.#initControllers();
   }
 
-
   #initQuizEngine() {
     const questionBank = new QuestionBank();
     // For testing purposes, not actual questions
-    const questionsGenerator = new QuestionsGenerator();
-    questionsGenerator.generateChapterQuestions(11, 1).questions.map(q => questionBank.createAndAddQuestion({ text: q.text, choices: q.choices, correctChoice: q.correctChoice, category: q.category }));
-    this.#quizEngine = new QuizEngine(questionBank, "Player");
+    generateChapterQuestions(11, 1)
+      .questions.map((q) => questionBank.createAndAddQuestion({
+        text: q.text,
+        choices: q.choices,
+        correctChoice: q.correctChoice,
+        category: q.category,
+      }));
+    this.#quizEngine = new QuizEngine(questionBank, 'Player');
 
-    this.#quizEngine.on("question", (questionData) => {
+    this.#quizEngine.on('question', (questionData) => {
       this.#questionResultPageController.hideView();
       this.#questionPageController.addQuestionText(questionData.text);
       this.#questionPageController.addAnswerButtons(questionData.choices);
       this.#questionPageController.displayView();
-    })
+    });
 
-    this.#quizEngine.on("correct", () => {
+    this.#quizEngine.on('correct', () => {
       this.#questionPageController.hideView();
-      this.#questionResultPageController.addResultHeaderText(this.#feedbackGenerator.getRandomPositiveFeedbackMessage());
+      this.#questionResultPageController
+        .addResultHeaderText(this.#feedbackGenerator.getRandomPositiveFeedbackMessage());
       this.#questionResultPageController.displayView();
-    })
-    this.#quizEngine.on("false", () => {
+    });
+    this.#quizEngine.on('false', () => {
       this.#questionPageController.hideView();
-      this.#questionResultPageController.addResultHeaderText(this.#feedbackGenerator.getRandomNegativeFeedbackMessage());
+      this.#questionResultPageController
+        .addResultHeaderText(this.#feedbackGenerator.getRandomNegativeFeedbackMessage());
       this.#questionResultPageController.displayView();
-
-    })
-    this.#quizEngine.on("done", async (scoreData) => {
+    });
+    this.#quizEngine.on('done', async () => {
       this.#questionResultPageController.hideView();
       const quizResult = await this.#quizEngine.getSummary();
       this.#summaryPageController.generateSummary(quizResult.allCategorySummaries);
       this.#summaryPageController.displayView();
-    })
+    });
   }
 
   #initControllers() {
@@ -73,7 +87,7 @@ class App {
   }
 
   #initIntroPageController() {
-    this.#introPageController.on("startQuizButtonClicked", () => {
+    this.#introPageController.on('startQuizButtonClicked', () => {
       this.#quizEngine.startQuiz();
       this.#introPageController.hideView();
     });
@@ -81,28 +95,26 @@ class App {
 
   #initQuestionPageController() {
     this.#questionPageController.hideView();
-    this.#questionPageController.on("answerButtonPressed", (data) => {
+    this.#questionPageController.on('answerButtonPressed', (data) => {
       this.#quizEngine.answerQuestion(data.answer);
-    })
+    });
   }
 
   #initQuestionResultPageController() {
     this.#questionResultPageController.hideView();
-    this.#questionResultPageController.on("nextQuestionButtonClicked", () => {
+    this.#questionResultPageController.on('nextQuestionButtonClicked', () => {
       this.#quizEngine.continueQuiz();
-    })
+    });
   }
 
   #initSummaryPageController() {
     this.#summaryPageController.hideView();
-    this.#summaryPageController.on("restartQuizButtonClicked", () => {
+    this.#summaryPageController.on('restartQuizButtonClicked', () => {
       this.#quizEngine.resetQuiz();
       this.#summaryPageController.hideView();
       this.#introPageController.displayView();
-    })
+    });
   }
-
 }
-
 
 export default App;
