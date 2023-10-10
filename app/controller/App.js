@@ -1,12 +1,5 @@
 import { QuizEngine, QuestionBank } from 'gn222gq-quiz-engine';
 import generateChapterQuestions from '../model/questionsGenerator';
-import IntroPageController from './IntroPageController';
-import QuestionPageController from './QuestionPageController';
-import QuestionResultPageController from './QuestionResultPageController';
-import SummaryPageController from './SummaryPageController';
-import ChartGenerator from '../model/ChartGenerator';
-import FeedbackGenerator from '../model/FeedbackGenerator';
-import CleanCodeChapters from '../model/CleanCodeChapters';
 
 class App {
   #quizEngine;
@@ -25,18 +18,18 @@ class App {
 
   #cleanCodeChapters;
 
-  constructor() {
+  constructor(factory) {
     this.#initQuizEngine();
-    this.#introPageController = new IntroPageController();
-    this.#questionPageController = new QuestionPageController();
-    this.#questionResultPageController = new QuestionResultPageController();
-    this.#chartGenerator = new ChartGenerator();
-    this.#cleanCodeChapters = new CleanCodeChapters();
-    this.#summaryPageController = new SummaryPageController(
+    this.#introPageController = factory.createIntroPageController();
+    this.#questionPageController = factory.createQuestionPageController();
+    this.#questionResultPageController = factory.createQuestionResultPageController();
+    this.#chartGenerator = factory.createChartGenerator();
+    this.#cleanCodeChapters = factory.createCleanCodeChapters();
+    this.#summaryPageController = factory.createSummaryPageController(
       this.#chartGenerator,
       this.#cleanCodeChapters,
     );
-    this.#feedbackGenerator = new FeedbackGenerator();
+    this.#feedbackGenerator = factory.createFeedbackGenerator();
     this.#initControllers();
   }
 
