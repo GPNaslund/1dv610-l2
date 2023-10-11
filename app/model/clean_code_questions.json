@@ -1,88 +1,490 @@
 {
   "questions": [
     {
-      "text": "Who sang the title song for the latest Bond film, No Time to Die?",
-      "choices": ["Adele", "Sam Smith", "Billie Eilish"],
-      "correctChoice": "Billie Eilish",
-      "category": "Music"
+      "text": "Which of the following best describes the importance of choosing appropriate names in code?\nA) Using appropriate names makes code look cleaner.\nB) Choosing good names only benefits the original author of the code.\nC) Good names reveal the intent and make code more explicit, aiding understanding and maintenance.\nD) Names in code have minimal impact on its functionality.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 2"
     },
     {
-      "text": "Which flies a green, white and orange (in that order) tricolor flag?",
-      "choices": ["Ireland", "Ivory Coast", "Italy"],
-      "correctChoice": "Ireland",
-      "category": "Geography"
+      "text": "Which of the following best captures the recommendation on naming in coding?\nA) It's fine to use established platform names as variable names when it suits the purpose.\nB) Using names that look or sound very similar for different concepts aids code readability.\nC) Encoding the type of a container into its name, like 'accountList', is always a good practice.\nD) Names should clearly and accurately reflect intent to avoid misinterpretation, and similar concepts should have consistent naming.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "D)",
+      "category": "Chapter 2"
     },
     {
-      "text": "Which city is home to the Brandenburg Gate?",
-      "choices": ["Vienna", "Zurich", "Berlin"],
-      "correctChoice": "Berlin",
-      "category": "Geography"
+      "text": "Which of the following statements is true according to the provided text?\nA) Using number series naming, like a1, a2, ... aN, is a good practice as it makes code intentions clear.\nB) Adding words like 'Info' or 'Data' to a variable name makes a meaningful distinction from the original name.\nC) It's acceptable to use prefix conventions like 'a' and 'the' as long as they make a meaningful distinction in naming.\nD) Using the word 'variable' in a variable name enhances the clarity and meaning of the code.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 2"
     },
     {
-      "text": "Which of the following is NOT a fruit?",
-      "choices": ["Rhubarb", "Tomatoes", "Avocados"],
-      "correctChoice": "Rhubarb",
-      "category": "Food"
+      "text": "What does the author emphasize about variable and class names?\nA) It's preferable to use acronyms and abbreviations for efficiency.\nB) Names should be pronounceable to foster better communication among developers.\nC) Fun, made-up words for variable names enhance the coding experience.\nD) The exact pronunciation of a variable name isn't significant as long as the meaning is clear.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 2"
     },
     {
-      "text": "Where was the first example of paper money used?",
-      "choices": ["China", "Turkey", "Greece"],
-      "correctChoice": "China",
-      "category": "History"
+      "text": "What does the author emphasize regarding the naming of variables and constants in code?\nA) It's best to always use single-letter names for simplicity.\nB) Searchability is a key factor when naming, making longer and distinct names preferable.\nC) Numeric constants like '7' are ideal because they're concise and universally understood.\nD) The meaning behind the name isn't important as long as it's concise.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 2"
     },
     {
-      "text": "Who is generally considered the inventor of the motor car?",
-      "choices": ["Henry Ford", "Karl Benz", "Henry M. Leland"],
-      "correctChoice": "Karl Benz",
-      "category": "History"
+      "text": "What is the author's perspective on encoding type or scope information into names?\nA) It's a beneficial practice as it provides clarity on the type or scope of a variable.\nB) It's an unnecessary burden, making the code harder to decipher and increasing the chances of mis-typing.\nC) It enhances the readability of the code and should be practiced regularly.\nD) Encodings are essential for new employees to understand the code base better.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 2"
     },
     {
-      "text": "If you were looking at Iguazu Falls, on what continent would you be?",
-      "choices": ["Asia", "Africa", "South America"],
-      "correctChoice": "South America",
-      "category": "Geography"
+      "text": "According to the author, why are prefixes like m_ for member variables no longer recommended in modern code?\nA) Because they make the code longer and harder to read.\nB) Because modern editing environments can highlight or colorize members, making them distinct without prefixes.\nC) Because prefixes like m_ add significant meaning to the variable name.\nD) Because modern programming languages mandate not to use such prefixes.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 2"
     },
     {
-      "text": "What number was the Apollo mission that successfully put a man on the moon for the first time in human history?",
-      "choices": ["Apollo 11", "Apollo 12", "Apollo 13"],
-      "correctChoice": "Apollo 11",
-      "category": "History"
+      "text": "Based on the author's preference regarding naming conventions for interfaces and their implementations, which naming choice is the most aligned with his views for an abstract factory of shapes?\nA) IShapeFactory and CShapeFactory\nB) IShapeFactory and ShapeFactoryImp\nC) ShapeFactory and ShapeFactoryImp\nD) IShapeFactory and ShapeFactory",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 2"
     },
     {
-      "text": "Which of the following languages has the longest alphabet?",
-      "choices": ["Greek", "Russian", "Arabic"],
-      "correctChoice": "Russian",
-      "category": "Geography"
+      "text": "According to the author's perspective on variable naming, which statement is true?\nA) Single-letter variable names should always be used for simplicity.\nB) Using cryptic names demonstrates a programmer's intelligence.\nC) Clarity in naming conventions is essential for professional programmers.\nD) Professionals use complex variable names to showcase their expertise.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 2"
     },
     {
-      "text": "Who was the lead singer of the band The Who?",
-      "choices": ["Roger Daltrey", "Don Henley", "Robert Plant"],
-      "correctChoice": "Roger Daltrey",
-      "category": "Music"
+      "text": "Which of the following statements best reflects the author's view on naming conventions in code?\nA) Using humorous names like HolyHandGrenade makes code more enjoyable and should be encouraged.\nB) Using cultural colloquialisms like eatMyShorts() makes code more relatable and should be used frequently.\nC) Names should be chosen for their entertainment value to make code more memorable.\nD) Code names should prioritize clarity over humor or cultural references.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "D)",
+      "category": "Chapter 2"
     },
     {
-      "text": "What spirit is used in making a Tom Collins?",
-      "choices": ["Vodka", "Rum", "Gin"],
-      "correctChoice": "Gin",
-      "category": "Food"
+      "text": "Based on the author's perspective, what's the best way to provide context for a set of related variables like firstName, lastName, street, etc.?\nA) By using prefixes like addrFirstName, addrLastName, etc.\nB) By placing them in a well-named function or method.\nC) By enclosing them in a well-named class, such as Address.\nD) By always relying on the algorithm to provide the necessary context.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 2"
     },
     {
-      "text": "The fear of insects is known as what?",
-      "choices": ["Entomophobia", "Arachnophobia", "Ailurophobia"],
-      "correctChoice": "Entomophobia",
-      "category": "Animals"
+      "text": "How would the author describe the ideal size of a function?\nA) Functions should be around 100 to 300 lines long as that's a standard size.\nB) Functions should be as large as the screen can display, which might be around 100 lines with modern monitors.\nC) Functions should be 20 to 30 lines long, which is often deemed adequate.\nD) Functions should usually be extremely small, often just two, three, or four lines long, and each should tell a clear story.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "D)",
+      "category": "Chapter 3"
     },
     {
-      "text": "What was the name of the Franco-British supersonic commercial plane that operated from 1976-2003?",
-      "choices": ["Accord", "Concorde", "Mirage"],
-      "correctChoice": "Concorde",
-      "category": "History"
+      "text": "Based on the author's perspective on function structure and readability, which of the following statements is most aligned with his views?\nA) Functions should be extensive enough to include multiple nested structures for clarity.\nB) The blocks within control statements like 'if' and 'while' should typically be a single line, preferably a function call.\nC) Functions should have an indent level of three or more to ensure they cover all necessary logic.\nD) Long descriptive function names decrease the documentary value and should be avoided.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
     },
     {
-      "text": "Which horoscope sign is a fish?",
-      "choices": ["Aquarius", "Cancer", "Pisces"],
-      "correctChoice": "Pisces",
-      "category": "Animals"
+      "text": "According to the author's perspective on function design, which of the following best describes when a function is doing 'one thing'?\nA) When a function performs only one specific task without any additional operations.\nB) When the steps a function performs are one level of abstraction below its stated name.\nC) When a function contains steps at many different levels of abstraction.\nD) When you can extract another function from it that merely restates the code without changing the level of abstraction.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "Why is it important for statements within a function to be at the same level of abstraction?\nA) It ensures that functions can be easily reused in other parts of the code.\nB) It prevents readers from getting confused between essential concepts and minor details within the function.\nC) It improves the performance of the function during execution.\nD) It facilitates better integration with external systems and libraries.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "According to the author's 'Stepdown Rule', how should code be structured?\nA) Code should be written in a random order for flexibility.\nB) Code should be organized so it reads like a top-down narrative, where every function is followed by those at the next level of abstraction.\nC) Functions should be organized based on their length, with the longest functions at the top.\nD) Code should always begin with the lowest level of abstraction to provide foundational details first.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "Why does the author suggest that switch statements should be used sparingly in code design?\nA) Switch statements inherently do multiple things and can't adhere to the 'do one thing' principle.\nB) Switch statements are outdated and should be replaced with newer programming constructs.\nC) Switch statements always lead to runtime errors and are hard to debug.\nD) Switch statements are only problematic when used multiple times in a program.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "A)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "According to the author, what are the key considerations and benefits of choosing appropriate function names in programming?\nA) Longer names should always be avoided as they can be confusing.\nB) Choosing descriptive names can lead to a clearer design understanding and might result in restructuring of the code for the better.\nC) Using different naming conventions for similar functions helps in diversifying the code.\nD) Short names without context are preferable over longer descriptive names as they make the code look cleaner.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "How does the number of arguments in a function impact its readability and testability?\nA) Increasing the number of arguments makes functions more versatile and easier to test.\nB) Functions with zero or one argument are preferred because they're more readable and simpler to test.\nC) The type of argument (input or output) does not influence the clarity of the function.\nD) Test cases become easier with an increasing number of arguments as it provides more scenarios to test.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "What does the text suggest about functions that seem to require more than two or three arguments?\nA) They should be split into multiple smaller functions.\nB) They likely have arguments that could be grouped and wrapped into a class of their own.\nC) The number of arguments does not matter as long as the function is clear.\nD) It's better to have more arguments than to introduce new classes.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "How does the text classify the `String.format` method in terms of argument count when considering variable arguments?\nA) Monad\nB) Dyad\nC) Triad\nD) Polyadic",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "What does the text suggest is a disadvantage of using error codes over exceptions when handling errors in command functions?\nA) It leads to verb/adjective confusion.\nB) It simplifies the happy path code.\nC) It creates deeply nested structures.\nD) It makes error codes more readable than exceptions.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "According to the text, where should the keyword `try` be positioned in a function dedicated to error handling?\nA) It should be in the middle after initializing some variables.\nB) It should be the very first word in the function.\nC) It can be anywhere, as long as it's before `catch/finally` blocks.\nD) It should be right before the function concludes.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "What is a significant concern about duplication in software?\nA) It enhances the readability of the code.\nB) It simplifies the codebase and makes it easier to maintain.\nC) It requires multiple modifications when the algorithm changes, increasing chances for errors.\nD) Duplication is generally considered a best practice in software for redundancy.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 3"
+    },
+    {
+      "text": "What is a better way to convey intent in code instead of using comments?\nA) Use complex boolean operations.\nB) Use multiple nested conditions.\nC) Create a function that captures the intent of the comment.\nD) Always rely on external documentation.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 4"
+    },
+    {
+      "text": "When is it necessary to use legal comments in code?\nA) Legal comments should be used for all comments in the code.\nB) Legal comments should be used to explain code implementation in detail.\nC) Legal comments are required for corporate coding standards and certain legal aspects.\nD) Legal comments are discouraged and should be avoided at all costs.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 4"
+    },
+    {
+      "text": "What is the primary purpose of TODO comments in code?\nA) TODO comments indicate code sections that are working perfectly and require no changes.\nB) TODO comments are excuses to leave poorly written code in the system.\nC) TODO comments are reminders for future improvements, changes, or tasks that couldn't be addressed immediately.\nD) TODO comments are used to document completed tasks.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 4"
+    },
+    {
+      "text": "What does the text primarily suggest about noise comments in code?\nA) Noise comments are essential for understanding code.\nB) Noise comments are necessary for proper code documentation.\nC) Noise comments are often redundant, providing no new information and cluttering the code.\nD) Noise comments are typically used to vent programmer frustrations.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 4"
+    },
+    {
+      "text": "What should a comment primarily describe?\nA) A comment should offer systemwide information.\nB) A comment should provide information about default values.\nC) A comment should describe the code it appears near, not unrelated system details.\nD) A comment should be redundant to ensure clarity.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 4"
+    },
+    {
+      "text": "What does the text primarily suggest regarding the size of source code files in projects like Junit, FitNesse, Tomcat, and Ant?\nA) Small files are typically harder to understand than large files.\nB) Smaller files are preferred, with most being around 200 lines and an upper limit of 500 lines.\nC) Larger files are more desirable in software projects like Tomcat and Ant.\nD) The size of source code files should be based on the complexity of the project, regardless of typical standards.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What analogy does the text draw between a well-written source file and a newspaper article?\nA) Source files should contain an agglomeration of facts, dates, and names.\nB) The name of a source file should be complex and detailed.\nC) Source files should follow a structure similar to a newspaper article, with a simple and explanatory name at the top.\nD) Source files should be composed of many small articles.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What is the primary purpose of using blank lines in code?\nA) To save space and reduce the size of the code.\nB) To create visual cues that identify separate concepts and improve code readability.\nC) To separate individual expressions and clauses within a line of code.\nD) To make the code visually appealing without affecting its structure.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What does vertical density in code imply?\nA) Vertical density suggests that lines of code should be widely spaced for clarity.\nB) Vertical density implies that closely related lines of code should appear close to each other.\nC) Vertical density is unrelated to code readability.\nD) Vertical density suggests that comments should be added to improve code clarity.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What is the benefit of declaring variables as close to their usage as possible?\nA) It reduces the total number of variables in the code.\nB) It follows a standard coding convention.\nC) It enhances code readability by reducing the need to scroll or hop around the code.\nD) It prevents variables from being used in loops.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What is the primary reason for keeping code elements with strong conceptual affinity close together?\nA) To reduce the total number of functions in the code.\nB) To improve code organization and maintainability.\nC) To make the code visually appealing.\nD) To prevent functions from calling each other.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "In general we want function call dependencies to point in the downward direction. What does this achieve?\nA) It enforces a specific order of function declarations.\nB) It creates a flow from high level to low level in the source code.\nC) It ensures that low-level details are expressed first.\nD) It reduces the number of functions in the code.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What does the distribution of line lengths in typical programs suggest about line width?\nA) Programmers prefer long lines.\nB) Programmers prefer short lines.\nC) Programmers have no preference for line width.\nD) The distribution of line lengths is not significant.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What is one of the purposes of using horizontal white space in code formatting?\nA) To emphasize the separation between assignment operators.\nB) To disassociate closely related function names and opening parentheses.\nC) To highlight the precedence of operators.\nD) To minimize the use of white space in code formatting.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What is one of the purposes of using horizontal white space in code formatting?\nA) To emphasize the separation between assignment operators.\nB) To disassociate closely related function names and opening parentheses.\nC) To highlight the precedence of operators.\nD) To minimize the use of white space in code formatting.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What is the author's perspective on aligning variable names and return values in code?\nA) The author recommends aligning variable names and return values for improved code readability.\nB) The author suggests that alignment of variable names and return values is useful in certain cases.\nC) The author advises against aligning variable names and return values as it may lead to misinterpretation.\nD) The author mentions that automatic reformatting tools can enhance alignment in code.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "Why is it important for a team of developers to agree upon a single formatting style?\nA) It ensures that each programmer can use their favorite formatting rules.\nB) It allows for individuality and promotes personal coding styles.\nC) It makes the software appear consistent and not written by disagreeing individuals.\nD) It ensures that the coding style is determined by the most experienced developer in the team.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 5"
+    },
+    {
+      "text": "What is the primary purpose of hiding implementation in a class?\nA) To simply put a layer of functions between the variables.\nB) To ensure variables can be accessed through getters and setters.\nC) To allow users to manipulate the essence of the data without knowing its implementation.\nD) To ensure that the implementation is always in rectangular or polar coordinates.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 6"
+    },
+    {
+      "text": "According to the Law of Demeter, which of the following statements about method interactions is accurate?\nA) A method should only call methods of its own class and objects created by it.\nB) A method should invoke methods on objects returned by any allowed functions.\nC) A method should not expose its internal structure through accessors.\nD) The Law of Demeter encourages talking to strangers over friends in terms of method interactions.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "A)",
+      "category": "Chapter 6"
+    },
+    {
+      "text": "Which statement accurately describes the relationship between the Law of Demeter and objects or data structures?\nA) The Law of Demeter always applies, regardless of whether we deal with objects or data structures.\nB) The Law of Demeter only applies to objects; it does not apply if the entities are mere data structures that naturally expose their internal structure.\nC) The Law of Demeter dictates that only data structures should have public variables and no functions.\nD) The use of accessor functions always indicates a violation of the Law of Demeter.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 6"
+    },
+    {
+      "text": "What is the primary concern expressed in the text regarding hybrid structures that combine characteristics of objects and data structures?\nA) They simplify the design by blending the best features of objects and data structures.\nB) They make it easier to add both new functions and new data structures to the codebase.\nC) They create confusion in the design, making it challenging to add either new functions or new data structures.\nD) They emphasize the importance of public accessors and mutators in modern programming.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 6"
+    },
+    {
+      "text": "Which of the following best describes the primary purpose of a data transfer object (DTO)?\nA) It is a class with both public variables and numerous functions to manipulate those variables.\nB) It is used to encapsulate data with getters and setters, making OO purists feel better.\nC) It is primarily used to convert raw data from databases into application code objects, often acting as the initial stage in a series of translation stages.\nD) It is a complex form of data structure used exclusively in object-oriented programming.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 6"
+    },
+    {
+      "text": "Which of the following best describes the issue with Active Records?\nA) Active Records are not useful as they cannot be directly translated from database tables.\nB) Developers often misinterpret Active Records as objects, adding business rule methods and turning them into hybrids of data structures and objects.\nC) Active Records should be treated as objects with hidden internal data to maintain purity in programming.\nD) The main problem with Active Records is their navigational methods like save and find.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 6"
+    },
+    {
+      "text": "Which of the following statements is true about the try-catch-finally structure?\nA) It only defines the scope for exceptions in the program.\nB) The code within the try block can abort execution at any point and then resume in the catch block.\nC) Exceptions should only be used outside of try-catch blocks to ensure that the program remains consistent.\nD) The code within the try block is guaranteed to execute without any issues and does not need further testing.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 7"
+    },
+    {
+      "text": "Which of the following statements best describes the impact of checked exceptions on a software system?\nA) Checked exceptions ensure that all errors are handled immediately and enhance the robustness of the software.\nB) Checked exceptions enhance encapsulation by ensuring all exceptions are declared and handled.\nC) Checked exceptions can lead to a cascade of changes in the system, from the lowest to the highest levels, potentially violating encapsulation.\nD) All modern programming languages, including Python and Ruby, have implemented checked exceptions to ensure software robustness.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 7"
+    },
+    {
+      "text": "Why is it important to create informative error messages when throwing exceptions?\nA) Because Java exceptions only provide a stack trace.\nB) Because a stack trace can provide detailed information about the operation's intent.\nC) Because informative error messages help determine the intent of the operation that failed.\nD) Because error messages replace the need for logging in an application.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 7"
+    },
+    {
+      "text": "Why is it considered a best practice to wrap third-party APIs according to the passage?\nA) Because it allows for increased error messages.\nB) Because it minimizes dependencies on the third-party API and allows for potential changes in the future.\nC) Because third-party APIs are typically error-prone.\nD) Because it makes the API more complex and detailed.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 7"
+    },
+    {
+      "text": "What is the primary advantage of using the Special Case Pattern?\nA) It simplifies error handling by creating a separate method for each error type.\nB) It reduces the need for external API wrappers and custom exception classes.\nC) It encapsulates the exceptional behavior within the special case object, allowing the main code to remain clean and uncluttered.\nD) It always throws an exception whenever a special case is encountered.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 7"
+    },
+    {
+      "text": "What is a potential issue with frequently returning null in applications, and what is one of the suggested remedies?\nA) Returning null leads to more concise code; the remedy is to avoid using third-party APIs.\nB) Returning null often requires numerous null checks which can make code error-prone; a remedy is to return a SPECIAL CASE object or throw an exception.\nC) Returning null improves the code's readability; the remedy is to always catch NullPointerExceptions.\nD) Returning null simplifies error handling; the remedy is to always log every null return value.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 7"
+    },
+    {
+      "text": "Which of the following best describes the author's viewpoint on passing null into methods?\nA) It's a recommended practice as it simplifies error handling.\nB) It is worse than returning null from methods and should be avoided unless working with specific APIs.\nC) It should be embraced as it offers better documentation of the code.\nD) Null values in methods are typically not an issue if assertions are used properly.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 7"
+    },
+    {
+      "text": "How does the author suggest handling boundary interfaces like `Map` in a system?\nA) It's beneficial to liberally pass instances of Map<Sensor> throughout the system for ease of use.\nB) Map<Sensor> should be used without generics for maximum flexibility.\nC) Boundary interfaces like Map should be kept within a class or a close family of classes and not passed around the system.\nD) All uses of Map should be encapsulated, regardless of the context.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 8"
+    },
+    {
+      "text": "What is the primary purpose of writing 'learning tests' for third-party code?\nA) To ensure that the third-party code is bug-free and reliable.\nB) To test the actual functionality of the third-party library.\nC) To conduct controlled experiments and verify our understanding of the third-party API.\nD) To replace the documentation provided by the third-party library.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 8"
+    },
+    {
+      "text": "What is a significant advantage of using learning tests with third-party packages?\nA) They reduce the need to read the documentation of the third-party package.\nB) They help in detecting behavioral differences when there are new releases of the third-party package.\nC) They ensure that the third-party code remains constant and unchanging.\nD) They replace the need for production code.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 8"
+    },
+    {
+      "text": "What is the primary sequence that the three laws of TDD establish?\nA) Write a failing unit test, ensure the unit test is comprehensive, and then write enough production code to pass the test.\nB) Write production code, test it, and then refactor if necessary.\nC) Always write production code before unit tests to ensure functionality.\nD) Write a failing unit test, write just enough of the unit test to see it fail (including not compiling), and then write just enough production code to make the failing unit test pass.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "D)",
+      "category": "Chapter 9"
+    },
+    {
+      "text": "Why are clean unit tests crucial for production code?\nA) They ensure that the production code looks aesthetically pleasing.\nB) They enable code flexibility, maintainability, and reusability by reducing the fear of introducing bugs during changes.\nC) They are required to get approval from stakeholders.\nD) They make the coding process faster without any additional benefits.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 9"
+    },
+    {
+      "text": "What are the primary attributes that make a test clean?\nA) Efficiency, speed, and accuracy.\nB) Length, detail, and complexity.\nC) Clarity, simplicity, and density of expression.\nD) Repeatability, reliability, and resilience.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 9"
+    },
+    {
+      "text": "What differentiates the engineering standards of the testing API code from production code?\nA) Testing API code must be more efficient and expressive than production code.\nB) Testing API code needs to be more complex to cover all scenarios.\nC) Testing API code must be simple, succinct, and expressive but doesn't need to be as efficient as production code.\nD) There is no difference between the two; they follow the same standards.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 9"
+    },
+    {
+      "text": "What is the recommended approach when designing test functions?\nA) Test multiple concepts in a single test function for efficiency.\nB) Create long test functions that test miscellaneous things to cover more ground.\nC) Test a single concept in each test function to ensure clarity and independence.\nD) Combine related tests into one function to minimize the number of test functions.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 9"
+    },
+    {
+      "text": "Which of the following best describes the rules for clean tests?\nA) Tests should be extensive, combined, executed occasionally, manually evaluated, and written after the production code.\nB) Tests should be fast, independent, repeatable, self-validating, and timely.\nC) Tests should focus on complex scenarios, depend on one another for setup, require specific environments, and be evaluated through a complex process.\nD) Tests should be written only for critical parts of the code, combined for efficiency, be environment-specific, and validated manually.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 9"
+    },
+    {
+      "text": "What is the recommended order for organizing a standard Java class?\nA) Private instance variables, private static variables, public static constants, and then public functions.\nB) Public functions, private utilities, private static variables, and then public static constants.\nC) Public static constants, private static variables, private instance variables, followed by public functions.\nD) Public variables, private utilities, private instance variables, and then public functions.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 10"
+    },
+    {
+      "text": "What is the primary measure of size for classes?\nA) The number of methods in the class.\nB) The physical lines of code in the class.\nC) The number of responsibilities the class has.\nD) The amount of public exposure the class has.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 10"
+    },
+    {
+      "text": "What does the Single Responsibility Principle (SRP) imply about class design?\nA) A class should have multiple, distinct responsibilities for better encapsulation.\nB) A class should focus on doing many things to ensure system coherence.\nC) A class should have one, and only one, reason to change.\nD) The size of a class doesn't matter as long as it serves its purpose in the system.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 10"
+    },
+    {
+      "text": "What does high cohesion in a class signify?\nA) The methods and variables of the class are rarely dependent on each other.\nB) The methods and variables of the class are co-dependent and form a logical whole.\nC) The class has a large number of instance variables used by very few methods.\nD) The class has a lot of methods but very few instance variables.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 10"
+    },
+    {
+      "text": "What could be a possible outcome of breaking a large function into many smaller functions and promoting certain local variables to instance variables within a class?\nA) It enhances the cohesion within the class.\nB) It reduces the cohesion within the class, as instance variables are created to be shared among a few methods.\nC) It has no impact on the cohesion within the class.\nD) It simplifies the logic without introducing additional instance variables.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 10"
+    },
+    {
+      "text": "Why might it be problematic to open up the Sql class, for example, to add support for update statements?\nA) Because it's still in the early stages of development and doesn't have all functionalities.\nB) Because opening a class introduces the risk of other parts of the class no longer working as intended.\nC) Because in a clean system, classes should never be modified after their initial creation.\nD) Because the Sql class is not designed to handle metadata appropriately.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 10"
+    },
+    {
+      "text": "Why might dependencies on concrete details in a class be problematic for testing?\nA) Because concrete details are difficult to understand.\nB) Because concrete classes don't represent any concepts.\nC) Because depending on concrete details, like an external API, can result in test cases being affected by the volatility of those details.\nD) Because concrete classes cannot be changed once they are written.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 10"
+    },
+    {
+      "text": "Why might the Lazy initialization idiom be problematic in the context of software design?\nA) Because it always returns a null object.\nB) It has a hard-coded dependency which can lead to issues during compilation and might not be the right object in all cases, making testing challenging.\nC) Because it always speeds up the startup times of an application.\nD) It is a modern idiom that hasn't been tested thoroughly in various contexts.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "What is the primary advantage of moving all aspects of construction to main or modules called by main in separating construction from use?\nA) It ensures the flow of control is complex and unpredictable.\nB) It allows the main function to handle all runtime logic.\nC) The application assumes that all objects are properly constructed and wired, having no knowledge of main or the construction process.\nD) It reverses the dependency arrows to point towards the main.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "What is the primary purpose of the abstract factory design pattern?\nA) To ensure that all dependencies point in a specific direction in an application.\nB) To provide an interface for creating families of related or dependent objects without specifying their concrete classes.\nC) To define an object's structural representation and provides a way to access its members without exposing its underlying implementation.\nD) To encapsulate a request as an object, thereby allowing for parameterization of clients with different requests, and the support for queuing of requests.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "What distinguishes True Dependency Injection from other forms of dependency management like JNDI lookups?\nA) In True Dependency Injection, objects take direct steps to resolve their dependencies using a directory server.\nB) True Dependency Injection is only supported in Java through the Spring Framework.\nC) In True Dependency Injection, the class is completely passive and dependencies are injected through setter methods or constructor arguments.\nD) The LAZY-INITIALIZATION idiom cannot be used with True Dependency Injection.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "What does the term 'cross-cutting concerns' refer to?\nA) Specific modules that handle only persistence and security functionalities.\nB) Concerns like persistence that cut across the natural object boundaries of a domain, requiring the spreading of similar code across many objects.\nC) The intersection between the EJB architecture and aspect-oriented programming (AOP).\nD) The transactional, security, and persistence behaviors declared in the deployment descriptors.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "Which of the following statements is accurate regarding Java proxies?\nA) Java proxies are best suited for complex situations and can work with both classes and interfaces.\nB) JDK dynamic proxies can work with both interfaces and classes without any external libraries.\nC) The Proxy API does not require any InvocationHandler object for its functioning.\nD) Proxies have drawbacks like high code volume and complexity, making it challenging to produce clean code and they also lack a mechanism for specifying system-wide execution points of interest.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "D)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "What are the advantages of using Plain-Old Java Objects (POJOs) in frameworks like Spring?\nA) POJOs require dependencies on enterprise frameworks to function effectively.\nB) POJOs complicate the process of implementing user stories due to their complex design.\nC) POJOs are purely focused on their domain, are conceptually simpler, have no dependencies on enterprise frameworks, and are easier to test drive, ensuring correct implementation of user stories.\nD) POJOs automatically handle cross-cutting concerns like persistence and transactions without any external configurations.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "Which statement best describes AspectJ in relation to Java?\nA) AspectJ is a tool primarily used for implementing Spring AOP and JBoss AOP.\nB) AspectJ is an extension of Java providing 'first-class' support for aspects as modularity constructs, but requires learning new tools and language constructs.\nC) AspectJ is a newer version of Java focused on separating concerns through aspects.\nD) The Spring Framework has completely replaced the need for AspectJ due to its pure Java approach.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "Why is the Big Design Up Front (BDUF) approach considered potentially harmful in software development?\nA) BDUF ensures that a software project starts with a 'naively simple' architecture, leading to quick delivery of working user stories.\nB) BDUF is considered optimal because it allows easy integration of modularized domains of concern.\nC) BDUF may inhibit adapting to change due to psychological resistance to discarding prior effort and because architecture choices influence subsequent design thinking.\nD) BDUF promotes a decoupled architecture that separates software concerns effectively.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "Why is it considered beneficial to postpone decisions until the last possible moment in a software project?\nA) It allows us to avoid giving responsibilities to the most qualified persons.\nB) It ensures that decisions are made based on the most recent knowledge, leading to more informed and optimal choices.\nC) It promotes premature decisions made with suboptimal knowledge.\nD) It reduces the agility of a POJO system and complicates modularized concerns.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "B)",
+      "category": "Chapter 11"
+    },
+    {
+      "text": "What is the primary advantage of using Domain-Specific Languages (DSLs) in software development?\nA) DSLs renew interest in standard programming languages and replace them entirely.\nB) DSLs provide a separate scripting language that replaces the need for any kind of software documentation.\nC) DSLs minimize the 'communication gap' between a domain concept and its implementation, reducing the risk of incorrect translations of the domain logic.\nD) DSLs focus solely on high-level policy decisions, ignoring low-level details.",
+      "choices": ["A)", "B)", "C)", "D)"],
+      "correctChoice": "C)",
+      "category": "Chapter 11"
     }
   ]
 }

@@ -7,8 +7,15 @@ import ChartGenerator from '../model/ChartGenerator';
 import FeedbackGenerator from '../model/FeedbackGenerator';
 import CleanCodeChapters from '../model/CleanCodeChapters';
 import AppFactory from './AppFactory';
+import cleanCodeQuestionsData from '../model/clean_code_questions.json';
+import CleanCodeQuestions from '../model/CleanCodeQuestions';
 
 class DefaultAppFactory extends AppFactory {
+
+  constructor() {
+    super();
+  }
+
   createIntroPageController() {
     return new IntroPageController();
   }
@@ -29,13 +36,18 @@ class DefaultAppFactory extends AppFactory {
     return new ChartGenerator();
   }
 
-  createFeedBackGenerator() {
+  createFeedbackGenerator() {
     return new FeedbackGenerator();
   }
 
   createCleanCodeChapters() {
     return new CleanCodeChapters();
   }
+
+  createCleanCodeQuestions() {
+    return new CleanCodeQuestions(cleanCodeQuestionsData);
+  }
+
 }
 
 export default DefaultAppFactory;

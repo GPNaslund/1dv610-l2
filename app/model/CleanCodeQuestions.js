@@ -1,6 +1,5 @@
 import { Question } from 'gn222gq-quiz-engine';
 
-// eslint-disable-next-line no-unused-vars
 class CleanCodeQuestions {
   #allQuestions;
 
@@ -26,3 +25,5 @@ class CleanCodeQuestions {
     return this.#allQuestions;
   }
 }
+
+export default CleanCodeQuestions;

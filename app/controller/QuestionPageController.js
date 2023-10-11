@@ -17,6 +17,7 @@ class QuestionPageController extends CustomEventEmitter {
 
   #initView() {
     this.#questionSection.classList.add('centered-text');
+    this.#questionText.classList.add('preserve-whitespace');
     this.#answerButtons.classList.add('grid');
   }
 

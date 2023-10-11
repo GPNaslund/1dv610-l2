@@ -18,8 +18,9 @@ class App {
 
   #cleanCodeChapters;
 
+  #cleanCodeQuestions;
+
   constructor(factory) {
-    this.#initQuizEngine();
     this.#introPageController = factory.createIntroPageController();
     this.#questionPageController = factory.createQuestionPageController();
     this.#questionResultPageController = factory.createQuestionResultPageController();
@@ -30,20 +31,18 @@ class App {
       this.#cleanCodeChapters,
     );
     this.#feedbackGenerator = factory.createFeedbackGenerator();
+    this.#cleanCodeQuestions = factory.createCleanCodeQuestions();
+    this.#initQuizEngine();
     this.#initControllers();
   }
 
   #initQuizEngine() {
     const questionBank = new QuestionBank();
-    // For testing purposes, not actual questions
-    generateChapterQuestions(11, 1)
-      .questions.map((q) => questionBank.createAndAddQuestion({
-        text: q.text,
-        choices: q.choices,
-        correctChoice: q.correctChoice,
-        category: q.category,
-      }));
+    this.#cleanCodeQuestions.allQuestions.forEach(question => {
+      questionBank.addQuestion(question);
+    });
     this.#quizEngine = new QuizEngine(questionBank, 'Player');
+    this.#quizEngine.randomizeQuestions();
 
     this.#quizEngine.on('question', (questionData) => {
       this.#questionResultPageController.hideView();
@@ -104,6 +103,7 @@ class App {
     this.#summaryPageController.hideView();
     this.#summaryPageController.on('restartQuizButtonClicked', () => {
       this.#quizEngine.resetQuiz();
+      this.#quizEngine.randomizeQuestions();
       this.#summaryPageController.hideView();
       this.#introPageController.displayView();
     });

@@ -2815,4 +2815,8 @@ textarea {
 .hide {
   display: none !important;
 }
+
+.preserve-whitespace {
+  white-space: pre-line;
+}
 /*# sourceMappingURL=pico.min.css.map */
