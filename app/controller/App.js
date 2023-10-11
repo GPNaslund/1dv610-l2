@@ -1,5 +1,5 @@
 import { QuizEngine, QuestionBank } from 'gn222gq-quiz-engine';
-import generateChapterQuestions from '../model/questionsGenerator';
+// eslint-disable-next-line no-unused-vars
 import AppFactory from './AppFactory';
 
 /**
@@ -53,7 +53,7 @@ class App {
 
   #initQuestionBank() {
     const questionBank = new QuestionBank();
-    this.#cleanCodeQuestions.allQuestions.forEach(question => {
+    this.#cleanCodeQuestions.allQuestions.forEach((question) => {
       questionBank.addQuestion(question);
     });
     return questionBank;

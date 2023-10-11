@@ -14,11 +14,6 @@ import CleanCodeQuestions from '../model/CleanCodeQuestions';
  * Represents the default set up for creating necessary dependencies for the application.
  */
 class DefaultAppFactory extends AppFactory {
-
-  constructor() {
-    super();
-  }
-
   createIntroPageController() {
     return new IntroPageController();
   }
@@ -50,7 +45,6 @@ class DefaultAppFactory extends AppFactory {
   createCleanCodeQuestions() {
     return new CleanCodeQuestions(cleanCodeQuestionsData);
   }
-
 }
 
 export default DefaultAppFactory;

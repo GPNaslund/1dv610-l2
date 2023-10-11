@@ -39,7 +39,7 @@ class IntroPageController extends CustomEventEmitter {
   hideView() {
     this.#introSection.classList.add('hide');
   }
-  
+
   /**
    * Will display the view elements controlled by the controller.
    */

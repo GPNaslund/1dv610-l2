@@ -3,7 +3,7 @@
  *
  * @param {number} amountOfChapters The amount of chapters to generate.
  * @param {number} amountOfQuestions The amount of questions to generate.
- * @returns 
+ * @returns
  */
 function generateChapterQuestions(amountOfChapters, amountOfQuestions) {
   const questions = {

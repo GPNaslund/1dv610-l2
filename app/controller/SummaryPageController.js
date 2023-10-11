@@ -1,5 +1,5 @@
-import ChartGenerator from '../model/ChartGenerator';
-import CleanCodeChapters from '../model/CleanCodeChapters';
+import ChartGenerator from '../model/ChartGenerator'; // eslint-disable-line no-unused-vars
+import CleanCodeChapters from '../model/CleanCodeChapters'; // eslint-disable-line no-unused-vars
 import CustomEventEmitter from './CustomEventEmitter';
 
 /**
@@ -24,8 +24,10 @@ class SummaryPageController extends CustomEventEmitter {
 
   /**
    * Creates a new instance.
-   * @param {ChartGenerator} chartGenerator The chart generator for creating a bar chart.
-   * @param {CleanCodeChapters} cleanCodeChapters The class that holds all the chapter page information.
+   * @param {ChartGenerator} chartGenerator
+   *                         The chart generator for creating a bar chart.
+   * @param {CleanCodeChapters} cleanCodeChapters
+   *                            The class that holds all the chapter page information.
    */
   constructor(chartGenerator, cleanCodeChapters) {
     super();
@@ -66,8 +68,9 @@ class SummaryPageController extends CustomEventEmitter {
    * Generates a summary, with a chart and reading recommendations based
    * on the summary.
    *
-   * @param {CategorySummary[]} categorySummaries List of CategorySummary provided from the Quiz engine
-   *                                              of gn222gq-quiz-engine.
+   * @param {CategorySummary[]} categorySummaries
+   *                            List of CategorySummary provided from the Quiz engine
+   *                            of gn222gq-quiz-engine.
    */
   generateSummary(categorySummaries) {
     const categories = categorySummaries

@@ -8,7 +8,8 @@ class CleanCodeQuestions {
   /**
    * Creates a new instance.
    *
-   * @param {JSON} questionDataJson The file containing all the question data. Check README for format.
+   * @param {JSON} questionDataJson The file containing all
+   *                                the question data. Check README for format.
    */
   constructor(questionDataJson) {
     this.#allQuestions = [];
