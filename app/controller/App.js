@@ -1,6 +1,10 @@
 import { QuizEngine, QuestionBank } from 'gn222gq-quiz-engine';
 import generateChapterQuestions from '../model/questionsGenerator';
+import AppFactory from './AppFactory';
 
+/**
+ * The main class for wiring the components together.
+ */
 class App {
   #quizEngine;
 
@@ -20,6 +24,11 @@ class App {
 
   #cleanCodeQuestions;
 
+  /**
+   * Constructs a new instance.
+   *
+   * @param {AppFactory} factory The factory instance used to create the necessary dependencies.
+   */
   constructor(factory) {
     this.#introPageController = factory.createIntroPageController();
     this.#questionPageController = factory.createQuestionPageController();
@@ -37,32 +46,54 @@ class App {
   }
 
   #initQuizEngine() {
+    this.#quizEngine = new QuizEngine(this.#initQuestionBank(), 'Player');
+    this.#quizEngine.randomizeQuestions();
+    this.#addQuizEngineEventHandlers();
+  }
+
+  #initQuestionBank() {
     const questionBank = new QuestionBank();
     this.#cleanCodeQuestions.allQuestions.forEach(question => {
       questionBank.addQuestion(question);
     });
-    this.#quizEngine = new QuizEngine(questionBank, 'Player');
-    this.#quizEngine.randomizeQuestions();
+    return questionBank;
+  }
 
+  #addQuizEngineEventHandlers() {
+    this.#addQuizEngineOnQuestionEvent();
+    this.#addQuizEngineOnCorrectEvent();
+    this.#addQuizEngineOnFalseEvent();
+    this.#addQuizEngineOnDoneEvent();
+  }
+
+  #addQuizEngineOnQuestionEvent() {
     this.#quizEngine.on('question', (questionData) => {
       this.#questionResultPageController.hideView();
       this.#questionPageController.addQuestionText(questionData.text);
       this.#questionPageController.addAnswerButtons(questionData.choices);
       this.#questionPageController.displayView();
     });
+  }
 
+  #addQuizEngineOnCorrectEvent() {
     this.#quizEngine.on('correct', () => {
       this.#questionPageController.hideView();
       this.#questionResultPageController
         .addResultHeaderText(this.#feedbackGenerator.getRandomPositiveFeedbackMessage());
       this.#questionResultPageController.displayView();
     });
+  }
+
+  #addQuizEngineOnFalseEvent() {
     this.#quizEngine.on('false', () => {
       this.#questionPageController.hideView();
       this.#questionResultPageController
         .addResultHeaderText(this.#feedbackGenerator.getRandomNegativeFeedbackMessage());
       this.#questionResultPageController.displayView();
     });
+  }
+
+  #addQuizEngineOnDoneEvent() {
     this.#quizEngine.on('done', async () => {
       this.#questionResultPageController.hideView();
       const quizResult = await this.#quizEngine.getSummary();

@@ -1,3 +1,6 @@
+/**
+ * Represents a Chapter.
+ */
 class Chapter {
   #chapterNumber;
 
@@ -5,6 +8,13 @@ class Chapter {
 
   #lastPage;
 
+  /**
+   * Creates a new instance.
+   *
+   * @param {number} chapterNumber The chapter number.
+   * @param {number} firstPage The first page.
+   * @param {number} lastPage The last page.
+   */
   constructor(chapterNumber, firstPage, lastPage) {
     this.#chapterNumber = chapterNumber;
     this.#firstPage = firstPage;

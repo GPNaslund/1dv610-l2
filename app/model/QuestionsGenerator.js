@@ -1,3 +1,10 @@
+/**
+ * Utility function for testing purposes, creates mock questions.
+ *
+ * @param {number} amountOfChapters The amount of chapters to generate.
+ * @param {number} amountOfQuestions The amount of questions to generate.
+ * @returns 
+ */
 function generateChapterQuestions(amountOfChapters, amountOfQuestions) {
   const questions = {
     questions: [],

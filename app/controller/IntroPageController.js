@@ -1,5 +1,8 @@
 import CustomEventEmitter from './CustomEventEmitter';
 
+/**
+ * Class that controlls the intro page part of the view.
+ */
 class IntroPageController extends CustomEventEmitter {
   #introSection;
 
@@ -30,10 +33,16 @@ class IntroPageController extends CustomEventEmitter {
     });
   }
 
+  /**
+   * Will hide the view elements controlled by the controller.
+   */
   hideView() {
     this.#introSection.classList.add('hide');
   }
-
+  
+  /**
+   * Will display the view elements controlled by the controller.
+   */
   displayView() {
     this.#introSection.classList.remove('hide');
   }

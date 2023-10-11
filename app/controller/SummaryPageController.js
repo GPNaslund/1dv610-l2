@@ -1,5 +1,10 @@
+import ChartGenerator from '../model/ChartGenerator';
+import CleanCodeChapters from '../model/CleanCodeChapters';
 import CustomEventEmitter from './CustomEventEmitter';
 
+/**
+ * Class that controlls the summary page part of the view and generates a chart.
+ */
 class SummaryPageController extends CustomEventEmitter {
   #summarySection;
 
@@ -17,6 +22,11 @@ class SummaryPageController extends CustomEventEmitter {
 
   #cleanCodeChapters;
 
+  /**
+   * Creates a new instance.
+   * @param {ChartGenerator} chartGenerator The chart generator for creating a bar chart.
+   * @param {CleanCodeChapters} cleanCodeChapters The class that holds all the chapter page information.
+   */
   constructor(chartGenerator, cleanCodeChapters) {
     super();
     this.#summarySection = document.querySelector('#summary-section');
@@ -38,14 +48,27 @@ class SummaryPageController extends CustomEventEmitter {
     });
   }
 
+  /**
+   * Hides the view elements that is controlled by the controller.
+   */
   hideView() {
     this.#summarySection.classList.add('hide');
   }
 
+  /**
+   * Displays the elements that is controlled by the controller.
+   */
   displayView() {
     this.#summarySection.classList.remove('hide');
   }
 
+  /**
+   * Generates a summary, with a chart and reading recommendations based
+   * on the summary.
+   *
+   * @param {CategorySummary[]} categorySummaries List of CategorySummary provided from the Quiz engine
+   *                                              of gn222gq-quiz-engine.
+   */
   generateSummary(categorySummaries) {
     const categories = categorySummaries
       .map((categorySummary) => categorySummary.nameOfCategory);

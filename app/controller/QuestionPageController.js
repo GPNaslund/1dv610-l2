@@ -1,5 +1,8 @@
 import CustomEventEmitter from './CustomEventEmitter';
 
+/**
+ * Class that controlls the question part of the view.
+ */
 class QuestionPageController extends CustomEventEmitter {
   #questionSection;
 
@@ -21,18 +24,34 @@ class QuestionPageController extends CustomEventEmitter {
     this.#answerButtons.classList.add('grid');
   }
 
+  /**
+   * Will hide the elements controlled by the controller.
+   */
   hideView() {
     this.#questionSection.classList.add('hide');
   }
 
+  /**
+   * Will display the elements controlled by the controller.
+   */
   displayView() {
     this.#questionSection.classList.remove('hide');
   }
 
+  /**
+   * Adds the provided text to the element displaying the question text.
+   * @param {String} questionText The string to display.
+   */
   addQuestionText(questionText) {
     this.#questionText.textContent = questionText;
   }
 
+  /**
+   * Will generate answer buttons with functionality tied
+   * to clicking the button.¨
+   *
+   * @param {String[]} choices The choices to the question.
+   */
   addAnswerButtons(choices) {
     this.#answerButtons.replaceChildren();
     for (let i = 0; i < choices.length; i += 1) {

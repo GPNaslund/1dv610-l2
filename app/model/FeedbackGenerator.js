@@ -1,3 +1,6 @@
+/**
+ * Represents a feedback generator.
+ */
 class FeedbackGenerator {
   #positiveFeedbackMessages;
 

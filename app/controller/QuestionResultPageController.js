@@ -1,5 +1,8 @@
 import CustomEventEmitter from './CustomEventEmitter';
 
+/**
+ * Class that controlls the question result part of the view.
+ */
 class QuestionResultPageController extends CustomEventEmitter {
   #questionResultSection;
 
@@ -22,14 +25,24 @@ class QuestionResultPageController extends CustomEventEmitter {
     });
   }
 
+  /**
+   * Will hide the view elements that is controlled by the controller.
+   */
   hideView() {
     this.#questionResultSection.classList.add('hide');
   }
 
+  /**
+   * Will display the view elements that is controlled by the controller.
+   */
   displayView() {
     this.#questionResultSection.classList.remove('hide');
   }
 
+  /**
+   * Adds the provided text to the element that is displaying the result header.
+   * @param {String} headerText The text to display.
+   */
   addResultHeaderText(headerText) {
     this.#questionResultHeader.textContent = headerText;
   }

@@ -1,5 +1,8 @@
 import Chapter from './Chapter';
 
+/**
+ * Data holding class, for holding data of all the chapters of Clean Code.
+ */
 class CleanCodeChapters {
   #allChapters;
 
@@ -24,6 +27,12 @@ class CleanCodeChapters {
     this.#allChapters = allChapters;
   }
 
+  /**
+   * Method for finding a specific chapter based on the chapter number.
+   *
+   * @param {number} chapterNum The chapter number to find a matching chapter of.
+   * @returns The stored chapter with the corresponding chapter number.
+   */
   findChapterByNumber(chapterNum) {
     return this.#allChapters.find((chapter) => chapter.chapterNumber === chapterNum);
   }

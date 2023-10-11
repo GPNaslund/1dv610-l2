@@ -10,6 +10,9 @@ import AppFactory from './AppFactory';
 import cleanCodeQuestionsData from '../model/clean_code_questions.json';
 import CleanCodeQuestions from '../model/CleanCodeQuestions';
 
+/**
+ * Represents the default set up for creating necessary dependencies for the application.
+ */
 class DefaultAppFactory extends AppFactory {
 
   constructor() {

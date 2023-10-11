@@ -1,5 +1,8 @@
 import Chart from 'chart.js/auto';
 
+/**
+ * Represents a chart generator.
+ */
 class ChartGenerator {
   #chartInstance;
 
@@ -7,6 +10,13 @@ class ChartGenerator {
     this.#chartInstance = null;
   }
 
+  /**
+   * Method for generating and appending a chart to the view.
+   *
+   * @param {Element} chartElement The Canvas element to draw the chart on.
+   * @param {number[]} scores The scores to use to fill the bars y axis.
+   * @param {String[]} categories The categories that represents a bar on the chart.
+   */
   generateChartJS(chartElement, scores, categories) {
     const ctx = chartElement.getContext('2d');
 
