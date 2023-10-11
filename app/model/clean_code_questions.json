@@ -301,7 +301,7 @@
       "category": "Chapter 7"
     },
     {
-      "text": "Why is it considered a best practice to wrap third-party APIs according to the passage?\nA) Because it allows for increased error messages.\nB) Because it minimizes dependencies on the third-party API and allows for potential changes in the future.\nC) Because third-party APIs are typically error-prone.\nD) Because it makes the API more complex and detailed.",
+      "text": "Why is it considered a best practice to wrap third-party APIs?\nA) Because it allows for increased error messages.\nB) Because it minimizes dependencies on the third-party API and allows for potential changes in the future.\nC) Because third-party APIs are typically error-prone.\nD) Because it makes the API more complex and detailed.",
       "choices": ["A)", "B)", "C)", "D)"],
       "correctChoice": "B)",
       "category": "Chapter 7"
