@@ -46,6 +46,12 @@ class QuestionResultPageController extends CustomEventEmitter {
   addResultHeaderText(headerText) {
     this.#questionResultHeader.textContent = headerText;
   }
+
+  #validateHeaderText(headerText) {
+    if (typeof headerText !== 'string') {
+      throw new TypeError("Header text argument must be a string");
+    }
+  }
 }
 
 export default QuestionResultPageController;

@@ -34,7 +34,14 @@ class CleanCodeChapters {
    * @returns The stored chapter with the corresponding chapter number.
    */
   findChapterByNumber(chapterNum) {
+    this.#validateFindChapterByNumberArgument(chapterNum);
     return this.#allChapters.find((chapter) => chapter.chapterNumber === chapterNum);
+  }
+
+  #validateFindChapterByNumberArgument(chapterNum) {
+    if (typeof chapterNum !== "number") {
+      throw new TypeError("The chapter number argument must be a number");
+    }
   }
 }
 

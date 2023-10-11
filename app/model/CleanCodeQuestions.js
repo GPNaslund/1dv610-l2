@@ -12,6 +12,7 @@ class CleanCodeQuestions {
    *                                the question data. Check README for format.
    */
   constructor(questionDataJson) {
+    this.#validateQuestionData(questionDataJson);
     this.#allQuestions = [];
     this.#loadQuestions(questionDataJson);
   }
@@ -31,6 +32,32 @@ class CleanCodeQuestions {
 
   get allQuestions() {
     return this.#allQuestions;
+  }
+
+  #validateQuestionData(questionDataJson) {
+    if (typeof questionDataJson !== 'object' || !questionDataJson.questions) {
+      throw new TypeError('questionDataJson must be an object with a questions property');
+    }
+    if (!Array.isArray(questionDataJson.questions)) {
+      throw new TypeError('questions property in questionDataJson must be an array');
+    }
+    questionDataJson.questions.forEach((question, index) => {
+      if (typeof question.text !== 'string') {
+        throw new TypeError(`Question at index ${index} must have a text property of type string`);
+      }
+  
+      if (!Array.isArray(question.choices) || !question.choices.every(choice => typeof choice === 'string')) {
+        throw new TypeError(`Question at index ${index} must have a choices property which is an array of strings`);
+      }
+  
+      if (typeof question.correctChoice !== 'number' || question.correctChoice < 0 || question.correctChoice >= question.choices.length) {
+        throw new TypeError(`Question at index ${index} must have a correctChoice property which is a valid index of choices`);
+      }
+  
+      if (typeof question.category !== 'string') {
+        throw new TypeError(`Question at index ${index} must have a category property of type string`);
+      }
+    });
   }
 }
 

@@ -30,6 +30,7 @@ class App {
    * @param {AppFactory} factory The factory instance used to create the necessary dependencies.
    */
   constructor(factory) {
+    this.#verifyArguments(factory);
     this.#introPageController = factory.createIntroPageController();
     this.#questionPageController = factory.createQuestionPageController();
     this.#questionResultPageController = factory.createQuestionResultPageController();
@@ -138,6 +139,15 @@ class App {
       this.#summaryPageController.hideView();
       this.#introPageController.displayView();
     });
+  }
+
+  #verifyArguments(factory) {
+    if (factory === null) {
+      throw new TypeError("Factory instance cannot be null");
+    }
+    if (!(factory instanceof AppFactory)) {
+      throw new TypeError("Factory must be an instance of AppFactory");
+    }
   }
 }
 

@@ -16,6 +16,7 @@ class Chapter {
    * @param {number} lastPage The last page.
    */
   constructor(chapterNumber, firstPage, lastPage) {
+    this.#validateConstructorArguments(chapterNumber, firstPage, lastPage);
     this.#chapterNumber = chapterNumber;
     this.#firstPage = firstPage;
     this.#lastPage = lastPage;
@@ -31,6 +32,18 @@ class Chapter {
 
   get chapterNumber() {
     return this.#chapterNumber;
+  }
+
+  #validateConstructorArguments(chapterNumber, firstPage, lastPage) {
+    if (typeof chapterNumber !== "number") {
+      throw new TypeError("The chapter number of Chapter must be a number");
+    }
+    if (typeof firstPage !== "number") {
+      throw new TypeError("The first page of Chapter must be a number");
+    }
+    if (typeof lastPage !== "number") {
+      throw new TypeError("The last page of Chapter must be a number");
+    }
   }
 }
 

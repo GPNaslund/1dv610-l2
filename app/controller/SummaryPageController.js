@@ -30,6 +30,8 @@ class SummaryPageController extends CustomEventEmitter {
    *                            The class that holds all the chapter page information.
    */
   constructor(chartGenerator, cleanCodeChapters) {
+    this.#validateChartGenerator(chartGenerator);
+    this.#validateCleanCodeChapters(cleanCodeChapters);
     super();
     this.#summarySection = document.querySelector('#summary-section');
     this.#chartContainer = document.querySelector('#chart-container');
@@ -147,6 +149,24 @@ class SummaryPageController extends CustomEventEmitter {
       }
       this.#yellowRecommendations.appendChild(pElement);
     });
+  }
+
+  #validateChartGenerator(chartGenerator) {
+    if (chartGenerator === null) {
+      throw new TypeError("The chart generator argument cannot be null");
+    }
+    if (!(chartGenerator instanceof ChartGenerator)) {
+      throw new TypeError("The chart generator argument must be instance of ChartGenerator");
+    }
+  }
+
+  #validateCleanCodeChapters(cleanCodeChapters) {
+    if (cleanCodeChapters === null) {
+      throw new TypeError("The clean code chapters argument cannot be null");
+    }
+    if (!(cleanCodeChapters instanceof CleanCodeChapters)) {
+      throw new TypeError("The clean code chapters argument must be instance of CleanCodeChapters");
+    }
   }
 }
 

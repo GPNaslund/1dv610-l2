@@ -27,6 +27,7 @@ class DefaultAppFactory extends AppFactory {
   }
 
   createSummaryPageController(chartGenerator, cleanCodeChapters) {
+    this.#verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters);
     return new SummaryPageController(chartGenerator, cleanCodeChapters);
   }
 
@@ -44,6 +45,21 @@ class DefaultAppFactory extends AppFactory {
 
   createCleanCodeQuestions() {
     return new CleanCodeQuestions(cleanCodeQuestionsData);
+  }
+
+  #verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters) {
+    if (chartGenerator === null) {
+      throw new TypeError("Chart generator cannot be null");
+    }
+    if (cleanCodeChapters === null) {
+      throw new TypeError("Clean code chapters cannot be null");
+    }
+    if (!(chartGenerator instanceof ChartGenerator)) {
+      throw new TypeError("Chart generator must be an instance of ChartGenerator");
+    }
+    if (!(cleanCodeChapters instanceof CleanCodeChapters)) {
+      throw new TypeError("Clean code chapters must be instance of CleanCodeChapters");
+    }
   }
 }
 

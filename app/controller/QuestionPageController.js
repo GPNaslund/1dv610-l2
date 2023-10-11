@@ -43,6 +43,7 @@ class QuestionPageController extends CustomEventEmitter {
    * @param {String} questionText The string to display.
    */
   addQuestionText(questionText) {
+    this.#verifyQuestionText(questionText);
     this.#questionText.textContent = questionText;
   }
 
@@ -53,6 +54,7 @@ class QuestionPageController extends CustomEventEmitter {
    * @param {String[]} choices The choices to the question.
    */
   addAnswerButtons(choices) {
+    this.#verifyChoices(choices);
     this.#answerButtons.replaceChildren();
     for (let i = 0; i < choices.length; i += 1) {
       const answerBtn = document.createElement('div');
@@ -63,6 +65,23 @@ class QuestionPageController extends CustomEventEmitter {
       });
       this.#answerButtons.appendChild(answerBtn);
     }
+  }
+
+  #verifyQuestionText(questionText) {
+    if (typeof questionText !== "string") {
+      throw new TypeError("The question text argument must be a string");
+    }
+  }
+
+  #verifyChoices(choices) {
+    if (!Array.isArray(choices)) {
+      throw new TypeError("The choices argument must be an array");
+    }
+    choices.forEach(choice => {
+      if(typeof choice !== "string") {
+        throw new TypeError("Each entry in the choices argument must be a string");
+      }
+    })
   }
 }
 
