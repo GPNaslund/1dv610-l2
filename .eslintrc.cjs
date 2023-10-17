@@ -22,6 +22,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "max-lines": ["error", {"max": 500, "skipBlankLines": true, "skipComments": true}]
+    "max-lines": ["error", {"max": 500, "skipBlankLines": true, "skipComments": true}],
+    'import/extensions': 'off'
   },
 };

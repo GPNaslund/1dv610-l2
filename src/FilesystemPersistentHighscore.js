@@ -1,9 +1,9 @@
 import fs from 'fs/promises';
 import path from 'path';
 import os from 'os';
-import Highscore from './Highscore';
+import Highscore from './Highscore.js';
 // eslint-disable-next-line no-unused-vars
-import QuizScore from './QuizScore';
+import QuizScore from './QuizScore.js';
 
 /**
  * Class for reading and writing the quiz highscore to local filesystem.

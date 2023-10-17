@@ -1,6 +1,6 @@
-import QuestionResult from './QuestionResult';
-import QuizCategorySummary from './QuizCategorySummary';
-import QuizResultSummary from './QuizResultSummary';
+import QuestionResult from './QuestionResult.js';
+import QuizCategorySummary from './QuizCategorySummary.js';
+import QuizResultSummary from './QuizResultSummary.js';
 
 /** Class for storing the outcome of answers and generating a summary */
 class QuizResult {

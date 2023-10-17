@@ -1,6 +1,6 @@
-import Highscore from './Highscore';
+import Highscore from './Highscore.js';
 // eslint-disable-next-line no-unused-vars
-import QuizScore from './QuizScore';
+import QuizScore from './QuizScore.js';
 
 /**
  * Class for saving highscore to local storage in browser.

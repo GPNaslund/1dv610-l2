@@ -1,4 +1,4 @@
-import Question from './Question';
+import Question from './Question.js';
 
 /** Represents the result of an answered question */
 class QuestionResult {

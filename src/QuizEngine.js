@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 
-import QuestionsManager from './QuestionsManager';
-import CustomEventEmitter from './CustomEventEmitter';
-import FilesystemPersistence from './FilesystemPersistentHighscore';
-import LocalStoragePersistence from './LocalStoragePersistence';
-import QuizQuestions from './QuizQuestions';
-import QuizResult from './QuizResult';
-import QuestionResult from './QuestionResult';
-import QuizScore from './QuizScore';
-import Highscore from './Highscore';
-import QuizResultSummary from './QuizResultSummary';
+import QuestionsManager from './QuestionsManager.js';
+import CustomEventEmitter from './CustomEventEmitter.js';
+import FilesystemPersistence from './FilesystemPersistentHighscore.js';
+import LocalStoragePersistence from './LocalStoragePersistence.js';
+import QuizQuestions from './QuizQuestions.js';
+import QuizResult from './QuizResult.js';
+import QuestionResult from './QuestionResult.js';
+import QuizScore from './QuizScore.js';
+import Highscore from './Highscore.js';
+import QuizResultSummary from './QuizResultSummary.js';
 
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {

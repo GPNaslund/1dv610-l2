@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import Question from './Question';
-import QuizQuestions from './QuizQuestions';
+import Question from './Question.js';
+import QuizQuestions from './QuizQuestions.js';
 
 /** Class that manages the questions. Ordering, current index and correctness of answer. */
 class QuestionsManager {

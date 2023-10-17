@@ -1,4 +1,4 @@
-import QuizCategorySummary from './QuizCategorySummary';
+import QuizCategorySummary from './QuizCategorySummary.js';
 
 /** Holds all the summary data of a Quiz */
 class QuizResultSummary {

@@ -1,4 +1,4 @@
-import QuizScore from './QuizScore';
+import QuizScore from './QuizScore.js';
 
 /** Represents a Highscore */
 class Highscore {
