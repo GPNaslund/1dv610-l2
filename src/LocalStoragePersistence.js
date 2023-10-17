@@ -1,12 +1,14 @@
-import Highscore from "./Highscore.js";
-import QuizScore from "./QuizScore.js";
+import Highscore from './Highscore';
+// eslint-disable-next-line no-unused-vars
+import QuizScore from './QuizScore';
 
 /**
  * Class for saving highscore to local storage in browser.
  */
 class LocalStoragePersistence {
-  #keyName
-  #maxAmountOfScoresToSave
+  #keyName;
+
+  #maxAmountOfScoresToSave;
 
   /**
    * Initializes the keyName field.
@@ -19,7 +21,7 @@ class LocalStoragePersistence {
 
   #setMaxAmountOfScoresToSave(maxAmountOfScores) {
     if (typeof maxAmountOfScores !== 'number') throw TypeError('maxAmountOfScores must be a number');
-    if (maxAmountOfScores < 1) throw new RangeError("maxAmountOfScores must be 1 or more");
+    if (maxAmountOfScores < 1) throw new RangeError('maxAmountOfScores must be 1 or more');
     this.#maxAmountOfScoresToSave = maxAmountOfScores;
   }
 
@@ -35,8 +37,8 @@ class LocalStoragePersistence {
 
   /**
    * Method for saving a QuizScore to local storage.
-   * 
-   * @param {QuizScore} quizScore - The quizScore to save. 
+   *
+   * @param {QuizScore} quizScore - The quizScore to save.
    */
   async saveQuizScore(quizScore) {
     Promise.resolve(this.#localStorageSaveQuizScore(quizScore));
@@ -44,7 +46,8 @@ class LocalStoragePersistence {
 
   /**
    * Method for getting the Highscore from local storage.
-   * @returns {Promise<Highscore>} - A promise that resolves to an object containing the highscore data.
+   * @returns {Promise<Highscore>} - A promise that resolves to
+   * an object containing the highscore data.
    */
   async getHighscore() {
     return Promise.resolve(this.#localStorageGetHighscore());
@@ -52,7 +55,7 @@ class LocalStoragePersistence {
 
   /**
    * Method for saving a QuizScore to local storage.
-   * 
+   *
    * @param {QuizScore} quizScore - The quizScore to be saved.
    */
   #localStorageSaveQuizScore(quizScore) {
@@ -63,13 +66,13 @@ class LocalStoragePersistence {
       highscore.limitAmountOfScores(this.#maxAmountOfScoresToSave);
       localStorage.setItem(this.#keyName, highscore.toJSON());
     } else {
-      throw new Error("Local storage is not available for usage");
+      throw new Error('Local storage is not available for usage');
     }
   }
 
   /**
    * Method for getting the highscore data from localstorage.
-   * 
+   *
    * @returns {Highscore} - An object containing the highscore data.
    */
   #localStorageGetHighscore() {
@@ -79,24 +82,23 @@ class LocalStoragePersistence {
       highscore.fromJSON(exisitingHighscores);
       highscore.sortQuizScores();
       return highscore;
-    } else {
-      throw new Error("Local storage is not available for usage");
     }
+    throw new Error('Local storage is not available for usage');
   }
-
 
   /**
    * Method for checking the availability of localstorage.
-   * 
+   *
    * @returns {boolean} indicating if local storage is avaialable or not.
    */
+  // eslint-disable-next-line class-methods-use-this
   #localStorageIsAvailable() {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return false;
     }
     try {
-      window.localStorage.setItem("test", "test");
-      window.localStorage.removeItem("test");
+      window.localStorage.setItem('test', 'test');
+      window.localStorage.removeItem('test');
       return true;
     } catch (e) {
       return false;

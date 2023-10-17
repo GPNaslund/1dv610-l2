@@ -1,5 +1,5 @@
-import QuizResultSummary from '../QuizResultSummary.js';
-import QuizCategorySummary from '../QuizCategorySummary.js';
+import QuizResultSummary from '../src/QuizResultSummary.js';
+import QuizCategorySummary from '../src/QuizCategorySummary.js';
 
 describe("QuizResultSummary class", () => {
   describe("constructor()", () => {

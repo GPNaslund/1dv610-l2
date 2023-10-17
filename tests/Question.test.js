@@ -1,4 +1,4 @@
-import Question from '../Question.js';
+import Question from '../src/Question.js';
 
 describe("Question class", () => {
   

@@ -1,4 +1,4 @@
-import QuizCategorySummary from "../QuizCategorySummary";
+import QuizCategorySummary from "../src/QuizCategorySummary";
 
 describe("QuizCategorySummary class", () => {
   let summary;

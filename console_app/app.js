@@ -3,8 +3,8 @@ import { stdin as input, stdout as output } from 'node:process';
 
 const rl = readline.createInterface({ input, output });
 
-import QuizEngine from "../QuizEngine.js";
-import QuizQuestions from '../QuizQuestions.js';
+import QuizEngine from "../src/QuizEngine.js";
+import QuizQuestions from '../src/QuizQuestions.js';
 import { quizQuestions } from './appQuestions.js';
 
 

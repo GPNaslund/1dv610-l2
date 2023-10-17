@@ -1,7 +1,7 @@
-import QuestionResult from '../QuestionResult.js';
-import QuizCategorySummary from '../QuizCategorySummary.js';
-import QuizResult from '../QuizResult.js';
-import Question from '../Question.js';
+import QuestionResult from '../src/QuestionResult.js';
+import QuizCategorySummary from '../src/QuizCategorySummary.js';
+import QuizResult from '../src/QuizResult.js';
+import Question from '../src/Question.js';
 
 describe('QuizResult class', () => {
 

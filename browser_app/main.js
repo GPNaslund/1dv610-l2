@@ -1,7 +1,7 @@
 
-import QuizEngine from '../QuizEngine.js';
-import QuizQuestions from '../QuizQuestions.js';
-import { quizQuestions } from '../console_app/appQuestions.js';
+import QuizEngine from '../src/QuizEngine.js';
+import QuizQuestions from '../src/QuizQuestions.js';
+import { quizQuestions } from '../src/console_app/appQuestions.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const quizQuestions = new QuizQuestions();

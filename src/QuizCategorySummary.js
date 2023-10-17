@@ -1,8 +1,11 @@
 /** Represents a summary of a category */
 class QuizCategorySummary {
   #nameOfCategory;
+
   #amountOfQuestions;
+
   #amountOfCorrectAnswers;
+
   #percentageOfCorrectAnswers;
 
   /**
@@ -15,29 +18,31 @@ class QuizCategorySummary {
     this.#nameOfCategory = nameOfCategory;
     this.#amountOfQuestions = amountOfQuestions;
     this.#amountOfCorrectAnswers = amountOfCorrectAnswers;
-    const percentageOfCorrectAnswers = parseFloat(((amountOfCorrectAnswers / amountOfQuestions) * 100).toFixed(2));
+    const percentageOfCorrectAnswers = parseFloat(
+      ((amountOfCorrectAnswers / amountOfQuestions) * 100).toFixed(2),
+    );
     this.#percentageOfCorrectAnswers = percentageOfCorrectAnswers;
   }
 
- get nameOfCategory() {
+  get nameOfCategory() {
     return this.#nameOfCategory;
   }
 
- get amountOfQuestions() {
+  get amountOfQuestions() {
     return this.#amountOfQuestions;
   }
 
- get amountOfCorrectAnswers() {
+  get amountOfCorrectAnswers() {
     return this.#amountOfCorrectAnswers;
   }
 
- get percentageOfCorrectAnswers() {
+  get percentageOfCorrectAnswers() {
     return this.#percentageOfCorrectAnswers;
   }
 
   /**
    * Method for returning the summary as a string.
-   * 
+   *
    * @returns {string} - The summary in string format.
    */
   toString() {
@@ -45,21 +50,20 @@ class QuizCategorySummary {
       `category: ${this.#nameOfCategory}`,
       `amount of questions: ${this.#amountOfQuestions}`,
       `amount of correct answers: ${this.#amountOfCorrectAnswers}`,
-      `correct percentage: ${this.#percentageOfCorrectAnswers}%`
-    ].join(", ");
+      `correct percentage: ${this.#percentageOfCorrectAnswers}%`,
+    ].join(', ');
   }
 
   /**
    * Method for returning the summary as an array.
-   * 
+   *
    * @returns {string[]} - The summary as strings in an array.
    */
   toArray() {
     const categorySummary = [`category: ${this.#nameOfCategory}`, `amount of questions: ${this.#amountOfQuestions}`,
-  `amount of correct answers: ${this.#amountOfCorrectAnswers}`, `correct percentage: ${this.#percentageOfCorrectAnswers}%`];
-    return categorySummary; 
+      `amount of correct answers: ${this.#amountOfCorrectAnswers}`, `correct percentage: ${this.#percentageOfCorrectAnswers}%`];
+    return categorySummary;
   }
-
 }
 
 export default QuizCategorySummary;

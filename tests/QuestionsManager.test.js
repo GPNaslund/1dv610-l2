@@ -1,6 +1,6 @@
-import QuestionsManager from '../QuestionsManager.js';
-import QuizQuestions from '../QuizQuestions.js';
-import Question from '../Question.js';
+import QuestionsManager from '../src/QuestionsManager.js';
+import QuizQuestions from '../src/QuizQuestions.js';
+import Question from '../src/Question.js';
 
 describe("QuestionsManager class", () => {
   let quizQuestions;

@@ -1,16 +1,18 @@
-import QuestionResult from "./QuestionResult.js";
-import QuizCategorySummary from "./QuizCategorySummary.js";
-import QuizResultSummary from "./QuizResultSummary.js";
+import QuestionResult from './QuestionResult';
+import QuizCategorySummary from './QuizCategorySummary';
+import QuizResultSummary from './QuizResultSummary';
 
 /** Class for storing the outcome of answers and generating a summary */
 class QuizResult {
   #playerName;
+
   #score;
+
   #questionResults;
 
   /**
    * Initializes username, score and questionResult.
-   * 
+   *
    * @param {string} playerName - The playerName.
    * @param {number} score - The users score.
    */
@@ -21,30 +23,28 @@ class QuizResult {
     this.#questionResults = [];
   }
 
-
- get playerName() {
+  get playerName() {
     return this.#playerName;
   }
 
-
- get score() {
+  get score() {
     return this.#score;
   }
 
- #setPlayerName(playerName) {
+  #setPlayerName(playerName) {
     if (typeof playerName !== 'string') throw new TypeError('Username must be a string');
     if (playerName.length < 1) throw new RangeError('Username cannot be empty');
     this.#playerName = playerName;
   }
 
- #setScore(score) {
+  #setScore(score) {
     if (typeof score !== 'number') throw new TypeError('Score must be a number');
     this.#score = score;
   }
 
   /**
    * Method for incrementing the score.
-   * 
+   *
    * @param {number} amount - The amount to increment the score with.
    */
   incrementScore(amount) {
@@ -54,7 +54,7 @@ class QuizResult {
 
   /**
    * Getter for #questionsResultDetails.
-   * 
+   *
    * @returns {Array<QuestionResult>} - Containing all the added question result objects.
    * @readonly
    * @memberof QuizResult
@@ -73,41 +73,51 @@ class QuizResult {
 
   /**
    * Adds a QuestionResult object to #questionResult
-   * 
+   *
    * @param {QuestionResult} questionResult - The QuestionResult to add.
    */
   addQuestionResult(questionResult) {
-    if (questionResult instanceof QuestionResult === false) throw new TypeError("Argument must be of type QuestionResult");
+    if (questionResult instanceof QuestionResult === false) throw new TypeError('Argument must be of type QuestionResult');
     this.#questionResults.push(questionResult);
   }
 
   /**
    * Method for generating a summary of all the categories provided in the #questionResult array.
-   * 
+   *
    * @returns {QuizResultSummary} - QuizResultSummary containing all the category summaries.
    */
   generateSummary() {
-    const allCategories = new Set(this.#questionResults.map(result => result.category));
+    const allCategories = new Set(this.#questionResults.map((result) => result.category));
     const quizResultSummary = new QuizResultSummary(this.#playerName, this.#score);
-    for (const category of allCategories) {
+
+    allCategories.forEach((category) => {
       quizResultSummary.addCategorySummary(this.#generateCategorySummary(category));
-    }
+    });
+
     return quizResultSummary;
   }
 
   /**
    * Method for generating a summary for a category.
-   * 
+   *
    * @param {string} categoryName - The name of the category to summarize.
    * @returns {QuizCategorySummary} - QuizCategorySummary containing the summary information.
    */
   #generateCategorySummary(categoryName) {
-    const allResultDetailsForCategory = this.#questionResults.filter(result => result.category === categoryName);
-    const allResultsWithCorrectAnswer = allResultDetailsForCategory.filter(result => result.wasCorrect === true);
+    const allResultDetailsForCategory = this.#questionResults.filter(
+      (result) => result.category === categoryName,
+    );
+    const allResultsWithCorrectAnswer = allResultDetailsForCategory.filter(
+      (result) => result.wasCorrect === true,
+    );
     const amountOfQuestions = allResultDetailsForCategory.length;
     const amountOfCorrectAnswers = allResultsWithCorrectAnswer.length;
 
-    const quizCategorySummary = new QuizCategorySummary(categoryName, amountOfQuestions, amountOfCorrectAnswers);
+    const quizCategorySummary = new QuizCategorySummary(
+      categoryName,
+      amountOfQuestions,
+      amountOfCorrectAnswers,
+    );
 
     return quizCategorySummary;
   }

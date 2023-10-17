@@ -1,12 +1,15 @@
-/** 
- * Represents a question. Contains the question text, different choices and the index of the correct choice
- * in choices.
+/**
+ * Represents a question. Contains the question text, different
+ * choices and the index of the correct choice in choices.
  */
 class Question {
   #text;
+
   #choices;
+
   #correctChoice;
-  #category
+
+  #category;
 
   /**
    * Create a question instance.
@@ -16,56 +19,58 @@ class Question {
    * @param {string} arguments.correctChoice - The correct choice.
    * @param {string} [arguments.category] - The category of the question.
    */
-  constructor({text, choices, correctChoice, category = 'undefined'}) {
+  constructor({
+    text, choices, correctChoice, category = 'undefined',
+  }) {
     this.#setText(text);
     this.#setChoices(choices);
     this.#setcorrectChoice(correctChoice);
     this.#setCategory(category);
   }
 
- get text() {  
+  get text() {
     return this.#text;
   }
 
- #setText(text) {
+  #setText(text) {
     if (typeof text !== 'string') {
-      throw new TypeError("Question text must be a string!");
+      throw new TypeError('Question text must be a string!');
     }
     this.#text = text;
   }
 
- get choices() {
+  get choices() {
     return this.#choices;
   }
 
- #setChoices(choices) {
+  #setChoices(choices) {
     if (!Array.isArray(choices)) {
-      throw new TypeError("Choices must be an array!");
+      throw new TypeError('Choices must be an array!');
     }
     choices.forEach((choice) => {
       if (typeof choice !== 'string') {
-        throw new TypeError("Each choice must be a string!");
+        throw new TypeError('Each choice must be a string!');
       }
-    })
+    });
 
     this.#choices = choices;
   }
 
- get correctChoice() {
+  get correctChoice() {
     return this.#correctChoice;
   }
 
- #setcorrectChoice(correctChoice) {
-    if (typeof correctChoice !== 'string') throw new TypeError("The correct choice must be a string!");
-    if (correctChoice.length < 1) throw new RangeError("Correct choice cannot be empty!")
+  #setcorrectChoice(correctChoice) {
+    if (typeof correctChoice !== 'string') throw new TypeError('The correct choice must be a string!');
+    if (correctChoice.length < 1) throw new RangeError('Correct choice cannot be empty!');
     this.#correctChoice = correctChoice;
   }
 
- get category() {
+  get category() {
     return this.#category;
   }
 
- #setCategory(categoryName) {
+  #setCategory(categoryName) {
     if (typeof categoryName !== 'string') {
       throw new TypeError('Category must be a string');
     }
@@ -74,7 +79,6 @@ class Question {
     }
     this.#category = categoryName;
   }
-
 }
 
 export default Question;

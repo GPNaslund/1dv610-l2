@@ -1,5 +1,5 @@
-import QuizQuestions from '../QuizQuestions.js';
-import Question from '../Question.js';
+import QuizQuestions from '../src/QuizQuestions.js';
+import Question from '../src/Question.js';
 
 describe("QuizQuestions class", () => {
 

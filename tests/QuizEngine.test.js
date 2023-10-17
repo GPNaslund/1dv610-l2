@@ -1,5 +1,5 @@
-import QuizEngine from '../QuizEngine.js';
-import QuizQuestions from '../QuizQuestions.js';
+import QuizEngine from '../src/QuizEngine.js';
+import QuizQuestions from '../src/QuizQuestions.js';
 
 describe("QuizEngine class", () => {
   let quizEngine;

@@ -1,5 +1,5 @@
-import Question from '../Question.js';
-import QuestionResult from '../QuestionResult.js';
+import Question from '../src/Question.js';
+import QuestionResult from '../src/QuestionResult.js';
 
 describe("QuestionResult class", () => {
 
