@@ -7,5 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const app = new App(factory);
   } catch (e) {
     console.log(e.message)
+    console.error(e)
   }
 });

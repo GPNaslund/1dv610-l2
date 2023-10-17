@@ -1,5 +1,5 @@
-import ChartGenerator from '../model/ChartGenerator'; // eslint-disable-line no-unused-vars
-import CleanCodeChapters from '../model/CleanCodeChapters'; // eslint-disable-line no-unused-vars
+import ChartGenerator from '../model/ChartGenerator'; // eslint-disable-next-line no-unused-vars
+import CleanCodeChapters from '../model/CleanCodeChapters'; // eslint-disable-next-line no-unused-vars
 import CustomEventEmitter from './CustomEventEmitter';
 
 /**
@@ -30,9 +30,9 @@ class SummaryPageController extends CustomEventEmitter {
    *                            The class that holds all the chapter page information.
    */
   constructor(chartGenerator, cleanCodeChapters) {
+    super();
     this.#validateChartGenerator(chartGenerator);
     this.#validateCleanCodeChapters(cleanCodeChapters);
-    super();
     this.#summarySection = document.querySelector('#summary-section');
     this.#chartContainer = document.querySelector('#chart-container');
     this.#redRecommendations = document.querySelector('#red-recommendations');
@@ -151,6 +151,7 @@ class SummaryPageController extends CustomEventEmitter {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateChartGenerator(chartGenerator) {
     if (chartGenerator === null) {
       throw new TypeError('The chart generator argument cannot be null');
@@ -160,6 +161,7 @@ class SummaryPageController extends CustomEventEmitter {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateCleanCodeChapters(cleanCodeChapters) {
     if (cleanCodeChapters === null) {
       throw new TypeError('The clean code chapters argument cannot be null');

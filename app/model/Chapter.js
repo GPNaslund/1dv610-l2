@@ -34,6 +34,7 @@ class Chapter {
     return this.#chapterNumber;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateConstructorArguments(chapterNumber, firstPage, lastPage) {
     if (typeof chapterNumber !== 'number') {
       throw new TypeError('The chapter number of Chapter must be a number');

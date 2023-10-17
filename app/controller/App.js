@@ -141,6 +141,7 @@ class App {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #verifyArguments(factory) {
     if (factory === null) {
       throw new TypeError('Factory instance cannot be null');

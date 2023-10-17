@@ -34,6 +34,7 @@ class CleanCodeQuestions {
     return this.#allQuestions;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateQuestionData(questionDataJson) {
     if (typeof questionDataJson !== 'object' || !questionDataJson.questions) {
       throw new TypeError('questionDataJson must be an object with a questions property');
@@ -50,8 +51,9 @@ class CleanCodeQuestions {
         throw new TypeError(`Question at index ${index} must have a choices property which is an array of strings`);
       }
 
-      if (typeof question.correctChoice !== 'number' || question.correctChoice < 0 || question.correctChoice >= question.choices.length) {
-        throw new TypeError(`Question at index ${index} must have a correctChoice property which is a valid index of choices`);
+      if (typeof question.correctChoice !== 'string' || !question.choices.includes(question.correctChoice)
+      ) {
+        throw new TypeError(`Question at index ${index} must have a correctChoice property which matches one of the choices`);
       }
 
       if (typeof question.category !== 'string') {

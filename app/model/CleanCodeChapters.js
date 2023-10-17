@@ -38,6 +38,7 @@ class CleanCodeChapters {
     return this.#allChapters.find((chapter) => chapter.chapterNumber === chapterNum);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateFindChapterByNumberArgument(chapterNum) {
     if (typeof chapterNum !== 'number') {
       throw new TypeError('The chapter number argument must be a number');

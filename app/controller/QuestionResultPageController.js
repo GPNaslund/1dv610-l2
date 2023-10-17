@@ -44,9 +44,11 @@ class QuestionResultPageController extends CustomEventEmitter {
    * @param {String} headerText The text to display.
    */
   addResultHeaderText(headerText) {
+    this.#validateHeaderText();
     this.#questionResultHeader.textContent = headerText;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateHeaderText(headerText) {
     if (typeof headerText !== 'string') {
       throw new TypeError('Header text argument must be a string');

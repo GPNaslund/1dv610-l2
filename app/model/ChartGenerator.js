@@ -91,6 +91,7 @@ class ChartGenerator {
     this.#chartInstance = new Chart(ctx, config);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateGenerateChartJsArguments(chartElement, scores, categories) {
     if (!(chartElement instanceof HTMLCanvasElement)) {
       throw new TypeError('chartElement must be an instance of HTMLCanvasElement');

@@ -67,12 +67,14 @@ class QuestionPageController extends CustomEventEmitter {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #verifyQuestionText(questionText) {
     if (typeof questionText !== 'string') {
       throw new TypeError('The question text argument must be a string');
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #verifyChoices(choices) {
     if (!Array.isArray(choices)) {
       throw new TypeError('The choices argument must be an array');
