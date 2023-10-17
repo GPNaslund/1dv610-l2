@@ -4,23 +4,23 @@ import { stdin as input, stdout as output } from 'node:process';
 const rl = readline.createInterface({ input, output });
 
 import QuizEngine from "../QuizEngine.js";
-import QuestionBank from '../QuestionBank.js';
+import QuizQuestions from '../QuizQuestions.js';
 import { quizQuestions } from './appQuestions.js';
 
 
 class App {
-  questionBank;
+  quizQuestions;
   quizEngine;
 
   constructor() {
-    this.questionBank = new QuestionBank();
-    quizQuestions.forEach(question => this.questionBank.createAndAddQuestion(question));
+    this.quizQuestions = new QuizQuestions();
+    quizQuestions.forEach(question => this.quizQuestions.createAndAddQuestion(question));
   }
 
   async main() {
     const username = await this.#getUsername();
     console.log("=== WELCOME TO THE QUIZ " + username.toUpperCase() + " ===");
-    this.quizEngine = new QuizEngine(this.questionBank, username);
+    this.quizEngine = new QuizEngine(this.quizQuestions, username);
     this.quizEngine.initFilesystemStorage();
 
     this.quizEngine.on('question', async (questionData) => {

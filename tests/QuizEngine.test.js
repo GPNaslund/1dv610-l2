@@ -1,15 +1,15 @@
 import QuizEngine from '../QuizEngine.js';
-import QuestionBank from '../QuestionBank.js';
+import QuizQuestions from '../QuizQuestions.js';
 
 describe("QuizEngine class", () => {
   let quizEngine;
-  let questionBank;
+  let quizQuestions;
 
   beforeEach(() => {
-    questionBank = new QuestionBank();
-    questionBank.createAndAddQuestion({text: "Is this a String?", choices: ["Yes", "No"], correctChoice: "Yes"});
-    questionBank.createAndAddQuestion({text: "Is this a number?", choices: ["Yes", "No"], correctChoice: "No"});
-    quizEngine = new QuizEngine(questionBank, "TestPerson");
+    quizQuestions = new QuizQuestions();
+    quizQuestions.createAndAddQuestion({text: "Is this a String?", choices: ["Yes", "No"], correctChoice: "Yes"});
+    quizQuestions.createAndAddQuestion({text: "Is this a number?", choices: ["Yes", "No"], correctChoice: "No"});
+    quizEngine = new QuizEngine(quizQuestions, "TestPerson");
   });
 
   describe("constructor()", () => {
@@ -18,7 +18,7 @@ describe("QuizEngine class", () => {
     })
     it("should throw error if not provided correct arguments", () => {
       expect(() => new QuizEngine().toThrow(TypeError));
-      expect(() => new QuizEngine(questionBank).toThrow(TypeError));
+      expect(() => new QuizEngine(quizQuestions).toThrow(TypeError));
       expect(() => new QuizEngine("TestPerson").toThrow(TypeError));
     })
   });

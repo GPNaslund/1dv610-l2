@@ -1,9 +1,9 @@
 import QuestionsManager from '../QuestionsManager.js';
-import QuestionBank from '../QuestionBank.js';
+import QuizQuestions from '../QuizQuestions.js';
 import Question from '../Question.js';
 
 describe("QuestionsManager class", () => {
-  let questionBank;
+  let quizQuestions;
   let questionsManager;
 
   beforeEach(() => {
@@ -13,15 +13,15 @@ describe("QuestionsManager class", () => {
     const q4 = new Question({text: "Is music sound?", choices: ["Yes", "No"], correctChoice: "Yes"});
     const q5 = new Question({text: "Do you get wet in rain?", choices: ["Yes", "No"], correctChoice: "Yes"});
 
-    questionBank = new QuestionBank();
-    questionBank.addQuestion(q1);
-    questionBank.addQuestion(q2);
-    questionBank.addQuestion(q3);
-    questionBank.addQuestion(q4);
-    questionBank.addQuestion(q5);
+    quizQuestions = new QuizQuestions();
+    quizQuestions.addQuestion(q1);
+    quizQuestions.addQuestion(q2);
+    quizQuestions.addQuestion(q3);
+    quizQuestions.addQuestion(q4);
+    quizQuestions.addQuestion(q5);
 
 
-    questionsManager = new QuestionsManager(questionBank);
+    questionsManager = new QuestionsManager(quizQuestions);
   });
 
   describe("constructor()", () => {

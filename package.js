@@ -1,9 +1,9 @@
 import QuizEngine from './QuizEngine.js';
-import QuestionBank from './QuestionBank.js'
+import QuizQuestions from './QuizQuestions.js'
 import Question from './Question.js';
 
 export {
   QuizEngine,
-  QuestionBank,
+  QuizQuestions,
   Question
 }

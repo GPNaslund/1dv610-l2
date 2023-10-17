@@ -4,11 +4,11 @@ import Question from './Question.js';
  * Class responsible for creating/adding questions, storing questions, and 
  * utility for randomizing the order of the questions.
  */
-class QuestionBank {
+class QuizQuestions {
   #allQuestions;
 
   /**
-   * Creates a QuestionBank instance.
+   * Creates a QuizQuestions instance.
    */
   constructor() {
     this.#allQuestions = [];
@@ -95,4 +95,4 @@ class QuestionBank {
   }
 }
 
-export default QuestionBank;
+export default QuizQuestions;

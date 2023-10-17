@@ -26,11 +26,11 @@ npm install gn222gq-quiz-engine
 ## Example
 Since the QuizEngine is the main part of the module, and it uses a event emitting way of communicating to listeners, the module works great for both node.js applications aswell as in browser environment.
 ```js
-import {QuizEngine, QuestionBank, Question} from 'gn222gq-quiz-engine';
+import {QuizEngine, QuizQuestions, Question} from 'gn222gq-quiz-engine';
 
-const questionBank = new QuestionBank();
+const quizQuestions = new QuizQuestions();
 
-const questionBank.createAndAddQuestion({
+const quizQuestions.createAndAddQuestion({
   text: "Is the sky blue", 
   choices: ["Yes", "No", "Sometimes"], 
   correctChoice: "Sometimes",
@@ -38,7 +38,7 @@ const questionBank.createAndAddQuestion({
   });
 // .. More questions
 
-const quizEngine = new QuizEngine(questionBank, "PlayerName");
+const quizEngine = new QuizEngine(quizQuestions, "PlayerName");
 
 /*      CALLBACKS      */
 
@@ -108,11 +108,11 @@ quizEngine.getSummary();
 
 ```
 
-### Create a QuestionBank and questions
+### Create a QuizQuestions object and questions for the quiz
 ```js
-import {QuestionBank, Question} from 'gn222gq-quiz-engine';
+import {QuizQuestions, Question} from 'gn222gq-quiz-engine';
 
-const questionBank = new QuestionBank();
+const quizQuestions = new QuizQuestions();
 
 // You can instantiate Question objects seperately..
 const questionObject = new Question({
@@ -123,17 +123,17 @@ const questionObject = new Question({
 });
 
 // ..and pass the to the addQuestion() method.
-questionBank.addQuestion(questionObject);
+quizQuestions.addQuestion(questionObject);
 
 // You can also supply the constructor arguments for a Question object to the createAndAddQuestion() method to create a Question
-// that will be added to the QuestionBank.
-questionBank.createAndAddQuestion({text: "text", choices:["choice", "choice2"], correctChoice: "choice", category: "Example"});
+// that will be added to the QuizQuestions.
+quizQuestions.createAndAddQuestion({text: "text", choices:["choice", "choice2"], correctChoice: "choice", category: "Example"});
 
 ```
 
 ### Highscore and QuizResultSummary
 ```js
-import {QuizEngine, QuestionBank, Question} from 'gn222gq-quiz-engine';
+import {QuizEngine, QuizQuestions, Question} from 'gn222gq-quiz-engine';
 
 // Implemented setup etc..
 

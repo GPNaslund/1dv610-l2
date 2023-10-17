@@ -1,13 +1,13 @@
 
 import QuizEngine from '../QuizEngine.js';
-import QuestionBank from '../QuestionBank.js';
+import QuizQuestions from '../QuizQuestions.js';
 import { quizQuestions } from '../console_app/appQuestions.js';
 
 document.addEventListener('DOMContentLoaded', function () {
-  const questionBank = new QuestionBank();
-  quizQuestions.forEach(question => questionBank.createAndAddQuestion(question));
+  const quizQuestions = new QuizQuestions();
+  quizQuestions.forEach(question => quizQuestions.createAndAddQuestion(question));
 
-  const quizEngine = new QuizEngine(questionBank, "Player1");
+  const quizEngine = new QuizEngine(quizQuestions, "Player1");
   quizEngine.initLocalStorage();
 
   const startButton = document.getElementById('start-button');

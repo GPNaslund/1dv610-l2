@@ -1,31 +1,31 @@
 import Question from "./Question.js";
-import QuestionBank from "./QuestionBank.js";
+import QuizQuestions from "./QuizQuestions.js";
 
 /** Class that manages the questions. Ordering, current index and correctness of answer. */
 class QuestionsManager {
-  #questionBank;
+  #quizQuestions;
   #currentIndex;
   #allQuestions;
 
   /**
    * Constructs a QuestionManager object.
    * 
-   * @param {QuestionBank} questionBankObject - The question bank containing Questions.
+   * @param {QuizQuestions} quizQuestionsObject - The question bank containing Questions.
    */
-  constructor (questionBankObject) {
-    this.#setQuestionBank(questionBankObject);
-    this.#allQuestions = questionBankObject.getAllQuestions();
+  constructor (quizQuestionsObject) {
+    this.#setQuizQuestions(quizQuestionsObject);
+    this.#allQuestions = quizQuestionsObject.getAllQuestions();
     this.#currentIndex = 0;
   }
 
-  #setQuestionBank(questionBankObject) {
-    if (questionBankObject instanceof QuestionBank === false) {
-      throw new TypeError("Argument must be an QuestionBank instance.");
+  #setQuizQuestions(quizQuestionsObject) {
+    if (quizQuestionsObject instanceof QuizQuestions === false) {
+      throw new TypeError("Argument must be an QuizQuestions instance.");
     }
-    if (!questionBankObject.hasQuestions()) {
+    if (!quizQuestionsObject.hasQuestions()) {
       throw new TypeError("Question bank cannot be empty. Add some questions to the question bank");
     }
-    this.#questionBank = questionBankObject;
+    this.#quizQuestions = quizQuestionsObject;
   }
 
   /**
@@ -74,7 +74,7 @@ class QuestionsManager {
    */
   reset() {
     this.#currentIndex = 0;
-    this.#allQuestions = [...this.#questionBank.getAllQuestions()];
+    this.#allQuestions = [...this.#quizQuestions.getAllQuestions()];
   }
   
 }

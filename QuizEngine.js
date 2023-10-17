@@ -2,7 +2,7 @@ import QuestionsManager from './QuestionsManager.js';
 import CustomEventEmitter from './CustomEventEmitter.js';
 import FilesystemPersistence from './FilesystemPersistentHighscore.js';
 import LocalStoragePersistence from './LocalStoragePersistence.js';
-import QuestionBank from './QuestionBank.js';
+import QuizQuestions from './QuizQuestions.js';
 import QuizResult from './QuizResult.js';
 import QuestionResult from './QuestionResult.js';
 import QuizScore from './QuizScore.js';
@@ -18,12 +18,12 @@ class QuizEngine extends CustomEventEmitter {
   /**
    * Constructs a QuizEngine instance.
    * 
-   * @param {QuestionBank} questionBank - The QuestionBank instance used to instanciate a QuestionManager.
+   * @param {QuizQuestions} quizQuestions - The QuizQuestions instance used to instanciate a QuestionManager.
    */
-  constructor(questionBank, playerName) {
+  constructor(quizQuestions, playerName) {
     super();
     this.#highscorePersistence = null;
-    this.#questionsManager = new QuestionsManager(questionBank);
+    this.#questionsManager = new QuestionsManager(quizQuestions);
     this.#quizResult = new QuizResult(playerName, 0);
   }
 
