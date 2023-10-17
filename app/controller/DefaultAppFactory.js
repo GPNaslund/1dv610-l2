@@ -49,16 +49,16 @@ class DefaultAppFactory extends AppFactory {
 
   #verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters) {
     if (chartGenerator === null) {
-      throw new TypeError("Chart generator cannot be null");
+      throw new TypeError('Chart generator cannot be null');
     }
     if (cleanCodeChapters === null) {
-      throw new TypeError("Clean code chapters cannot be null");
+      throw new TypeError('Clean code chapters cannot be null');
     }
     if (!(chartGenerator instanceof ChartGenerator)) {
-      throw new TypeError("Chart generator must be an instance of ChartGenerator");
+      throw new TypeError('Chart generator must be an instance of ChartGenerator');
     }
     if (!(cleanCodeChapters instanceof CleanCodeChapters)) {
-      throw new TypeError("Clean code chapters must be instance of CleanCodeChapters");
+      throw new TypeError('Clean code chapters must be instance of CleanCodeChapters');
     }
   }
 }

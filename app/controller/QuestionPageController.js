@@ -68,20 +68,20 @@ class QuestionPageController extends CustomEventEmitter {
   }
 
   #verifyQuestionText(questionText) {
-    if (typeof questionText !== "string") {
-      throw new TypeError("The question text argument must be a string");
+    if (typeof questionText !== 'string') {
+      throw new TypeError('The question text argument must be a string');
     }
   }
 
   #verifyChoices(choices) {
     if (!Array.isArray(choices)) {
-      throw new TypeError("The choices argument must be an array");
+      throw new TypeError('The choices argument must be an array');
     }
-    choices.forEach(choice => {
-      if(typeof choice !== "string") {
-        throw new TypeError("Each entry in the choices argument must be a string");
+    choices.forEach((choice) => {
+      if (typeof choice !== 'string') {
+        throw new TypeError('Each entry in the choices argument must be a string');
       }
-    })
+    });
   }
 }
 

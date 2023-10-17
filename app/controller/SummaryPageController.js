@@ -153,19 +153,19 @@ class SummaryPageController extends CustomEventEmitter {
 
   #validateChartGenerator(chartGenerator) {
     if (chartGenerator === null) {
-      throw new TypeError("The chart generator argument cannot be null");
+      throw new TypeError('The chart generator argument cannot be null');
     }
     if (!(chartGenerator instanceof ChartGenerator)) {
-      throw new TypeError("The chart generator argument must be instance of ChartGenerator");
+      throw new TypeError('The chart generator argument must be instance of ChartGenerator');
     }
   }
 
   #validateCleanCodeChapters(cleanCodeChapters) {
     if (cleanCodeChapters === null) {
-      throw new TypeError("The clean code chapters argument cannot be null");
+      throw new TypeError('The clean code chapters argument cannot be null');
     }
     if (!(cleanCodeChapters instanceof CleanCodeChapters)) {
-      throw new TypeError("The clean code chapters argument must be instance of CleanCodeChapters");
+      throw new TypeError('The clean code chapters argument must be instance of CleanCodeChapters');
     }
   }
 }

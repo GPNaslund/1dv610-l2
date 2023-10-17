@@ -39,8 +39,8 @@ class CleanCodeChapters {
   }
 
   #validateFindChapterByNumberArgument(chapterNum) {
-    if (typeof chapterNum !== "number") {
-      throw new TypeError("The chapter number argument must be a number");
+    if (typeof chapterNum !== 'number') {
+      throw new TypeError('The chapter number argument must be a number');
     }
   }
 }

@@ -95,10 +95,10 @@ class ChartGenerator {
     if (!(chartElement instanceof HTMLCanvasElement)) {
       throw new TypeError('chartElement must be an instance of HTMLCanvasElement');
     }
-    if (!Array.isArray(scores) || !scores.every(item => typeof item === 'number')) {
+    if (!Array.isArray(scores) || !scores.every((item) => typeof item === 'number')) {
       throw new TypeError('scores must be an array of numbers');
     }
-    if (!Array.isArray(categories) || !categories.every(item => typeof item === 'string')) {
+    if (!Array.isArray(categories) || !categories.every((item) => typeof item === 'string')) {
       throw new TypeError('categories must be an array of strings');
     }
     if (scores.length !== categories.length) {

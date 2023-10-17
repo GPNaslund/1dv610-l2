@@ -143,10 +143,10 @@ class App {
 
   #verifyArguments(factory) {
     if (factory === null) {
-      throw new TypeError("Factory instance cannot be null");
+      throw new TypeError('Factory instance cannot be null');
     }
     if (!(factory instanceof AppFactory)) {
-      throw new TypeError("Factory must be an instance of AppFactory");
+      throw new TypeError('Factory must be an instance of AppFactory');
     }
   }
 }

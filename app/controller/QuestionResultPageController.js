@@ -49,7 +49,7 @@ class QuestionResultPageController extends CustomEventEmitter {
 
   #validateHeaderText(headerText) {
     if (typeof headerText !== 'string') {
-      throw new TypeError("Header text argument must be a string");
+      throw new TypeError('Header text argument must be a string');
     }
   }
 }

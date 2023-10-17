@@ -45,15 +45,15 @@ class CleanCodeQuestions {
       if (typeof question.text !== 'string') {
         throw new TypeError(`Question at index ${index} must have a text property of type string`);
       }
-  
-      if (!Array.isArray(question.choices) || !question.choices.every(choice => typeof choice === 'string')) {
+
+      if (!Array.isArray(question.choices) || !question.choices.every((choice) => typeof choice === 'string')) {
         throw new TypeError(`Question at index ${index} must have a choices property which is an array of strings`);
       }
-  
+
       if (typeof question.correctChoice !== 'number' || question.correctChoice < 0 || question.correctChoice >= question.choices.length) {
         throw new TypeError(`Question at index ${index} must have a correctChoice property which is a valid index of choices`);
       }
-  
+
       if (typeof question.category !== 'string') {
         throw new TypeError(`Question at index ${index} must have a category property of type string`);
       }
