@@ -55,32 +55,15 @@ class QuizResultSummary {
     return summary;
   }
 
-  /**
-   * Getter for #playerName.
-   *
-   * @readonly
-   * @memberof QuizResultSummary
-   */
   get playerName() {
     return this.#playerName;
   }
 
-  /**
-   * Getter for #score.
-   *
-   * @readonly
-   * @memberof QuizResultSummary
-   */
+
   get score() {
     return this.#score;
   }
 
-  /**
-   * Getter for #allCategorySummaries.
-   *
-   * @readonly
-   * @memberof QuizResultSummary
-   */
   get allCategorySummaries() {
     return this.#allCategorySummaries;
   }
