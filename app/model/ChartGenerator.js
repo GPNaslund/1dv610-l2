@@ -1,4 +1,8 @@
 import Chart from 'chart.js/auto';
+import InvalidElementError from './errors/InvalidElementError.js';
+import InvalidArrayContentError from './errors/InvalidArrayContentError.js';
+import LengthMismatchError from './errors/LengthMismatchError.js';
+
 
 /**
  * Represents a chart generator.
@@ -18,7 +22,11 @@ class ChartGenerator {
    * @param {String[]} categories The categories that represents a bar on the chart.
    */
   generateChartJS(chartElement, scores, categories) {
-    this.#validateGenerateChartJsArguments(chartElement, scores, categories);
+    this.#validateChartElement(chartElement);
+    this.#validateScores(scores);
+    this.#validateCategories(categories);
+    this.#validateArrayLengths(scores, categories);
+
     const ctx = chartElement.getContext('2d');
 
     if (this.#chartInstance) {
@@ -92,18 +100,29 @@ class ChartGenerator {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  #validateGenerateChartJsArguments(chartElement, scores, categories) {
+  #validateChartElement(chartElement) {
     if (!(chartElement instanceof HTMLCanvasElement)) {
-      throw new TypeError('chartElement must be an instance of HTMLCanvasElement');
+      throw new InvalidElementError('chartElement must be an instance of HTMLCanvasElement');
     }
-    if (!Array.isArray(scores) || !scores.every((item) => typeof item === 'number')) {
-      throw new TypeError('scores must be an array of numbers');
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  #validateScores(scores) {
+    if (!Array.isArray(scores) || !scores.every((item) => typeof item === 'number' && item >= 0 && item <= 100)) {
+      throw new InvalidArrayContentError('scores must be an array of numbers between 0 and 100');
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  #validateCategories(categories) {
     if (!Array.isArray(categories) || !categories.every((item) => typeof item === 'string')) {
-      throw new TypeError('categories must be an array of strings');
+      throw new InvalidArrayContentError('categories must be an array of strings');
     }
+  }
+  // eslint-disable-next-line class-methods-use-this
+  #validateArrayLengths(scores, categories) {
     if (scores.length !== categories.length) {
-      throw new Error('scores and categories arrays must have the same length');
+      throw new LengthMismatchError();
     }
   }
 }

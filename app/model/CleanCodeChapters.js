@@ -1,4 +1,8 @@
 import Chapter from './Chapter';
+import ChapterNotFoundError from './errors/ChapterNotFoundError.js';
+import InvalidChapterNumberError from './errors/InvalidChapterNumberError.js';
+
+
 
 /**
  * Data holding class, for holding data of all the chapters of Clean Code.
@@ -34,14 +38,18 @@ class CleanCodeChapters {
    * @returns The stored chapter with the corresponding chapter number.
    */
   findChapterByNumber(chapterNum) {
-    this.#validateFindChapterByNumberArgument(chapterNum);
-    return this.#allChapters.find((chapter) => chapter.chapterNumber === chapterNum);
+    this.#validateChapterNumber(chapterNum);
+    const chapter = this.#allChapters.find((chapter) => chapter.chapterNumber === chapterNum);
+    if (!chapter) {
+      throw new ChapterNotFoundError(chapterNum);
+    }
+    return chapter;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  #validateFindChapterByNumberArgument(chapterNum) {
+  #validateChapterNumber(chapterNum) {
     if (typeof chapterNum !== 'number') {
-      throw new TypeError('The chapter number argument must be a number');
+      throw new InvalidChapterNumberError('The chapter number argument must be a number');
     }
   }
 }

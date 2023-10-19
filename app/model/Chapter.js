@@ -1,3 +1,6 @@
+import InvalidPageOrderError from './errors/InvalidPageOrderError.js';
+import InvalidTypeError from './errors/InvalidTypeError.js';
+
 /**
  * Represents a Chapter.
  */
@@ -16,10 +19,28 @@ class Chapter {
    * @param {number} lastPage The last page.
    */
   constructor(chapterNumber, firstPage, lastPage) {
-    this.#validateConstructorArguments(chapterNumber, firstPage, lastPage);
+    this.#validateNumber('Chapter number', chapterNumber);
+    this.#validateNumber('First page', firstPage);
+    this.#validateNumber('Last page', lastPage);
+    this.#validatePageOrder(firstPage, lastPage);
+    
     this.#chapterNumber = chapterNumber;
     this.#firstPage = firstPage;
     this.#lastPage = lastPage;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  #validateNumber(parameter, value) {
+    if (typeof value !== 'number') {
+      throw new InvalidTypeError(parameter, 'number');
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  #validatePageOrder(firstPage, lastPage) {
+    if (firstPage > lastPage) {
+      throw new InvalidPageOrderError();
+    }
   }
 
   get firstPage() {
@@ -34,18 +55,6 @@ class Chapter {
     return this.#chapterNumber;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  #validateConstructorArguments(chapterNumber, firstPage, lastPage) {
-    if (typeof chapterNumber !== 'number') {
-      throw new TypeError('The chapter number of Chapter must be a number');
-    }
-    if (typeof firstPage !== 'number') {
-      throw new TypeError('The first page of Chapter must be a number');
-    }
-    if (typeof lastPage !== 'number') {
-      throw new TypeError('The last page of Chapter must be a number');
-    }
-  }
 }
 
 export default Chapter;
