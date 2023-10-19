@@ -1,4 +1,7 @@
 import Question from './Question.js';
+import InvalidQuestionTypeError from './errors/InvalidQuestionTypeError.js';
+import IndexNotNumberError from './errors/IndexNotNumberError.js';
+import IndexOutOfBoundsError from './errors/IndexOutOfBoundsError.js';
 
 /**
  * Class responsible for creating/adding questions, storing questions, and
@@ -20,10 +23,13 @@ class QuizQuestions {
    * @param {Question} questionObject - The precomposed Question object.
    */
   addQuestion(questionObject) {
-    if (questionObject instanceof Question) {
-      this.#allQuestions.push(questionObject);
-    } else {
-      throw new TypeError('Input for addQuestion method must be a Question object!');
+    this.#validateIsQuestion(questionObject);
+    this.#allQuestions.push(questionObject);
+  }
+
+  #validateIsQuestion(questionObject) {
+    if (!(questionObject instanceof Question)) {
+      throw new InvalidQuestionTypeError();
     }
   }
 
@@ -53,14 +59,10 @@ class QuizQuestions {
    * @param {Number} indexOfQuestion
    */
   removeQuestion(indexOfQuestion) {
-    if (typeof indexOfQuestion !== 'number') {
-      throw new TypeError('The index of the question to remove must be a number');
-    }
-    if (indexOfQuestion < 0 || indexOfQuestion >= this.#allQuestions.length) {
-      throw new RangeError(`Index is out of bounds. It must be between 0 - ${this.#allQuestions.length - 1} to remove a question.`);
-    }
+    this.#validateIndex(indexOfQuestion);
     this.#allQuestions.splice(indexOfQuestion, 1);
   }
+
 
   /**
    * Method for returning the Question at a specified index from #allQuestions.
@@ -69,12 +71,7 @@ class QuizQuestions {
    * @returns The Question object at the specified index.
    */
   getQuestion(index) {
-    if (typeof index !== 'number') {
-      throw new TypeError('Index must be a number');
-    }
-    if (index < 0 || index >= this.#allQuestions.length) {
-      throw new RangeError(`Index out of range. Must be between 0 - ${this.#allQuestions.length - 1}.`);
-    }
+    this.#validateIndex(index);
     return this.#allQuestions[index];
   }
 
@@ -85,6 +82,15 @@ class QuizQuestions {
    */
   getAllQuestions() {
     return this.#allQuestions;
+  }
+
+  #validateIndex(index) {
+    if (typeof index !== 'number') {
+      throw new IndexNotNumberError();
+    }
+    if (index < 0 || index >= this.#allQuestions.length) {
+      throw new IndexOutOfBoundsError(this.#allQuestions.length);
+    }
   }
 
   /**

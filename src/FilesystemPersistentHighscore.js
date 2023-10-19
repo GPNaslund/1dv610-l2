@@ -4,6 +4,10 @@ import os from 'os';
 import Highscore from './Highscore.js';
 // eslint-disable-next-line no-unused-vars
 import QuizScore from './QuizScore.js';
+import FileTypeError from './errors/FileTypeError.js';
+import FileSystemWriteError from './errors/FileSystemWriteError.js';
+import FileSystemReadError from './errors/FileSystemReadError.js';
+
 
 /**
  * Class for reading and writing the quiz highscore to local filesystem.
@@ -51,7 +55,7 @@ class FilesystemPersistentHighscore {
     }
     const extensionName = path.extname(persistencePath);
     if (extensionName !== '.json') {
-      throw new Error('File is not a JSON file.');
+      throw new FileTypeError();
     }
   }
 
@@ -90,7 +94,7 @@ class FilesystemPersistentHighscore {
       highscore.limitAmountOfScores(this.#maxAmountOfScoresToSave);
       await fs.writeFile(this.#persistencePath, highscore.toJSON());
     } catch (e) {
-      throw new Error('Could not write to file system!');
+      throw new FileSystemWriteError();
     }
   }
 
@@ -112,7 +116,7 @@ class FilesystemPersistentHighscore {
       if (e.code === 'ENOENT') {
         return new Highscore();
       }
-      throw Error('Could not read from filesystem!');
+      throw new FileSystemReadError();
     }
   }
 

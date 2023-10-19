@@ -1,3 +1,6 @@
+import InvalidQuestionChoiceError from './errors/InvalidQuestionChoiceError.js';
+import InvalidQuestionCategoryError from './errors/InvalidQuestionCategoryError.js';
+
 /**
  * Represents a question. Contains the question text, different
  * choices and the index of the correct choice in choices.
@@ -33,9 +36,7 @@ class Question {
   }
 
   #setText(text) {
-    if (typeof text !== 'string') {
-      throw new TypeError('Question text must be a string!');
-    }
+    this.#validateString(text, 'Question text must be a string!')
     this.#text = text;
   }
 
@@ -45,12 +46,10 @@ class Question {
 
   #setChoices(choices) {
     if (!Array.isArray(choices)) {
-      throw new TypeError('Choices must be an array!');
+      throw new InvalidQuestionChoiceError("Question choices must be an array of strings!");
     }
     choices.forEach((choice) => {
-      if (typeof choice !== 'string') {
-        throw new TypeError('Each choice must be a string!');
-      }
+      this.#validateString(choice, 'Each choice must be a string!')
     });
 
     this.#choices = choices;
@@ -61,7 +60,7 @@ class Question {
   }
 
   #setcorrectChoice(correctChoice) {
-    if (typeof correctChoice !== 'string') throw new TypeError('The correct choice must be a string!');
+    this.#validateString(correctChoice, 'The correct choice must be a string!')
     if (correctChoice.length < 1) throw new RangeError('Correct choice cannot be empty!');
     this.#correctChoice = correctChoice;
   }
@@ -71,13 +70,15 @@ class Question {
   }
 
   #setCategory(categoryName) {
-    if (typeof categoryName !== 'string') {
-      throw new TypeError('Category must be a string');
-    }
+    this.#validateString(categoryName, 'Category must be a string')
     if (categoryName.length < 1) {
-      throw new RangeError('The name of the category cannot be empty');
+      throw new InvalidQuestionCategoryError('The name of the category cannot be empty');
     }
     this.#category = categoryName;
+  }
+
+  #validateString(value, errorMessage) {
+    if (typeof value !== 'string') throw new TypeError(errorMessage);
   }
 }
 

@@ -1,4 +1,7 @@
 import QuizScore from './QuizScore.js';
+import InvalidQuizScoreError from './errors/InvalidQuizScoreError.js';
+import InvalidJSONError from './errors/InvalidJSONError.js';
+import UnexpectedJSONStructureError from './errors/UnexpectedJSONStructureError.js';
 
 /** Represents a Highscore */
 class Highscore {
@@ -19,16 +22,25 @@ class Highscore {
    * @param {QuizScore} newQuizScore - The QuizScore to add.
    */
   addQuizScore(newQuizScore) {
-    if (newQuizScore instanceof QuizScore === false) {
-      throw TypeError('Argument must be an instance of QuizScore');
-    }
-
+    this.#validateQuizScore(newQuizScore);
     const existingUserIndex = this.#allQuizScores
       .findIndex((quizScore) => quizScore.playerName === newQuizScore.playerName);
     if (existingUserIndex === -1) {
       this.#allQuizScores.push(newQuizScore);
-    } else if (this.#allQuizScores[existingUserIndex].score < newQuizScore.score) {
+    } else {
+      this.#replaceExistingScore(existingUserIndex, newQuizScore);
+    }
+  }
+
+  #replaceExistingScore(existingUserIndex, newQuizScore) {
+    if (this.#allQuizScores[existingUserIndex].score < newQuizScore.score) {
       this.#allQuizScores[existingUserIndex] = newQuizScore;
+    }
+  }
+
+  #validateQuizScore(newQuizScore) {
+    if (newQuizScore instanceof QuizScore === false) {
+      throw new InvalidQuizScoreError();
     }
   }
 
@@ -57,10 +69,27 @@ class Highscore {
    * @param {string} jsonString - The JSON string to be parsed and used to create QuizScores from.
    */
   fromJSON(jsonString) {
-    const highscoreObject = JSON.parse(jsonString);
+    const highscoreObject = this.#validateJsonString(jsonString);
+    this.#validateHighscoreObject(highscoreObject);
     Object.entries(highscoreObject).forEach(([player, score]) => {
       this.#allQuizScores.push(new QuizScore(player, score));
     });
+  }
+
+  #validateJsonString(jsonString) {
+    let parsedObject;
+    try {
+      parsedObject = JSON.parse(jsonString);
+    } catch (e) {
+      throw new InvalidJSONError();
+    }
+    return parsedObject; 
+  }
+
+  #validateHighscoreObject(highscoreObject) {
+    if (typeof highscoreObject !== 'object' || highscoreObject === null || Array.isArray(highscoreObject)) {
+      throw new UnexpectedJSONStructureError('Expected a non-null object structure');
+    }  
   }
 
   /**
@@ -69,14 +98,11 @@ class Highscore {
    * @returns {string} - JSON string containing all the QuizScore data.
    */
   toJSON() {
-    if (this.#allQuizScores.length > 0) {
-      const quizScoresObject = {};
-      this.#allQuizScores.forEach((quizScore) => {
-        quizScoresObject[quizScore.playerName] = quizScore.score;
-      });
-      return JSON.stringify(quizScoresObject);
-    }
-    return '';
+    const quizScoresObject = {};
+    this.#allQuizScores.forEach((quizScore) => {
+      quizScoresObject[quizScore.playerName] = quizScore.score;
+    });
+    return JSON.stringify(quizScoresObject);
   }
 
   /**

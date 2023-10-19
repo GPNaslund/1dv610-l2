@@ -1,3 +1,8 @@
+import InvalidPlayerNameError from './errors/InvalidPlayerNameError.js';
+import InvalidScoreTypeError from './errors/InvalidScoreTypeError.js';
+
+
+
 /** Represents data structure for holding userplayerName and score */
 class QuizScore {
   #playerName;
@@ -24,14 +29,31 @@ class QuizScore {
   }
 
   #setPlayerName(playerName) {
-    if (!playerName || typeof playerName !== 'string') throw new TypeError('Playername must be a string');
-    if (playerName.length < 1) throw new RangeError('playerName cannot be empty.');
+    this.#validatePlayerName(playerName);
     this.#playerName = playerName;
   }
 
+  #validatePlayerName(playerName) {
+    if (typeof playerName !== 'string') {
+      throw new InvalidPlayerNameError('Player name must be a string.');
+    }
+    if (playerName.trim() === "") {
+      throw new InvalidPlayerNameError('Player name cannot be empty or just whitespace.');
+    }
+  }
+
   #setScore(score) {
-    if (!score || typeof score !== 'number') throw new TypeError('Score must be a number');
+    this.#validateScore(score);
     this.#score = score;
+  }
+
+  #validateScore(score) {
+    if (typeof score !== 'number') {
+      throw new InvalidScoreTypeError('Score must be a number.');
+    }
+    if (!Number.isFinite(score)) { 
+      throw new InvalidScoreTypeError('Score must be a finite number.');
+    }
   }
 }
 

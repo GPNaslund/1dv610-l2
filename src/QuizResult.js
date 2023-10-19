@@ -1,6 +1,9 @@
 import QuestionResult from './QuestionResult.js';
 import QuizCategorySummary from './QuizCategorySummary.js';
 import QuizResultSummary from './QuizResultSummary.js';
+import InvalidPlayerNameError from './errors/InvalidPlayerNameError.js';
+import InvalidScoreTypeError from './errors/InvalidScoreTypeError.js';
+import InvalidQuestionResultTypeError from './errors/InvalidQuestionResultTypeError.js';
 
 /** Class for storing the outcome of answers and generating a summary */
 class QuizResult {
@@ -32,15 +35,21 @@ class QuizResult {
   }
 
   #setPlayerName(playerName) {
-    if (typeof playerName !== 'string') throw new TypeError('Username must be a string');
-    if (playerName.length < 1) throw new RangeError('Username cannot be empty');
+    this.#validatePlayerName(playerName);
     this.#playerName = playerName;
+  }
+  
+  #validatePlayerName(playerName) {
+    if (typeof playerName !== 'string' || playerName.length < 1) {
+      throw new InvalidPlayerNameError();
+    }
   }
 
   #setScore(score) {
-    if (typeof score !== 'number') throw new TypeError('Score must be a number');
+    this.#validateScore(score);
     this.#score = score;
   }
+
 
   /**
    * Method for incrementing the score.
@@ -48,8 +57,14 @@ class QuizResult {
    * @param {number} amount - The amount to increment the score with.
    */
   incrementScore(amount) {
-    if (typeof amount !== 'number') throw new TypeError('Score must be a number');
+    this.#validateScore(amount);
     this.#score += amount;
+  }
+
+  #validateScore(score) {
+    if (typeof score !== 'number') {
+      throw new InvalidScoreTypeError("Score must be a number");
+    }
   }
 
   /**
@@ -77,8 +92,14 @@ class QuizResult {
    * @param {QuestionResult} questionResult - The QuestionResult to add.
    */
   addQuestionResult(questionResult) {
-    if (questionResult instanceof QuestionResult === false) throw new TypeError('Argument must be of type QuestionResult');
+    this.#validateQuestionResult(questionResult);
     this.#questionResults.push(questionResult);
+  }
+
+  #validateQuestionResult(questionResult) {
+    if (!(questionResult instanceof QuestionResult)) {
+      throw new InvalidQuestionResultTypeError();
+    }
   }
 
   /**

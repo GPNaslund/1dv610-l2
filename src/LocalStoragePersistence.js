@@ -1,6 +1,7 @@
 import Highscore from './Highscore.js';
 // eslint-disable-next-line no-unused-vars
 import QuizScore from './QuizScore.js';
+import LocalStorageNotAvailableError from './errors/LocalStorageNotAvailableError.js';
 
 /**
  * Class for saving highscore to local storage in browser.
@@ -66,7 +67,7 @@ class LocalStoragePersistence {
       highscore.limitAmountOfScores(this.#maxAmountOfScoresToSave);
       localStorage.setItem(this.#keyName, highscore.toJSON());
     } else {
-      throw new Error('Local storage is not available for usage');
+      throw new LocalStorageNotAvailableError();
     }
   }
 
@@ -83,7 +84,7 @@ class LocalStoragePersistence {
       highscore.sortQuizScores();
       return highscore;
     }
-    throw new Error('Local storage is not available for usage');
+    throw new LocalStorageNotAvailableError();
   }
 
   /**

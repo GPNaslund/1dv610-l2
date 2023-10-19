@@ -10,6 +10,9 @@ import QuestionResult from './QuestionResult.js';
 import QuizScore from './QuizScore.js';
 import Highscore from './Highscore.js';
 import QuizResultSummary from './QuizResultSummary.js';
+import InvalidQuizQuestionsError from './errors/InvalidQuizQuestionsError.js';
+import InvalidPlayerNameError from './errors/InvalidPlayerNameError.js';
+
 
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {
@@ -27,9 +30,23 @@ class QuizEngine extends CustomEventEmitter {
    */
   constructor(quizQuestions, playerName) {
     super();
+    this.#validateQuizQuestions(quizQuestions);
+    this.#validatePlayerName(playerName);
     this.#highscorePersistence = null;
     this.#questionsManager = new QuestionsManager(quizQuestions);
     this.#quizResult = new QuizResult(playerName, 0);
+  }
+
+  #validateQuizQuestions(quizQuestions) {
+    if (!(quizQuestions instanceof QuizQuestions)) {
+      throw new InvalidQuizQuestionsError();
+    }
+  }
+
+  #validatePlayerName(playerName) {
+    if (typeof playerName !== 'string' || playerName.trim() === '') {
+      throw new InvalidPlayerNameError();
+    }
   }
 
   /**
@@ -41,7 +58,7 @@ class QuizEngine extends CustomEventEmitter {
     this.#highscorePersistence = new FilesystemPersistence(path, maxAmountOfScores);
   }
 
-  /**
+   /**
    * Used to initialize a persistent highscore using the local storage of the browser.
    *
    * @param {string} keyName - The key name to use in the broswer local storage for persistence.

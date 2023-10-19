@@ -1,4 +1,7 @@
 import QuizCategorySummary from './QuizCategorySummary.js';
+import InvalidPlayerNameError from './errors/InvalidPlayerNameError.js';
+import InvalidScoreTypeError from './errors/InvalidScoreTypeError.js';
+import InvalidCategorySummaryTypeError from './errors/InvalidCategorySummaryTypeError.js';
 
 /** Holds all the summary data of a Quiz */
 class QuizResultSummary {
@@ -20,13 +23,41 @@ class QuizResultSummary {
     this.#allCategorySummaries = [];
   }
 
+  #setPlayerName(playerName) {
+    this.#validatePlayerName(playerName);
+    this.#playerName = playerName;
+  }
+
+  #validatePlayerName(playerName) {
+    if (typeof playerName !== 'string' || playerName.trim() === "") {
+      throw new InvalidPlayerNameError();
+    }
+  }
+
+  #setScore(score) {
+    this.#validateScore(score);
+    this.#score = score;
+  }
+
+  #validateScore(score) {
+    if (typeof score !== 'number') {
+      throw new InvalidScoreTypeError("The provided score must be a number!");
+    }
+  }
+
   /**
    * Adds a QuizCategorySummary to #allCategorySummaries.
    * @param {QuizCategorySummary} categorySummary - The QuizCategorySummary to be added.
    */
   addCategorySummary(categorySummary) {
-    if (categorySummary instanceof QuizCategorySummary === false) throw new TypeError('Argument must be and instance of QuizCategorySummary');
+    this.#validateCategorySummary(categorySummary);
     this.#allCategorySummaries.push(categorySummary);
+  }
+
+  #validateCategorySummary(categorySummary) {
+    if (!(categorySummary instanceof QuizCategorySummary)) {
+      throw new InvalidCategorySummaryTypeError();
+    }
   }
 
   /**

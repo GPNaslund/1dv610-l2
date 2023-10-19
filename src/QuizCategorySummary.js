@@ -1,3 +1,6 @@
+import InvalidQuestionCountError from './errors/InvalidQuestionCountError.js';
+import InvalidCorrectAnswerCountError from './errors/InvalidCorrectAnswerCountError.js';
+
 /** Represents a summary of a category */
 class QuizCategorySummary {
   #nameOfCategory;
@@ -15,6 +18,8 @@ class QuizCategorySummary {
    * @param {number} amountOfCorrectAnswers - The total amount of correct answers in that category.
    */
   constructor(nameOfCategory, amountOfQuestions, amountOfCorrectAnswers) {
+    this.#validateInputs(amountOfQuestions, amountOfCorrectAnswers);
+
     this.#nameOfCategory = nameOfCategory;
     this.#amountOfQuestions = amountOfQuestions;
     this.#amountOfCorrectAnswers = amountOfCorrectAnswers;
@@ -38,6 +43,17 @@ class QuizCategorySummary {
 
   get percentageOfCorrectAnswers() {
     return this.#percentageOfCorrectAnswers;
+  }
+
+  #validateInputs(amountOfQuestions, amountOfCorrectAnswers) {
+    if (typeof amountOfQuestions !== 'number' || amountOfQuestions <= 0) {
+      throw new InvalidQuestionCountError();
+    }
+    if (typeof amountOfCorrectAnswers !== 'number' || 
+        amountOfCorrectAnswers < 0 || 
+        amountOfCorrectAnswers > amountOfQuestions) {
+      throw new InvalidCorrectAnswerCountError();
+    }
   }
 
   /**

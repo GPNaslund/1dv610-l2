@@ -1,4 +1,6 @@
 import Question from './Question.js';
+import InvalidQuestionError from './errors/InvalidQuestionError.js';
+import InvalidQuestionChoiceError from './errors/InvalidQuestionChoiceError.js';
 
 /** Represents the result of an answered question */
 class QuestionResult {
@@ -21,7 +23,7 @@ class QuestionResult {
    */
   constructor(question, selectedChoice) {
     this.#validatequestionObject(question);
-    this.#validateSelectedChoice(selectedChoice);
+    this.#validateChoice(selectedChoice, question.choices);
 
     this.#questionText = question.text;
     this.#questionChoices = question.choices;
@@ -42,17 +44,20 @@ class QuestionResult {
   // eslint-disable-next-line class-methods-use-this
   #validatequestionObject(question) {
     if (question instanceof Question === false) {
-      throw new TypeError('Argument must be of type Question');
+      throw new InvalidQuestionError();
     }
   }
 
   // eslint-disable-next-line class-methods-use-this
-  #validateSelectedChoice(selectedChoice) {
-    if (typeof selectedChoice !== 'string') {
-      throw new TypeError('Selected choice must be a string');
+  #validateChoice(choice, validChoices) {
+    if (typeof choice !== 'string') {
+      throw new InvalidQuestionChoiceError('Selected choice must be a string.');
     }
-    if (selectedChoice.length < 1) {
-      throw new TypeError('Selected choice cannot be empty');
+    if (!choice.length) {
+      throw new InvalidQuestionChoiceError('Selected choice cannot be empty.');
+    }
+    if (!validChoices.includes(choice)) {
+      throw new InvalidQuestionChoiceError('Selected choice is not a valid option.');
     }
   }
 }

@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import Question from './Question.js';
 import QuizQuestions from './QuizQuestions.js';
+import InvalidQuizQuestionsError from './errors/InvalidQuizQuestionsError.js';
+import EmptyQuestionBankError from './errors/EmptyQuestionBankError.js';
 
 /** Class that manages the questions. Ordering, current index and correctness of answer. */
 class QuestionsManager {
@@ -23,10 +25,10 @@ class QuestionsManager {
 
   #setQuizQuestions(quizQuestionsObject) {
     if (quizQuestionsObject instanceof QuizQuestions === false) {
-      throw new TypeError('Argument must be an QuizQuestions instance.');
+      throw new InvalidQuizQuestionsError();
     }
     if (!quizQuestionsObject.hasQuestions()) {
-      throw new TypeError('Question bank cannot be empty. Add some questions to the question bank');
+      throw new EmptyQuestionBankError();
     }
     this.#quizQuestions = quizQuestionsObject;
   }
@@ -55,9 +57,10 @@ class QuestionsManager {
    *
    */
   advanceCurrentIndex() {
-    if (this.#currentIndex + 1 < this.#allQuestions.length) {
-      this.#currentIndex += 1;
+    if (!this.hasMoreQuestions()) {
+      throw new RangeError("Cannot advance index beyond available questions.");
     }
+    this.#currentIndex += 1;
   }
 
   /**
