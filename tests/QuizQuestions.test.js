@@ -5,98 +5,105 @@ import IndexNotNumberError from '../src/errors/IndexNotNumberError.js';
 import IndexOutOfBoundsError from '../src/errors/IndexOutOfBoundsError.js';
 
 describe("QuizQuestions class", () => {
+  let quizQuestions;
+
+  beforeEach(() => {
+    quizQuestions = new QuizQuestions();
+  });
 
   describe("constructor()", () => {
     it("should initialize empty", () => {
-      const quizQuestions = new QuizQuestions();
       expect(quizQuestions.getAllQuestions()).toStrictEqual([]);
       expect(quizQuestions.hasQuestions()).toBeFalsy();
     });
-  })
+  });
 
-  describe("addQuestion()", () => {
-    it("should add a new Question object to allQuestions", () => {
-      const quizQuestions = new QuizQuestions();
-      const question = new Question({ text: "Is water wet?", choices: ["Yes", "No"], correctChoice: "Yes" });
-      quizQuestions.addQuestion(question);
-      expect(quizQuestions.getAllQuestions()).toStrictEqual([question]);
+  describe("Question manipulation", () => {
+    let question1, question2;
+
+    beforeEach(() => {
+      question1 = new Question({ text: "Does a dog bark?", choices: ["Yes", "No"], correctChoice: "Yes" });
+      question2 = new Question({ text: "Does a fish swim?", choices: ["Yes", "No"], correctChoice: "Yes" });
     });
 
-    it("throws error if passed wrong type of object", () => {
-      const quizQuestions = new QuizQuestions();
-      expect(() => quizQuestions.addQuestion("Not a question object!")).toThrow(InvalidQuestionTypeError);
+    describe("addQuestion()", () => {
+      it("should add a new Question object to allQuestions", () => {
+        quizQuestions.addQuestion(question1);
+        expect(quizQuestions.getAllQuestions()).toStrictEqual([question1]);
+      });
+
+      it("throws error if passed wrong type of object", () => {
+        expect(() => quizQuestions.addQuestion("Not a question object!")).toThrow(InvalidQuestionTypeError);
+      });
+    });
+
+    describe("createAndAddQuestion()", () => {
+      it("should add a new question", () => {
+        quizQuestions.createAndAddQuestion({ text: "Is water wet?", choices: ["Yes", "No"], correctChoice: "Yes" });
+        expect(quizQuestions.getAllQuestions()[0] instanceof Question).toBeTruthy();
+        expect(quizQuestions.getAllQuestions()[0].text).toBe("Is water wet?");
+      });
+    });
+
+    describe("removeQuestion()", () => {
+      beforeEach(() => {
+        quizQuestions.addQuestion(question1);
+        quizQuestions.addQuestion(question2);
+      });
+
+      it("removes a question with correct arguments", () => {
+        quizQuestions.removeQuestion(0);
+        expect(quizQuestions.getAllQuestions()).toStrictEqual([question2]);
+      });
+    });
+
+    describe("getQuestion()", () => {
+      beforeEach(() => {
+        quizQuestions.addQuestion(question1);
+      });
+
+      it("returns a question at the correct index", () => {
+        expect(quizQuestions.getQuestion(0)).toStrictEqual(question1);
+      });
+    });
+
+    describe("getAllQuestions()", () => {
+      it("should work with no Question objects stored", () => {
+        expect(quizQuestions.getAllQuestions()).toStrictEqual([]);
+      });
+
+      it("should work with Question objects stored", () => {
+        quizQuestions.addQuestion(question1);
+        quizQuestions.addQuestion(question2);
+        expect(quizQuestions.getAllQuestions()).toStrictEqual([question1, question2]);
+      });
+    });
+
+    describe("hasQuestions()", () => {
+      it("should return true when questions exist", () => {
+        quizQuestions.addQuestion(question1);
+        expect(quizQuestions.hasQuestions()).toBeTruthy();
+      });
+
+      it("should return false when no questions exist", () => {
+        expect(quizQuestions.hasQuestions()).toBeFalsy();
+      });
     });
   });
 
-  describe("createAndAddQuestion()", () => {
-    it("should add a new question", () => {
-      const quizQuestions = new QuizQuestions();
-      quizQuestions.createAndAddQuestion({ text: "Is water wet?", choices: ["Yes", "No"], correctChoice: "Yes" });
-      expect(quizQuestions.getAllQuestions()[0] instanceof Question).toBeTruthy();
-      expect(quizQuestions.getAllQuestions()[0].text).toBe("Is water wet?");
-    });
-  });
-
-  describe("removeQuestion()", () => {
-    it("removes a question with correct arguments", () => {
-      const quizQuestions = new QuizQuestions();
-      const question = new Question({ text: "Does a dog bark?", choices: ["Yes", "No"], correctChoice: "Yes" });
-      const question2 = new Question({ text: "Does a fish swim?", choices: ["Yes", "No"], correctChoice: "Yes" });
-      quizQuestions.addQuestion(question);
-      quizQuestions.addQuestion(question2);
-      quizQuestions.removeQuestion(0);
-      expect(quizQuestions.getAllQuestions()).toStrictEqual([question2]);
+  describe("Error handling", () => {
+    describe("removeQuestion() errors", () => {
+      it("throws error with non-validated arguments", () => {
+        expect(() => quizQuestions.removeQuestion("I'm a string")).toThrow(IndexNotNumberError);
+        expect(() => quizQuestions.removeQuestion(1)).toThrow(IndexOutOfBoundsError);
+      });
     });
 
-    it("throws error with non-validated arguments", () => {
-      const quizQuestions = new QuizQuestions();
-      expect(() => quizQuestions.removeQuestion("I'm a string")).toThrow(IndexNotNumberError);
-      expect(() => quizQuestions.removeQuestion(1)).toThrow(IndexOutOfBoundsError);
-    });
-  });
-
-  describe("getQuestion()", () => {
-    it("returns a question at the correct index", () => {
-      const quizQuestions = new QuizQuestions();
-      const question = new Question({ text: "Is coding the best?", choices: ["Yes", "No"], correctChoice: "Yes" });
-      quizQuestions.addQuestion(question);
-      expect(quizQuestions.getQuestion(0)).toStrictEqual(question);
-    });
-
-    it("should throw an error with invalid arguments", () => {
-      const quizQuestions = new QuizQuestions();
-      expect(() => quizQuestions.getQuestion("I'm a string")).toThrow(IndexNotNumberError);
-      expect(() => quizQuestions.getQuestion(1)).toThrow(IndexOutOfBoundsError);
-    });
-  });
-
-  describe("getAllQuestions()", () => {
-    it("should work with Question objects stored", () => {
-      const quizQuestions = new QuizQuestions();
-      const question = new Question({ text: "Does cat say meow?", choices: ["Yes", "No"], correctChoice: "Yes" });
-      const question2 = new Question({ text: "Do birds fly?", choices: ["Yes", "No", "Maybe"], correctChoice: "Yes" });
-      quizQuestions.addQuestion(question);
-      quizQuestions.addQuestion(question2);
-      expect(quizQuestions.getAllQuestions()).toStrictEqual([question, question2]);
-    });
-
-    it("should work with no Question objects stored", () => {
-      const quizQuestions = new QuizQuestions();
-      expect(quizQuestions.getAllQuestions()).toStrictEqual([]);
-    });
-  });
-
-  describe("hasQuestions()", () => {
-    it("should return true when questions exist", () => {
-      const quizQuestions = new QuizQuestions();
-      const question = new Question({ text: "Is testing fun?", choices: ["Yes", "No"], correctChoice: "Yes" });
-      quizQuestions.addQuestion(question);
-      expect(quizQuestions.hasQuestions()).toBeTruthy();
-    });
-
-    it("should return false when no questions exist", () => {
-      const quizQuestions = new QuizQuestions();
-      expect(quizQuestions.hasQuestions()).toBeFalsy();
+    describe("getQuestion() errors", () => {
+      it("should throw an error with invalid arguments", () => {
+        expect(() => quizQuestions.getQuestion("I'm a string")).toThrow(IndexNotNumberError);
+        expect(() => quizQuestions.getQuestion(1)).toThrow(IndexOutOfBoundsError);
+      });
     });
   });
 });

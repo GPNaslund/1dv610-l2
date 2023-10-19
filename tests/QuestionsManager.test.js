@@ -5,68 +5,70 @@ import InvalidQuizQuestionsError from '../src/errors/InvalidQuizQuestionsError.j
 import EmptyQuestionBankError from '../src/errors/EmptyQuestionBankError.js';
 
 describe("QuestionsManager class", () => {
-  let quizQuestions;
-  let questionsManager;
+    let questionsManager;
+    let quizQuestions;
 
-  beforeEach(() => {
-    const q1 = new Question({text: "Is the sky blue?", choices: ["Yes", "No", "Sometimes"], correctChoice: "Sometimes"});
-    const q2 = new Question({text: "Is there clouds in the sky?", choices: ["Yes", "No"], correctChoice: "Yes"});
-    const q3 = new Question({text: "Does a dog bark?", choices: ["Yes", "No"], correctChoice: "Yes"});
-    const q4 = new Question({text: "Is music sound?", choices: ["Yes", "No"], correctChoice: "Yes"});
-    const q5 = new Question({text: "Do you get wet in rain?", choices: ["Yes", "No"], correctChoice: "Yes"});
+    const setupQuizQuestions = () => {
+        const questions = [
+            new Question({text: "Is the sky blue?", choices: ["Yes", "No", "Sometimes"], correctChoice: "Sometimes"}),
+            new Question({text: "Is there clouds in the sky?", choices: ["Yes", "No"], correctChoice: "Yes"}),
+            new Question({text: "Does a dog bark?", choices: ["Yes", "No"], correctChoice: "Yes"}),
+            new Question({text: "Is music sound?", choices: ["Yes", "No"], correctChoice: "Yes"}),
+            new Question({text: "Do you get wet in rain?", choices: ["Yes", "No"], correctChoice: "Yes"})
+        ];
 
-    quizQuestions = new QuizQuestions();
-    quizQuestions.addQuestion(q1);
-    quizQuestions.addQuestion(q2);
-    quizQuestions.addQuestion(q3);
-    quizQuestions.addQuestion(q4);
-    quizQuestions.addQuestion(q5);
+        const quiz = new QuizQuestions();
+        questions.forEach(question => quiz.addQuestion(question));
+        return quiz;
+    };
 
+    beforeEach(() => {
+        quizQuestions = setupQuizQuestions();
+        questionsManager = new QuestionsManager(quizQuestions);
+    });
 
-    questionsManager = new QuestionsManager(quizQuestions);
-  });
+    describe("constructor()", () => {
+        it("should initialize successfully", () => {
+            expect(questionsManager).toBeDefined();
+            expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
+        });
 
-  describe("constructor()", () => {
-    it("should initialize successfully", () => {
-      expect(questionsManager).toBeDefined();
-      expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
-    })
+        it("should throw error on invalid constructor arguments", () => {
+            const invalidObj = "This is not a QuizQuestions instance";
+            expect(() => new QuestionsManager(invalidObj)).toThrow(InvalidQuizQuestionsError);
 
-    it("should throw error on false constructor arguments", () => {
-      const invalidObj = "This is not a QuizQuestions instance";
-      expect(() => new QuestionsManager(invalidObj)).toThrow(InvalidQuizQuestionsError);
+            const emptyQuiz = new QuizQuestions();
+            expect(() => new QuestionsManager(emptyQuiz)).toThrow(EmptyQuestionBankError);
+        });
+    });
 
-      const emptyQuiz = new QuizQuestions();
-      expect(() => new QuestionsManager(emptyQuiz)).toThrow(EmptyQuestionBankError);
-    })
-  })
+    describe("hasMoreQuestions()", () => {
+        it("should determine if more questions are available", () => {
+            expect(questionsManager.hasMoreQuestions()).toBe(true);
 
-  describe("hasMoreQuestions()", () => {
-    it("should return true if more questions are available", () => {
-      expect(questionsManager.hasMoreQuestions()).toBeTruthy();
-      questionsManager.advanceCurrentIndex();
-      questionsManager.advanceCurrentIndex();
-      questionsManager.advanceCurrentIndex();
-      questionsManager.advanceCurrentIndex();
-      expect(questionsManager.hasMoreQuestions()).toBeFalsy();
-    })
-  });
+            for (let i = 0; i < 4; i++) {
+                questionsManager.advanceCurrentIndex();
+            }
 
-  describe("getQuestion()", () => {
-    it("should return the question at the current index", () => {
-      expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
-      questionsManager.advanceCurrentIndex();
-      expect(questionsManager.getQuestion().text).toBe("Is there clouds in the sky?");
-    })
-  });
+            expect(questionsManager.hasMoreQuestions()).toBe(false);
+        });
+    });
 
-  describe("reset()", () => {
-    it("should reset the currentIndex to 0", () => {
-      const question = questionsManager.getQuestion();
-      questionsManager.advanceCurrentIndex();
-      expect(question === questionsManager.getQuestion()).toBeFalsy();
-      questionsManager.reset();
-      expect(question).toBe(questionsManager.getQuestion());
-    })
-  })
-})
+    describe("getQuestion()", () => {
+        it("should retrieve the current question based on index", () => {
+            expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
+            questionsManager.advanceCurrentIndex();
+            expect(questionsManager.getQuestion().text).toBe("Is there clouds in the sky?");
+        });
+    });
+
+    describe("reset()", () => {
+        it("should reset the question index", () => {
+            const initialQuestion = questionsManager.getQuestion();
+            questionsManager.advanceCurrentIndex();
+            expect(initialQuestion).not.toBe(questionsManager.getQuestion());
+            questionsManager.reset();
+            expect(initialQuestion).toBe(questionsManager.getQuestion());
+        });
+    });
+});

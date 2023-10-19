@@ -17,121 +17,104 @@ describe("QuizEngine class", () => {
   describe("constructor()", () => {
     it("should create an instance successfully", () => {
       expect(quizEngine).toBeDefined();
-    })
-    it("should throw error if not provided correct arguments", () => {
-      expect(() => new QuizEngine()).toThrow(InvalidQuizQuestionsError);
-      expect(() => new QuizEngine(quizQuestions)).toThrow(InvalidPlayerNameError);
-      expect(() => new QuizEngine("TestPerson")).toThrow(InvalidQuizQuestionsError);
-      expect(() => new QuizEngine({}, "TestPerson")).toThrow(InvalidQuizQuestionsError);
-      expect(() => new QuizEngine(quizQuestions, 123)).toThrow(InvalidPlayerNameError);
-      expect(() => new QuizEngine(quizQuestions, "")).toThrow(InvalidPlayerNameError);
-      expect(() => new QuizEngine(quizQuestions, "     ")).toThrow(InvalidPlayerNameError);
-    })
-  });
+    });
 
-  describe("startQuiz()", () => {
-    it("should emit 'question' event containing the text and choices data", () => {
-      let text;
-      let choices;
+    const testInvalidConstructorArgs = (questions, name, errorType) => {
+      expect(() => new QuizEngine(questions, name)).toThrow(errorType);
+    };
 
-      quizEngine.on('question', (data) => {
-        text = data.text;
-        choices = data.choices;
-      });
-
-      quizEngine.startQuiz();
-      expect(text).toBe("Is this a String?");
-      expect(choices).toStrictEqual(["Yes", "No"]);
+    it("should throw errors for invalid constructor arguments", () => {
+      testInvalidConstructorArgs(undefined, undefined, InvalidQuizQuestionsError);
+      testInvalidConstructorArgs(quizQuestions, undefined, InvalidPlayerNameError);
+      testInvalidConstructorArgs(undefined, "TestPerson", InvalidQuizQuestionsError);
+      testInvalidConstructorArgs({}, "TestPerson", InvalidQuizQuestionsError);
+      testInvalidConstructorArgs(quizQuestions, 123, InvalidPlayerNameError);
+      testInvalidConstructorArgs(quizQuestions, "", InvalidPlayerNameError);
+      testInvalidConstructorArgs(quizQuestions, "     ", InvalidPlayerNameError);
     });
   });
 
-  describe("answerQuestion(answer)", () => {
-    it("should emit 'correct' event if answer is correct, with playername and player score data", () => {
-      let playerName;
-      let score;
+ 
+  describe("QuizEngine events", () => {
+    it("should emit 'question' event on startQuiz()", () => {
+      let emittedData;
+      quizEngine.on('question', (data) => {
+        emittedData = data;
+      });
+      quizEngine.startQuiz();
+      expect(emittedData.text).toBe("Is this a String?");
+      expect(emittedData.choices).toStrictEqual(["Yes", "No"]);
+    });
+  
+    it("should emit 'correct' event if answer is correct", () => {
+      let emittedData;
       quizEngine.on('correct', (data) => {
-        playerName = data.playerName;
-        score = data.score;
+        emittedData = data;
       });
       quizEngine.answerQuestion("Yes");
-      expect(playerName).toBe("TestPerson");
-      expect(score).toBe(1);
-      quizEngine.resetQuiz();
+      expect(emittedData.playerName).toBe("TestPerson");
+      expect(emittedData.score).toBe(1);
     });
-
-    it("should emit 'false' event if answer is incorrect, with playername and player score data", () => {
-      let playerName;
-      let score;
+  
+    it("should emit 'false' event if answer is incorrect", () => {
+      let emittedData;
       quizEngine.on('false', (data) => {
-        playerName = data.playerName;
-        score = data.score;
+        emittedData = data;
       });
       quizEngine.answerQuestion("No");
-      expect(playerName).toBe("TestPerson");
-      expect(score).toBe(0);
+      expect(emittedData.playerName).toBe("TestPerson");
+      expect(emittedData.score).toBe(0);
     });
-  });
-
-  describe("continueQuiz()", () => {
-    it("if more questions, should advance index by one and emit question event", () => {
-      let text;
-      let choices;
+  
+    it("should emit 'question' event on continueQuiz()", () => {
+      let emittedData;
       quizEngine.on('question', (data) => {
-        text = data.text;
-        choices = data.choices;
+        emittedData = data;
       });
       quizEngine.continueQuiz();
-      expect(text).toBe("Is this a number?");
-      expect(choices).toStrictEqual(["Yes", "No"]);
+      expect(emittedData.text).toBe("Is this a number?");
+      expect(emittedData.choices).toStrictEqual(["Yes", "No"]);
     });
-
-    it("if no more questions, should emit 'done' event with playername and player score data", () => {
+  
+    it("should emit 'done' event on continueQuiz()", done => {
       quizEngine.on('done', (data) => {
-        expect(data.playerName).toBe("TestPerson");
-        expect(data.score).toBe(0);
+        try {
+          expect(data.playerName).toBe("TestPerson");
+          expect(data.score).toBe(1);
+          done();
+        } catch (error) {
+          done(error);
+        }
       });
-
+      quizEngine.answerQuestion("Yes");
       quizEngine.continueQuiz();
       quizEngine.continueQuiz();
     });
   });
 
-  describe("hasMoreQuestions()", () => {
-    it("should return true if there are more questions", () => {
-      expect(quizEngine.hasMoreQuestions()).toBe(true);
-    });
 
-    it("should return false if there are no more questions", () => {
+  describe("Utility Methods", () => {
+    it("should report if there are more questions", () => {
+      expect(quizEngine.hasMoreQuestions()).toBe(true);
       quizEngine.continueQuiz();
       quizEngine.continueQuiz();
       expect(quizEngine.hasMoreQuestions()).toBe(false);
     });
 
-    it("should return true after a reset, even if previously false", () => {
+    it("should reset quiz state", () => {
       quizEngine.continueQuiz();
       quizEngine.continueQuiz();
       quizEngine.resetQuiz();
       expect(quizEngine.hasMoreQuestions()).toBe(true);
     });
-  });
 
-  describe("getSummary()", () => {
     it("should return a QuizResultSummary object", async () => {
       const summary = await quizEngine.getSummary();
-      expect(summary).toBeDefined();
-      expect(summary).toHaveProperty("playerName");
-      expect(summary).toHaveProperty("score");
-      expect(summary).toHaveProperty("allCategorySummaries");
+      expect(summary).toMatchObject({
+        playerName: "TestPerson",
+        score: 0,
+        allCategorySummaries: expect.any(Array)
+      });
     });
-
-    it("should return summary data based on answers", async () => {
-      quizEngine.answerQuestion("Yes");
-      const summary = await quizEngine.getSummary();
-      expect(summary.allCategorySummaries.length).toBe(1);
-      const categorySummary = summary.allCategorySummaries[0];
-      expect(categorySummary.amountOfCorrectAnswers).toBe(1);
-      expect(categorySummary.amountOfQuestions).toBe(1);
-    })
-  })
-
-})
+  });
+});

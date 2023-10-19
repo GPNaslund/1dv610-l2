@@ -1,83 +1,85 @@
 # TEST SUMMARY
 
-## QuizCategorySummary.test.js 
-| METHOD |   TEST CASE   | TEST RESULT | 
-|--------|---------------|-------------|
-| constructor() | QuizCategorySummary class constructor() should initialize successfully | passed |
-| constructor() | QuizCategorySummary class constructor() should throw errors for invalid constructor arguments | passed |
-| toString() | QuizCategorySummary class toString() should return a string representation | passed |
-| toArray() | QuizCategorySummary class toArray() should return an array containing strings with the summary representation | passed |
-
 ## Question.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
 | constructor() | Question class constructor() should correctly create a new instance | passed |
 | constructor() | Question class constructor() should throw errors for invalid constructor arguments | passed |
 
+## QuestionResult.test.js 
+| METHOD |   TEST CASE   | TEST RESULT | 
+|--------|---------------|-------------|
+| constructor() | QuestionResult class constructor() should correctly identify the correct answer | passed |
+| constructor() | QuestionResult class constructor() should correctly identify the incorrect answer | passed |
+| constructor() | QuestionResult class constructor() should throw errors for invalid arguments | passed |
+
 ## QuestionsManager.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
 | constructor() | QuestionsManager class constructor() should initialize successfully | passed |
-| constructor() | QuestionsManager class constructor() should throw error on false constructor arguments | passed |
-| hasMoreQuestions() | QuestionsManager class hasMoreQuestions() should return true if more questions are available | passed |
-| getQuestion() | QuestionsManager class getQuestion() should return the question at the current index | passed |
-| reset() | QuestionsManager class reset() should reset the currentIndex to 0 | passed |
-
-## QuestionResult.test.js 
-| METHOD |   TEST CASE   | TEST RESULT | 
-|--------|---------------|-------------|
-| constructor() | QuestionResult class constructor() should initializes successfully | passed |
-| constructor() | QuestionResult class constructor() should throw error on invalid argument | passed |
-
-## QuizResultSummary.test.js 
-| METHOD |   TEST CASE   | TEST RESULT | 
-|--------|---------------|-------------|
-| constructor() | QuizResultSummary class constructor() should initialize successfully with valid arguments | passed |
-| constructor() | QuizResultSummary class constructor() should throw Errors on invalid arguments | passed |
-| addCategorySummary() | QuizResultSummary class addCategorySummary() should add a QuizCategorySummary successfully | passed |
-| addCategorySummary() | QuizResultSummary class addCategorySummary() should throw InvalidCategorySummaryTypeError if argument is not a QuizCategorySummary | passed |
-| toString() | QuizResultSummary class toString() should return a string representation | passed |
-| toArray() | QuizResultSummary class toArray() should return an array with strings containing representation | passed |
+| constructor() | QuestionsManager class constructor() should throw error on invalid constructor arguments | passed |
+| hasMoreQuestions() | QuestionsManager class hasMoreQuestions() should determine if more questions are available | passed |
+| getQuestion() | QuestionsManager class getQuestion() should retrieve the current question based on index | passed |
+| reset() | QuestionsManager class reset() should reset the question index | passed |
 
 ## QuizQuestions.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
 | constructor() | QuizQuestions class constructor() should initialize empty | passed |
-| addQuestion() | QuizQuestions class addQuestion() should add a new Question object to allQuestions | passed |
-| addQuestion() | QuizQuestions class addQuestion() throws error if passed wrong type of object | passed |
-| createAndAddQuestion() | QuizQuestions class createAndAddQuestion() should add a new question | passed |
-| removeQuestion() | QuizQuestions class removeQuestion() removes a question with correct arguments | passed |
-| removeQuestion() | QuizQuestions class removeQuestion() throws error with non-validated arguments | passed |
-| getQuestion() | QuizQuestions class getQuestion() returns a question at the correct index | passed |
-| getQuestion() | QuizQuestions class getQuestion() should throw an error with invalid arguments | passed |
-| getAllQuestions() | QuizQuestions class getAllQuestions() should work with Question objects stored | passed |
-| getAllQuestions() | QuizQuestions class getAllQuestions() should work with no Question objects stored | passed |
-| hasQuestions() | QuizQuestions class hasQuestions() should return true when questions exist | passed |
-| hasQuestions() | QuizQuestions class hasQuestions() should return false when no questions exist | passed |
+| addQuestion() | QuizQuestions class Question manipulation addQuestion() should add a new Question object to allQuestions | passed |
+| addQuestion() | QuizQuestions class Question manipulation addQuestion() throws error if passed wrong type of object | passed |
+| createAndAddQuestion() | QuizQuestions class Question manipulation createAndAddQuestion() should add a new question | passed |
+| removeQuestion() | QuizQuestions class Question manipulation removeQuestion() removes a question with correct arguments | passed |
+| getQuestion() | QuizQuestions class Question manipulation getQuestion() returns a question at the correct index | passed |
+| getAllQuestions() | QuizQuestions class Question manipulation getAllQuestions() should work with no Question objects stored | passed |
+| getAllQuestions() | QuizQuestions class Question manipulation getAllQuestions() should work with Question objects stored | passed |
+| hasQuestions() | QuizQuestions class Question manipulation hasQuestions() should return true when questions exist | passed |
+| hasQuestions() | QuizQuestions class Question manipulation hasQuestions() should return false when no questions exist | passed |
+| removeQuestion() errors | QuizQuestions class Error handling removeQuestion() errors throws error with non-validated arguments | passed |
+| getQuestion() errors | QuizQuestions class Error handling getQuestion() errors should throw an error with invalid arguments | passed |
+
+## QuizResultSummary.test.js 
+| METHOD |   TEST CASE   | TEST RESULT | 
+|--------|---------------|-------------|
+| constructor() | QuizResultSummary class constructor() initializes with valid arguments | passed |
+| Error handling | QuizResultSummary class constructor() Error handling throws InvalidPlayerNameError for invalid name | passed |
+| Error handling | QuizResultSummary class constructor() Error handling throws InvalidScoreTypeError for invalid score | passed |
+| addCategorySummary() | QuizResultSummary class addCategorySummary() adds a QuizCategorySummary | passed |
+| addCategorySummary() | QuizResultSummary class addCategorySummary() throws error when adding a non-QuizCategorySummary | passed |
+| toString() | QuizResultSummary class toString() returns string representation of summary | passed |
+| toArray() | QuizResultSummary class toArray() returns array representation of summary | passed |
 
 ## QuizResult.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
-| constructor() | QuizResult class constructor() should successfully be created with correct constructor arguments | passed |
-| constructor() | QuizResult class constructor() should throw error if provided invalid constructor arguments | passed |
-| addQuestionResult() | QuizResult class addQuestionResult() should add the questionResult info to #questionResultDetails | passed |
-| addQuestionResult() | QuizResult class addQuestionResult() should throw error if invalid argument is passed | passed |
-| generateSummary() | QuizResult class generateSummary() should correctly generate a summary | passed |
-| incrementScore() | QuizResult class incrementScore() should successfully increment the score | passed |
-| QuizResult class | QuizResult class should throw error with invalid arguments | passed |
+| constructor() | QuizResult class constructor() creates an instance with valid arguments | passed |
+| Error handling | QuizResult class constructor() Error handling throws InvalidPlayerNameError with invalid name | passed |
+| Error handling | QuizResult class constructor() Error handling throws InvalidScoreTypeError with invalid score | passed |
+| addQuestionResult() | QuizResult class addQuestionResult() adds a QuestionResult to questionResults | passed |
+| addQuestionResult() | QuizResult class addQuestionResult() throws error with invalid QuestionResult | passed |
+| generateSummary() | QuizResult class generateSummary() generates a correct summary | passed |
+| incrementScore() | QuizResult class incrementScore() increments the score | passed |
+| incrementScore() | QuizResult class incrementScore() throws InvalidScoreTypeError with invalid score increment | passed |
 
 ## QuizEngine.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
 | constructor() | QuizEngine class constructor() should create an instance successfully | passed |
-| constructor() | QuizEngine class constructor() should throw error if not provided correct arguments | passed |
-| startQuiz() | QuizEngine class startQuiz() should emit 'question' event containing the text and choices data | passed |
-| answerQuestion(answer) | QuizEngine class answerQuestion(answer) should emit 'correct' event if answer is correct, with playername and player score data | passed |
-| answerQuestion(answer) | QuizEngine class answerQuestion(answer) should emit 'false' event if answer is incorrect, with playername and player score data | passed |
-| continueQuiz() | QuizEngine class continueQuiz() if more questions, should advance index by one and emit question event | passed |
-| continueQuiz() | QuizEngine class continueQuiz() if no more questions, should emit 'done' event with playername and player score data | passed |
-| hasMoreQuestions() | QuizEngine class hasMoreQuestions() should return true if there are more questions | passed |
-| hasMoreQuestions() | QuizEngine class hasMoreQuestions() should return false if there are no more questions | passed |
-| hasMoreQuestions() | QuizEngine class hasMoreQuestions() should return true after a reset, even if previously false | passed |
-| getSummary() | QuizEngine class getSummary() should return a QuizResultSummary object | passed |
-| getSummary() | QuizEngine class getSummary() should return summary data based on answers | passed |
+| constructor() | QuizEngine class constructor() should throw errors for invalid constructor arguments | passed |
+| QuizEngine events | QuizEngine class QuizEngine events should emit 'question' event on startQuiz() | passed |
+| QuizEngine events | QuizEngine class QuizEngine events should emit 'correct' event if answer is correct | passed |
+| QuizEngine events | QuizEngine class QuizEngine events should emit 'false' event if answer is incorrect | passed |
+| QuizEngine events | QuizEngine class QuizEngine events should emit 'question' event on continueQuiz() | passed |
+| QuizEngine events | QuizEngine class QuizEngine events should emit 'done' event on continueQuiz() | passed |
+| Utility Methods | QuizEngine class Utility Methods should report if there are more questions | passed |
+| Utility Methods | QuizEngine class Utility Methods should reset quiz state | passed |
+| Utility Methods | QuizEngine class Utility Methods should return a QuizResultSummary object | passed |
+
+## QuizCategorySummary.test.js 
+| METHOD |   TEST CASE   | TEST RESULT | 
+|--------|---------------|-------------|
+| constructor() | QuizCategorySummary class constructor() should initialize successfully | passed |
+| constructor() | QuizCategorySummary class constructor() should throw error for invalid question count | passed |
+| constructor() | QuizCategorySummary class constructor() should throw error for invalid correct answer count | passed |
+| string and array representations | QuizCategorySummary class string and array representations should convert to string | passed |
+| string and array representations | QuizCategorySummary class string and array representations should convert to array | passed |

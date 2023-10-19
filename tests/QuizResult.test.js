@@ -9,30 +9,33 @@ import InvalidQuestionResultTypeError from '../src/errors/InvalidQuestionResultT
 
 describe('QuizResult class', () => {
 
+  let quizResult;
+
+  beforeEach(() => {
+    quizResult = new QuizResult("TestPerson", 0);
+  });
+
   describe('constructor()', () => {
-    it('should successfully be created with correct constructor arguments', () => {
-      const quizResult = new QuizResult("TestPerson", 10);
+    it('creates an instance with valid arguments', () => {
       expect(quizResult).toBeDefined();
-      expect(quizResult.score).toBe(10);
+      expect(quizResult.score).toBe(0);
     });
 
-    it('should throw error if provided invalid constructor arguments', () => {
-      expect(() => new QuizResult(2, 10)).toThrow(InvalidPlayerNameError);
-      expect(() => new QuizResult("TestPerson", "10")).toThrow(InvalidScoreTypeError);
-      expect(() => new QuizResult("TestPerson", "Not a number")).toThrow(InvalidScoreTypeError);
-      expect(() => new QuizResult("", 10)).toThrow(InvalidPlayerNameError);
+    describe('Error handling', () => {
+      it('throws InvalidPlayerNameError with invalid name', () => {
+        expect(() => new QuizResult(2, 10)).toThrow(InvalidPlayerNameError);
+        expect(() => new QuizResult("", 10)).toThrow(InvalidPlayerNameError);
+      });
 
+      it('throws InvalidScoreTypeError with invalid score', () => {
+        expect(() => new QuizResult("TestPerson", "10")).toThrow(InvalidScoreTypeError);
+        expect(() => new QuizResult("TestPerson", "Not a number")).toThrow(InvalidScoreTypeError);
+      });
     });
   });
 
   describe('addQuestionResult()', () => {
-    let quizResult;
-
-    beforeEach(() => {
-      quizResult = new QuizResult("TestPerson", 0);
-    });
-
-    it('should add the questionResult info to #questionResultDetails', () => {
+    it('adds a QuestionResult to questionResults', () => {
       const questionResultObjects = generateQuestionResultObjects();
       questionResultObjects.forEach(questionResult => {
         quizResult.addQuestionResult(questionResult);
@@ -40,44 +43,43 @@ describe('QuizResult class', () => {
       expect(quizResult.questionResults).toStrictEqual(questionResultObjects);
     });
 
-    it('should throw error if invalid argument is passed', () => {
+    it('throws error with invalid QuestionResult', () => {
       expect(() => quizResult.addQuestionResult("Not a QuestionResult object")).toThrow(InvalidQuestionResultTypeError);
       expect(() => quizResult.addQuestionResult({})).toThrow(InvalidQuestionResultTypeError);
     });
-
   });
 
   describe('generateSummary()', () => {
-    it('should correctly generate a summary', () => {
-      const quizResult = new QuizResult('TestPerson', 0);
+    beforeEach(() => {
       const resultsObjects = generateQuestionResultObjects();
       resultsObjects.forEach(result => quizResult.addQuestionResult(result));
+    });
+
+    it('generates a correct summary', () => {
       const quizResultSummary = quizResult.generateSummary();
       const categorySummaries = quizResultSummary.allCategorySummaries;
+      const findCategorySummary = (categoryName) => categorySummaries.find(summary => summary.nameOfCategory === categoryName);
 
-      const findCategorySummary = (categoryName) => {
-        return categorySummaries.find(summary => summary.nameOfCategory === categoryName);
-      }
       expect(findCategorySummary("Category1")).toStrictEqual(new QuizCategorySummary("Category1", 3, 2));
       expect(findCategorySummary("Category2")).toStrictEqual(new QuizCategorySummary("Category2", 3, 1));
       expect(findCategorySummary("Category3")).toStrictEqual(new QuizCategorySummary("Category3", 4, 0));
     });
   });
 
-  describe("incrementScore()", () => {
-    it("should successfully increment the score", () => {
-      const quizResult = new QuizResult("TestPerson", 10);
+  describe('incrementScore()', () => {
+    it('increments the score', () => {
+      quizResult.incrementScore(10);
       expect(quizResult.score).toBe(10);
       quizResult.incrementScore(5);
       expect(quizResult.score).toBe(15);
     });
-  });
 
-  it("should throw error with invalid arguments", () => {
-    const quizResult = new QuizResult("TestPerson", 10);
-    expect(() => quizResult.incrementScore(undefined)).toThrow(InvalidScoreTypeError);
-    expect(() => quizResult.incrementScore("not a number")).toThrow(InvalidScoreTypeError);
+    it('throws InvalidScoreTypeError with invalid score increment', () => {
+      expect(() => quizResult.incrementScore(undefined)).toThrow(InvalidScoreTypeError);
+      expect(() => quizResult.incrementScore("not a number")).toThrow(InvalidScoreTypeError);
+    });
   });
+  
 });
 
 const generateQuestionResultsForCategory = (category, count, correctAnswerIndex) => {

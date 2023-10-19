@@ -5,40 +5,51 @@ import InvalidScoreTypeError from '../src/errors/InvalidScoreTypeError.js';
 import InvalidCategorySummaryTypeError from '../src/errors/InvalidCategorySummaryTypeError.js';
 
 describe("QuizResultSummary class", () => {
+  let quizResultSummary;
+
+  beforeEach(() => {
+    quizResultSummary = new QuizResultSummary("TestPerson", 100);
+  });
+
   describe("constructor()", () => {
-    it("should initialize successfully with valid arguments", () => {
-      const summary = new QuizResultSummary("TestPerson", 0);
-      expect(summary.playerName).toBe("TestPerson");
-      expect(summary.score).toBe(0);
-      expect(summary.allCategorySummaries.length).toBe(0);
+    it("initializes with valid arguments", () => {
+      expect(quizResultSummary.playerName).toBe("TestPerson");
+      expect(quizResultSummary.score).toBe(100);
+      expect(quizResultSummary.allCategorySummaries.length).toBe(0);
     });
 
-    it("should throw Errors on invalid arguments", () => {
-      expect(() => new QuizResultSummary("", 0)).toThrow(InvalidPlayerNameError);
-      expect(() => new QuizResultSummary(123, 0)).toThrow(InvalidPlayerNameError);
-      expect(() => new QuizResultSummary("TestPerson", "100")).toThrow(InvalidScoreTypeError);
-    });
+    describe("Error handling", () => {
+      it("throws InvalidPlayerNameError for invalid name", () => {
+        expect(() => new QuizResultSummary("", 0)).toThrow(InvalidPlayerNameError);
+        expect(() => new QuizResultSummary(123, 0)).toThrow(InvalidPlayerNameError);
+      });
 
+      it("throws InvalidScoreTypeError for invalid score", () => {
+        expect(() => new QuizResultSummary("TestPerson", "100")).toThrow(InvalidScoreTypeError);
+      });
+    });
   });
 
   describe("addCategorySummary()", () => {
-    it("should add a QuizCategorySummary successfully", () => {
-      const summary = new QuizResultSummary("TestPerson", 0);
-      const categorySummary = new QuizCategorySummary("History", 10, 8);
-      summary.addCategorySummary(categorySummary);
-      expect(summary.allCategorySummaries[0]).toBe(categorySummary);
+    let categorySummary;
+
+    beforeEach(() => {
+      categorySummary = new QuizCategorySummary("History", 10, 8);
     });
 
-    it("should throw InvalidCategorySummaryTypeError if argument is not a QuizCategorySummary", () => {
-      const summary = new QuizResultSummary("TestPerson", 0);
-      expect(() => summary.addCategorySummary("Not a QuizCategorySummary")).toThrow(InvalidCategorySummaryTypeError);
-      expect(() => summary.addCategorySummary({})).toThrow(InvalidCategorySummaryTypeError);
+    it("adds a QuizCategorySummary", () => {
+      quizResultSummary.addCategorySummary(categorySummary);
+      expect(quizResultSummary.allCategorySummaries[0]).toBe(categorySummary);
+    });
+
+    it("throws error when adding a non-QuizCategorySummary", () => {
+      expect(() => quizResultSummary.addCategorySummary("Not a QuizCategorySummary")).toThrow(InvalidCategorySummaryTypeError);
+      expect(() => quizResultSummary.addCategorySummary({})).toThrow(InvalidCategorySummaryTypeError);
     });
   });
 
   describe("toString()", () => {
-    it("should return a string representation", () => {
-      const quizResultSummary = new QuizResultSummary("TestPerson", 100);
+    it("returns string representation of summary", () => {
       const computerScienceSummary = new QuizCategorySummary("Computer Science", 10, 5);
       const animalsSummary = new QuizCategorySummary("Animals", 20, 0);
       quizResultSummary.addCategorySummary(computerScienceSummary);
@@ -50,8 +61,7 @@ describe("QuizResultSummary class", () => {
   });
 
   describe("toArray()", () => {
-    it("should return an array with strings containing representation", () => {
-      const quizResultSummary = new QuizResultSummary("TestPerson", 100);
+    it("returns array representation of summary", () => {
       const computerScienceSummary = new QuizCategorySummary("Computer Science", 10, 5);
       const animalsSummary = new QuizCategorySummary("Animals", 20, 0);
       quizResultSummary.addCategorySummary(computerScienceSummary);

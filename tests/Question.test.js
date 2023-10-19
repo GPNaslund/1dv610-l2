@@ -5,80 +5,33 @@ import InvalidQuestionCategoryError from '../src/errors/InvalidQuestionCategoryE
 describe("Question class", () => {
   
   describe("constructor()", () => {
+    const validQuestionData = {
+      text: "What comes after rain?",
+      choices: ["Snow", "More rain", "Sunshine"],
+      correctChoice: "Sunshine",
+      category: "Weather"
+    };
+    
     it("should correctly create a new instance", () => {
-      const question = new Question({
-        text: "What comes after rain?",
-        choices: ["Snow", "More rain", "Sunshine"],
-        correctChoice: "Sunshine",
-        category: "Weather"
-      });
-      expect(question.text).toBe("What comes after rain?");
-      expect(question.choices).toStrictEqual(["Snow", "More rain", "Sunshine"]);
-      expect(question.correctChoice).toBe("Sunshine");
-      expect(question.category).toBe("Weather");
+      const question = new Question(validQuestionData);
+      expect(question.text).toBe(validQuestionData.text);
+      expect(question.choices).toStrictEqual(validQuestionData.choices);
+      expect(question.correctChoice).toBe(validQuestionData.correctChoice);
+      expect(question.category).toBe(validQuestionData.category);
     });
+
+    const testInvalidQuestion = (data, errorType) => {
+      expect(() => new Question(data)).toThrow(errorType);
+    };
 
     it("should throw errors for invalid constructor arguments", () => {
-      expect(() => {
-        new Question({
-          text: 2,
-          choices: ["Snow", "More rain", "Sunshine"],
-          correctChoice: "Sunshine"
-        });
-      }).toThrow(TypeError);
-    
-      expect(() => {
-        new Question({
-          text: undefined,
-          choices: ["Snow", "More rain", "Sunshine"],
-          correctChoice: "Sunshine"
-        });
-      }).toThrow(TypeError);
-
-      expect(() => {
-        new Question({
-          text: "What comes after rain?",
-          choices: "Wrong argument",
-          correctChoice: "Sunshine"
-        });
-      }).toThrow(InvalidQuestionChoiceError);
-    
-      expect(() => {
-        new Question({
-          text: "What comes after rain?",
-          choices: ["Snow", 2, "Sunshine"],
-          correctChoice: "Sunshine"
-        });
-      }).toThrow(TypeError);
-    
-      expect(() => {
-        new Question({
-          text: "What comes after rain?",
-          choices: ["Snow", "More rain", "Sunshine"],
-          correctChoice: 0
-        });
-      }).toThrow(TypeError);
-    
-
-      expect(() => {
-        new Question({
-          text: "What comes after rain?",
-          choices: ["Snow", "More rain", "Sunshine"],
-          correctChoice: ""
-        });
-      }).toThrow(RangeError);
-    
-      expect(() => {
-        new Question({
-          text: "What comes after rain?",
-          choices: ["Snow", "More rain", "Sunshine"],
-          correctChoice: "Sunshine",
-          category: ""
-        });
-      }).toThrow(InvalidQuestionCategoryError);
+      testInvalidQuestion({ ...validQuestionData, text: 2 }, TypeError);
+      testInvalidQuestion({ ...validQuestionData, text: undefined }, TypeError);
+      testInvalidQuestion({ ...validQuestionData, choices: "Wrong argument" }, InvalidQuestionChoiceError);
+      testInvalidQuestion({ ...validQuestionData, choices: ["Snow", 2, "Sunshine"] }, TypeError);
+      testInvalidQuestion({ ...validQuestionData, correctChoice: 0 }, TypeError);
+      testInvalidQuestion({ ...validQuestionData, correctChoice: "" }, RangeError);
+      testInvalidQuestion({ ...validQuestionData, category: "" }, InvalidQuestionCategoryError);
     });
-    
-
   });
-
 });
