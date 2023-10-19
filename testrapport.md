@@ -1,24 +1,41 @@
 # TEST SUMMARY
 
-## Question.test.js 
-| METHOD |   TEST CASE   | TEST RESULT | 
-|--------|---------------|-------------|
-| constructor() | Question class constructor() should correctly create a new instance | passed |
-| constructor() | Question class constructor() should throw type errors for invalid constructor arguments | passed |
-
 ## QuizCategorySummary.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
 | constructor() | QuizCategorySummary class constructor() should initialize successfully | passed |
+| constructor() | QuizCategorySummary class constructor() should throw errors for invalid constructor arguments | passed |
 | toString() | QuizCategorySummary class toString() should return a string representation | passed |
 | toArray() | QuizCategorySummary class toArray() should return an array containing strings with the summary representation | passed |
+
+## Question.test.js 
+| METHOD |   TEST CASE   | TEST RESULT | 
+|--------|---------------|-------------|
+| constructor() | Question class constructor() should correctly create a new instance | passed |
+| constructor() | Question class constructor() should throw errors for invalid constructor arguments | passed |
+
+## QuestionsManager.test.js 
+| METHOD |   TEST CASE   | TEST RESULT | 
+|--------|---------------|-------------|
+| constructor() | QuestionsManager class constructor() should initialize successfully | passed |
+| constructor() | QuestionsManager class constructor() should throw error on false constructor arguments | passed |
+| hasMoreQuestions() | QuestionsManager class hasMoreQuestions() should return true if more questions are available | passed |
+| getQuestion() | QuestionsManager class getQuestion() should return the question at the current index | passed |
+| reset() | QuestionsManager class reset() should reset the currentIndex to 0 | passed |
+
+## QuestionResult.test.js 
+| METHOD |   TEST CASE   | TEST RESULT | 
+|--------|---------------|-------------|
+| constructor() | QuestionResult class constructor() should initializes successfully | passed |
+| constructor() | QuestionResult class constructor() should throw error on invalid argument | passed |
 
 ## QuizResultSummary.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
-| constructor() | QuizResultSummary class constructor() should initialize successfully | passed |
+| constructor() | QuizResultSummary class constructor() should initialize successfully with valid arguments | passed |
+| constructor() | QuizResultSummary class constructor() should throw Errors on invalid arguments | passed |
 | addCategorySummary() | QuizResultSummary class addCategorySummary() should add a QuizCategorySummary successfully | passed |
-| addCategorySummary() | QuizResultSummary class addCategorySummary() should throw TypeError if argument is not a QuizCategorySummary | passed |
+| addCategorySummary() | QuizResultSummary class addCategorySummary() should throw InvalidCategorySummaryTypeError if argument is not a QuizCategorySummary | passed |
 | toString() | QuizResultSummary class toString() should return a string representation | passed |
 | toArray() | QuizResultSummary class toArray() should return an array with strings containing representation | passed |
 
@@ -38,14 +55,6 @@
 | hasQuestions() | QuizQuestions class hasQuestions() should return true when questions exist | passed |
 | hasQuestions() | QuizQuestions class hasQuestions() should return false when no questions exist | passed |
 
-## QuestionsManager.test.js 
-| METHOD |   TEST CASE   | TEST RESULT | 
-|--------|---------------|-------------|
-| constructor() | QuestionsManager class constructor() should initialize successfully | passed |
-| hasMoreQuestions() | QuestionsManager class hasMoreQuestions() should return true if more questions are available | passed |
-| getQuestion() | QuestionsManager class getQuestion() should return the question at the current index | passed |
-| reset() | QuestionsManager class reset() should reset the currentIndex to 0 | passed |
-
 ## QuizResult.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
@@ -56,12 +65,6 @@
 | generateSummary() | QuizResult class generateSummary() should correctly generate a summary | passed |
 | incrementScore() | QuizResult class incrementScore() should successfully increment the score | passed |
 | QuizResult class | QuizResult class should throw error with invalid arguments | passed |
-
-## QuestionResult.test.js 
-| METHOD |   TEST CASE   | TEST RESULT | 
-|--------|---------------|-------------|
-| constructor() | QuestionResult class constructor() should initializes successfully | passed |
-| constructor() | QuestionResult class constructor() should throw error on invalid argument | passed |
 
 ## QuizEngine.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 

@@ -1,5 +1,7 @@
 import Question from '../src/Question.js';
 import QuestionResult from '../src/QuestionResult.js';
+import InvalidQuestionError from '../src/errors/InvalidQuestionError.js';
+import InvalidQuestionChoiceError from '../src/errors/InvalidQuestionChoiceError.js';
 
 describe("QuestionResult class", () => {
 
@@ -14,9 +16,11 @@ describe("QuestionResult class", () => {
     });
   
     it("should throw error on invalid argument", () => {
-      expect(() => new QuestionResult("Not a question", "Yes").toThrowError(TypeError));
-      expect(() => new QuestionResult(question, 2).toThrowError(TypeError));
-      expect(() => new QuestionResult(question, "").toThrowError(RangeError));
-    })
+      expect(() => new QuestionResult("Not a question", "Yes")).toThrow(InvalidQuestionError);
+      expect(() => new QuestionResult(question, 2)).toThrow(InvalidQuestionChoiceError);
+      expect(() => new QuestionResult(question, "")).toThrow(InvalidQuestionChoiceError);
+      expect(() => new QuestionResult(question, "D")).toThrow(InvalidQuestionChoiceError);
+    });
+    
   })
 })

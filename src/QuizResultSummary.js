@@ -18,8 +18,8 @@ class QuizResultSummary {
    * @param {number} score - The score of the player.
    */
   constructor(playerName, score) {
-    this.#playerName = playerName;
-    this.#score = score;
+    this.#setPlayerName(playerName);
+    this.#setScore(score);
     this.#allCategorySummaries = [];
   }
 

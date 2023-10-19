@@ -1,4 +1,7 @@
 import QuizCategorySummary from "../src/QuizCategorySummary";
+import InvalidQuestionCountError from '../src/errors/InvalidQuestionCountError.js';
+import InvalidCorrectAnswerCountError from '../src/errors/InvalidCorrectAnswerCountError.js';
+
 
 describe("QuizCategorySummary class", () => {
   let summary;
@@ -13,6 +16,14 @@ describe("QuizCategorySummary class", () => {
       expect(summary.amountOfCorrectAnswers).toBe(8);
       expect(summary.percentageOfCorrectAnswers).toBe(80.00);
     })
+
+    it("should throw errors for invalid constructor arguments", () => {
+      expect(() => new QuizCategorySummary("History", 0, 8)).toThrow(InvalidQuestionCountError);
+      expect(() => new QuizCategorySummary("History", -10, 8)).toThrow(InvalidQuestionCountError);
+      expect(() => new QuizCategorySummary("History", 10, 11)).toThrow(InvalidCorrectAnswerCountError);
+      expect(() => new QuizCategorySummary("History", 10, -1)).toThrow(InvalidCorrectAnswerCountError);
+    });
+
   });
 
   describe("toString()", () => {

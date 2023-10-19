@@ -1,5 +1,7 @@
 import QuizEngine from '../src/QuizEngine.js';
 import QuizQuestions from '../src/QuizQuestions.js';
+import InvalidPlayerNameError from '../src/errors/InvalidPlayerNameError.js';
+import InvalidQuizQuestionsError from '../src/errors/InvalidQuizQuestionsError.js';
 
 describe("QuizEngine class", () => {
   let quizEngine;
@@ -7,8 +9,8 @@ describe("QuizEngine class", () => {
 
   beforeEach(() => {
     quizQuestions = new QuizQuestions();
-    quizQuestions.createAndAddQuestion({text: "Is this a String?", choices: ["Yes", "No"], correctChoice: "Yes"});
-    quizQuestions.createAndAddQuestion({text: "Is this a number?", choices: ["Yes", "No"], correctChoice: "No"});
+    quizQuestions.createAndAddQuestion({ text: "Is this a String?", choices: ["Yes", "No"], correctChoice: "Yes" });
+    quizQuestions.createAndAddQuestion({ text: "Is this a number?", choices: ["Yes", "No"], correctChoice: "No" });
     quizEngine = new QuizEngine(quizQuestions, "TestPerson");
   });
 
@@ -17,9 +19,13 @@ describe("QuizEngine class", () => {
       expect(quizEngine).toBeDefined();
     })
     it("should throw error if not provided correct arguments", () => {
-      expect(() => new QuizEngine().toThrow(TypeError));
-      expect(() => new QuizEngine(quizQuestions).toThrow(TypeError));
-      expect(() => new QuizEngine("TestPerson").toThrow(TypeError));
+      expect(() => new QuizEngine()).toThrow(InvalidQuizQuestionsError);
+      expect(() => new QuizEngine(quizQuestions)).toThrow(InvalidPlayerNameError);
+      expect(() => new QuizEngine("TestPerson")).toThrow(InvalidQuizQuestionsError);
+      expect(() => new QuizEngine({}, "TestPerson")).toThrow(InvalidQuizQuestionsError);
+      expect(() => new QuizEngine(quizQuestions, 123)).toThrow(InvalidPlayerNameError);
+      expect(() => new QuizEngine(quizQuestions, "")).toThrow(InvalidPlayerNameError);
+      expect(() => new QuizEngine(quizQuestions, "     ")).toThrow(InvalidPlayerNameError);
     })
   });
 
@@ -80,7 +86,7 @@ describe("QuizEngine class", () => {
     });
 
     it("if no more questions, should emit 'done' event with playername and player score data", () => {
-      quizEngine.on('done', (data) => {        
+      quizEngine.on('done', (data) => {
         expect(data.playerName).toBe("TestPerson");
         expect(data.score).toBe(0);
       });
@@ -104,7 +110,7 @@ describe("QuizEngine class", () => {
     it("should return true after a reset, even if previously false", () => {
       quizEngine.continueQuiz();
       quizEngine.continueQuiz();
-      quizEngine.resetQuiz(); 
+      quizEngine.resetQuiz();
       expect(quizEngine.hasMoreQuestions()).toBe(true);
     });
   });

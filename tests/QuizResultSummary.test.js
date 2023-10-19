@@ -1,15 +1,25 @@
 import QuizResultSummary from '../src/QuizResultSummary.js';
 import QuizCategorySummary from '../src/QuizCategorySummary.js';
+import InvalidPlayerNameError from '../src/errors/InvalidPlayerNameError.js';
+import InvalidScoreTypeError from '../src/errors/InvalidScoreTypeError.js';
+import InvalidCategorySummaryTypeError from '../src/errors/InvalidCategorySummaryTypeError.js';
 
 describe("QuizResultSummary class", () => {
   describe("constructor()", () => {
-    it("should initialize successfully", () => {
+    it("should initialize successfully with valid arguments", () => {
       const summary = new QuizResultSummary("TestPerson", 0);
       expect(summary.playerName).toBe("TestPerson");
       expect(summary.score).toBe(0);
       expect(summary.allCategorySummaries.length).toBe(0);
     });
-  })
+
+    it("should throw Errors on invalid arguments", () => {
+      expect(() => new QuizResultSummary("", 0)).toThrow(InvalidPlayerNameError);
+      expect(() => new QuizResultSummary(123, 0)).toThrow(InvalidPlayerNameError);
+      expect(() => new QuizResultSummary("TestPerson", "100")).toThrow(InvalidScoreTypeError);
+    });
+
+  });
 
   describe("addCategorySummary()", () => {
     it("should add a QuizCategorySummary successfully", () => {
@@ -19,10 +29,10 @@ describe("QuizResultSummary class", () => {
       expect(summary.allCategorySummaries[0]).toBe(categorySummary);
     });
 
-    it("should throw TypeError if argument is not a QuizCategorySummary", () => {
+    it("should throw InvalidCategorySummaryTypeError if argument is not a QuizCategorySummary", () => {
       const summary = new QuizResultSummary("TestPerson", 0);
-      expect(() => summary.addCategorySummary("Not a QuizCategorySummary").toThrow(TypeError));
-      expect(() => summary.addCategorySummary({}).toThrow(TypeError));
+      expect(() => summary.addCategorySummary("Not a QuizCategorySummary")).toThrow(InvalidCategorySummaryTypeError);
+      expect(() => summary.addCategorySummary({})).toThrow(InvalidCategorySummaryTypeError);
     });
   });
 
@@ -49,18 +59,18 @@ describe("QuizResultSummary class", () => {
 
       const expectedArray = [
         "playerName: TestPerson",
-      "score: 100",
-      "- category: Computer Science",
-      "  - amount of questions: 10",
-      "  - amount of correct answers: 5",
-      "  - correct percentage: 50%",
-      "- category: Animals",
-      "  - amount of questions: 20",
-      "  - amount of correct answers: 0",
-      "  - correct percentage: 0%"
+        "score: 100",
+        "- category: Computer Science",
+        "  - amount of questions: 10",
+        "  - amount of correct answers: 5",
+        "  - correct percentage: 50%",
+        "- category: Animals",
+        "  - amount of questions: 20",
+        "  - amount of correct answers: 0",
+        "  - correct percentage: 0%"
       ];
 
       expect(quizResultSummary.toArray()).toEqual(expectedArray);
-    })
-  })
-})
+    });
+  });
+});

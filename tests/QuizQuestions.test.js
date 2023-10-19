@@ -1,5 +1,8 @@
 import QuizQuestions from '../src/QuizQuestions.js';
 import Question from '../src/Question.js';
+import InvalidQuestionTypeError from '../src/errors/InvalidQuestionTypeError.js';
+import IndexNotNumberError from '../src/errors/IndexNotNumberError.js';
+import IndexOutOfBoundsError from '../src/errors/IndexOutOfBoundsError.js';
 
 describe("QuizQuestions class", () => {
 
@@ -21,7 +24,7 @@ describe("QuizQuestions class", () => {
 
     it("throws error if passed wrong type of object", () => {
       const quizQuestions = new QuizQuestions();
-      expect(() => quizQuestions.addQuestion("Not a question object!")).toThrow(TypeError);
+      expect(() => quizQuestions.addQuestion("Not a question object!")).toThrow(InvalidQuestionTypeError);
     });
   });
 
@@ -47,8 +50,8 @@ describe("QuizQuestions class", () => {
 
     it("throws error with non-validated arguments", () => {
       const quizQuestions = new QuizQuestions();
-      expect(() => quizQuestions.removeQuestion("I'm a string")).toThrow(TypeError);
-      expect(() => quizQuestions.removeQuestion(1)).toThrow(RangeError);
+      expect(() => quizQuestions.removeQuestion("I'm a string")).toThrow(IndexNotNumberError);
+      expect(() => quizQuestions.removeQuestion(1)).toThrow(IndexOutOfBoundsError);
     });
   });
 
@@ -62,8 +65,8 @@ describe("QuizQuestions class", () => {
 
     it("should throw an error with invalid arguments", () => {
       const quizQuestions = new QuizQuestions();
-      expect(() => quizQuestions.getQuestion("I'm a string")).toThrow(TypeError);
-      expect(() => quizQuestions.getQuestion(1)).toThrow(RangeError);
+      expect(() => quizQuestions.getQuestion("I'm a string")).toThrow(IndexNotNumberError);
+      expect(() => quizQuestions.getQuestion(1)).toThrow(IndexOutOfBoundsError);
     });
   });
 

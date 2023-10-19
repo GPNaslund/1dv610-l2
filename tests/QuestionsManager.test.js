@@ -1,6 +1,8 @@
 import QuestionsManager from '../src/QuestionsManager.js';
 import QuizQuestions from '../src/QuizQuestions.js';
 import Question from '../src/Question.js';
+import InvalidQuizQuestionsError from '../src/errors/InvalidQuizQuestionsError.js';
+import EmptyQuestionBankError from '../src/errors/EmptyQuestionBankError.js';
 
 describe("QuestionsManager class", () => {
   let quizQuestions;
@@ -28,6 +30,14 @@ describe("QuestionsManager class", () => {
     it("should initialize successfully", () => {
       expect(questionsManager).toBeDefined();
       expect(questionsManager.getQuestion().text).toBe("Is the sky blue?");
+    })
+
+    it("should throw error on false constructor arguments", () => {
+      const invalidObj = "This is not a QuizQuestions instance";
+      expect(() => new QuestionsManager(invalidObj)).toThrow(InvalidQuizQuestionsError);
+
+      const emptyQuiz = new QuizQuestions();
+      expect(() => new QuestionsManager(emptyQuiz)).toThrow(EmptyQuestionBankError);
     })
   })
 
