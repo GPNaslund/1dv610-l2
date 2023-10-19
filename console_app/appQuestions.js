@@ -1,4 +1,4 @@
-export const quizQuestions = [
+export const mockQuizQuestions = [
   {
     text: "Who sang the title song for the latest Bond film, No Time to Die?",
     choices: ["Adele", "Sam Smith", "Billie Eilish"],

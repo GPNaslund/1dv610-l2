@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>QuizEngine<span class="signature">(questionBank)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>QuizEngine<span class="signature">(quizQuestions)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Handles the coordination and quiz logic</div>
         
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="QuizEngine"><span class="type-signature"></span>new QuizEngine<span class="signature">(questionBank)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="QuizEngine"><span class="type-signature"></span>new QuizEngine<span class="signature">(quizQuestions)</span><span class="type-signature"></span></h4>
     
 
     
@@ -89,13 +89,13 @@
 
         <tr>
             
-                <td class="name"><code>questionBank</code></td>
+                <td class="name"><code>quizQuestions</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="QuestionBank.html">QuestionBank</a></span>
+<span class="param-type"><a href="QuizQuestions.html">QuizQuestions</a></span>
 
 
             
@@ -105,7 +105,7 @@
 
             
 
-            <td class="description last">The QuestionBank instance used to instanciate a QuestionManager.</td>
+            <td class="description last">The QuizQuestions instance used to instanciate a QuestionManager.</td>
         </tr>
 
     
@@ -146,7 +146,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line13">line 13</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -210,7 +210,9 @@
 
 
 <div class="description">
-    Method for validating correctness of the users answer to a question.If correct, adds one point and calls the onCorrectAnswer callback.If not correct, calls the onFalse callback.
+    Method for validating correctness of the users answer to a question.
+If correct, adds one point and calls the onCorrectAnswer callback.
+If not correct, calls the onFalse callback.
 </div>
 
 
@@ -303,7 +305,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line83">line 83</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -398,7 +400,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line117">line 117</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line140">line 140</a>
     </li></ul></dd>
     
 
@@ -491,7 +493,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line152">line 152</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -601,7 +603,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line160">line 160</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line187">line 187</a>
     </li></ul></dd>
     
 
@@ -711,7 +713,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line169">line 169</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line196">line 196</a>
     </li></ul></dd>
     
 
@@ -870,7 +872,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line35">line 35</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -1007,7 +1009,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line44">line 44</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
@@ -1095,7 +1097,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line51">line 51</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -1139,7 +1141,9 @@
 
 
 <div class="description">
-    Method for reseting the quiz. Will resetthis.#questionsManagers #currentIndex to 0 and re-fetch the questions in its original order. Will also reset the scoreboard score to 0.
+    Method for reseting the quiz. Will reset
+this.#questionsManagers #currentIndex to 0 and re-fetch
+the questions in its original order. Will also reset the scoreboard score to 0.
 </div>
 
 
@@ -1183,7 +1187,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line142">line 142</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line165">line 165</a>
     </li></ul></dd>
     
 
@@ -1271,7 +1275,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line59">line 59</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line82">line 82</a>
     </li></ul></dd>
     
 
@@ -1457,7 +1461,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line90">line 90</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line113">line 113</a>
     </li></ul></dd>
     
 
@@ -1630,7 +1634,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line184">line 184</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line211">line 211</a>
     </li></ul></dd>
     
 
@@ -1803,7 +1807,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line100">line 100</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line123">line 123</a>
     </li></ul></dd>
     
 
@@ -1976,7 +1980,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line62">line 62</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -2149,7 +2153,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line122">line 122</a>
+        <a href="QuizEngine.js.html">QuizEngine.js</a>, <a href="QuizEngine.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -2191,13 +2195,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CustomEventEmitter.html">CustomEventEmitter</a></li><li><a href="CustomMarkdownReporter.html">CustomMarkdownReporter</a></li><li><a href="FilesystemPersistentHighscore.html">FilesystemPersistentHighscore</a></li><li><a href="Highscore.html">Highscore</a></li><li><a href="LocalStoragePersistence.html">LocalStoragePersistence</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionBank.html">QuestionBank</a></li><li><a href="QuestionResult.html">QuestionResult</a></li><li><a href="QuestionsManager.html">QuestionsManager</a></li><li><a href="QuizCategorySummary.html">QuizCategorySummary</a></li><li><a href="QuizEngine.html">QuizEngine</a></li><li><a href="QuizResult.html">QuizResult</a></li><li><a href="QuizResultSummary.html">QuizResultSummary</a></li><li><a href="QuizScore.html">QuizScore</a></li></ul><h3>Events</h3><ul><li><a href="QuizEngine.html#event:correct">correct</a></li><li><a href="QuizEngine.html#event:done">done</a></li><li><a href="QuizEngine.html#event:false">false</a></li><li><a href="QuizEngine.html#event:question">question</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CustomEventEmitter.html">CustomEventEmitter</a></li><li><a href="CustomMarkdownReporter.html">CustomMarkdownReporter</a></li><li><a href="FilesystemPersistentHighscore.html">FilesystemPersistentHighscore</a></li><li><a href="Highscore.html">Highscore</a></li><li><a href="LocalStoragePersistence.html">LocalStoragePersistence</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionResult.html">QuestionResult</a></li><li><a href="QuestionsManager.html">QuestionsManager</a></li><li><a href="QuizCategorySummary.html">QuizCategorySummary</a></li><li><a href="QuizEngine.html">QuizEngine</a></li><li><a href="QuizQuestions.html">QuizQuestions</a></li><li><a href="QuizResult.html">QuizResult</a></li><li><a href="QuizResultSummary.html">QuizResultSummary</a></li><li><a href="QuizScore.html">QuizScore</a></li></ul><h3>Events</h3><ul><li><a href="QuizEngine.html#event:correct">correct</a></li><li><a href="QuizEngine.html#event:done">done</a></li><li><a href="QuizEngine.html#event:false">false</a></li><li><a href="QuizEngine.html#event:question">question</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 21 2023 12:45:29 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Oct 19 2023 18:30:20 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

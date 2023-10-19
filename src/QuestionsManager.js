@@ -58,7 +58,7 @@ class QuestionsManager {
    */
   advanceCurrentIndex() {
     if (!this.hasMoreQuestions()) {
-      throw new RangeError("Cannot advance index beyond available questions.");
+      throw new RangeError('Cannot advance index beyond available questions.');
     }
     this.#currentIndex += 1;
   }

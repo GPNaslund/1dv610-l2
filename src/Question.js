@@ -36,7 +36,7 @@ class Question {
   }
 
   #setText(text) {
-    this.#validateString(text, 'Question text must be a string!')
+    this.#validateString(text, 'Question text must be a string!');
     this.#text = text;
   }
 
@@ -46,10 +46,10 @@ class Question {
 
   #setChoices(choices) {
     if (!Array.isArray(choices)) {
-      throw new InvalidQuestionChoiceError("Question choices must be an array of strings!");
+      throw new InvalidQuestionChoiceError('Question choices must be an array of strings!');
     }
     choices.forEach((choice) => {
-      this.#validateString(choice, 'Each choice must be a string!')
+      this.#validateString(choice, 'Each choice must be a string!');
     });
 
     this.#choices = choices;
@@ -60,7 +60,7 @@ class Question {
   }
 
   #setcorrectChoice(correctChoice) {
-    this.#validateString(correctChoice, 'The correct choice must be a string!')
+    this.#validateString(correctChoice, 'The correct choice must be a string!');
     if (correctChoice.length < 1) throw new RangeError('Correct choice cannot be empty!');
     this.#correctChoice = correctChoice;
   }
@@ -70,13 +70,14 @@ class Question {
   }
 
   #setCategory(categoryName) {
-    this.#validateString(categoryName, 'Category must be a string')
+    this.#validateString(categoryName, 'Category must be a string');
     if (categoryName.length < 1) {
       throw new InvalidQuestionCategoryError('The name of the category cannot be empty');
     }
     this.#category = categoryName;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateString(value, errorMessage) {
     if (typeof value !== 'string') throw new TypeError(errorMessage);
   }

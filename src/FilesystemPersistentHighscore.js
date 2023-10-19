@@ -7,7 +7,7 @@ import QuizScore from './QuizScore.js';
 import FileTypeError from './errors/FileTypeError.js';
 import FileSystemWriteError from './errors/FileSystemWriteError.js';
 import FileSystemReadError from './errors/FileSystemReadError.js';
-
+import PathValidationError from './errors/PathValidationError.js';
 
 /**
  * Class for reading and writing the quiz highscore to local filesystem.
@@ -51,7 +51,7 @@ class FilesystemPersistentHighscore {
   // eslint-disable-next-line class-methods-use-this
   #validatePath(persistencePath) {
     if (typeof persistencePath !== 'string') {
-      throw new TypeError('The path must be a string');
+      throw new PathValidationError();
     }
     const extensionName = path.extname(persistencePath);
     if (extensionName !== '.json') {

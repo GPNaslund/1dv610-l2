@@ -45,13 +45,14 @@ class QuizCategorySummary {
     return this.#percentageOfCorrectAnswers;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateInputs(amountOfQuestions, amountOfCorrectAnswers) {
     if (typeof amountOfQuestions !== 'number' || amountOfQuestions <= 0) {
       throw new InvalidQuestionCountError();
     }
-    if (typeof amountOfCorrectAnswers !== 'number' || 
-        amountOfCorrectAnswers < 0 || 
-        amountOfCorrectAnswers > amountOfQuestions) {
+    if (typeof amountOfCorrectAnswers !== 'number'
+        || amountOfCorrectAnswers < 0
+        || amountOfCorrectAnswers > amountOfQuestions) {
       throw new InvalidCorrectAnswerCountError();
     }
   }

@@ -38,7 +38,8 @@ class QuizResult {
     this.#validatePlayerName(playerName);
     this.#playerName = playerName;
   }
-  
+
+  // eslint-disable-next-line class-methods-use-this
   #validatePlayerName(playerName) {
     if (typeof playerName !== 'string' || playerName.length < 1) {
       throw new InvalidPlayerNameError();
@@ -50,7 +51,6 @@ class QuizResult {
     this.#score = score;
   }
 
-
   /**
    * Method for incrementing the score.
    *
@@ -61,9 +61,10 @@ class QuizResult {
     this.#score += amount;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateScore(score) {
     if (typeof score !== 'number') {
-      throw new InvalidScoreTypeError("Score must be a number");
+      throw new InvalidScoreTypeError('Score must be a number');
     }
   }
 
@@ -96,6 +97,7 @@ class QuizResult {
     this.#questionResults.push(questionResult);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateQuestionResult(questionResult) {
     if (!(questionResult instanceof QuestionResult)) {
       throw new InvalidQuestionResultTypeError();

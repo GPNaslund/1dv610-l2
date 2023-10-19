@@ -28,8 +28,9 @@ class QuizResultSummary {
     this.#playerName = playerName;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validatePlayerName(playerName) {
-    if (typeof playerName !== 'string' || playerName.trim() === "") {
+    if (typeof playerName !== 'string' || playerName.trim() === '') {
       throw new InvalidPlayerNameError();
     }
   }
@@ -39,9 +40,10 @@ class QuizResultSummary {
     this.#score = score;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateScore(score) {
     if (typeof score !== 'number') {
-      throw new InvalidScoreTypeError("The provided score must be a number!");
+      throw new InvalidScoreTypeError('The provided score must be a number!');
     }
   }
 
@@ -54,6 +56,7 @@ class QuizResultSummary {
     this.#allCategorySummaries.push(categorySummary);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateCategorySummary(categorySummary) {
     if (!(categorySummary instanceof QuizCategorySummary)) {
       throw new InvalidCategorySummaryTypeError();
@@ -89,7 +92,6 @@ class QuizResultSummary {
   get playerName() {
     return this.#playerName;
   }
-
 
   get score() {
     return this.#score;

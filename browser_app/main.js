@@ -1,11 +1,11 @@
 
 import QuizEngine from '../src/QuizEngine.js';
 import QuizQuestions from '../src/QuizQuestions.js';
-import { quizQuestions } from '../src/console_app/appQuestions.js';
+import { mockQuizQuestions } from '../console_app/appQuestions.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const quizQuestions = new QuizQuestions();
-  quizQuestions.forEach(question => quizQuestions.createAndAddQuestion(question));
+  mockQuizQuestions.forEach(question => quizQuestions.createAndAddQuestion(question));
 
   const quizEngine = new QuizEngine(quizQuestions, "Player1");
   quizEngine.initLocalStorage();

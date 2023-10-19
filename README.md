@@ -5,9 +5,6 @@ This module is a standalone quiz engine built with the intent to be integrated i
 See [API Documentation](./out/index.html)
 
 ## FEATURES
-### Question bank
-Add all your questions to the question bank! The question bank is is used to store all the questions you add, and is used inside the engine through the question manager to get questions, and comparing user input against the correct answer of the question.
-
 ### Quiz Result
 A QuizResult is being created while the quiz is going on. The QuizResult holds the players name, the current score and contains functionality to generate a QuizResultSummary wich contains information about the results based on different categories. This feature adds value to the educational use cases where you can present detailed information about how a user has performed based on categories.
 

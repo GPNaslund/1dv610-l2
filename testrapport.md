@@ -13,14 +13,16 @@
 | constructor() | QuestionResult class constructor() should correctly identify the incorrect answer | passed |
 | constructor() | QuestionResult class constructor() should throw errors for invalid arguments | passed |
 
-## QuestionsManager.test.js 
+## QuizResultSummary.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
-| constructor() | QuestionsManager class constructor() should initialize successfully | passed |
-| constructor() | QuestionsManager class constructor() should throw error on invalid constructor arguments | passed |
-| hasMoreQuestions() | QuestionsManager class hasMoreQuestions() should determine if more questions are available | passed |
-| getQuestion() | QuestionsManager class getQuestion() should retrieve the current question based on index | passed |
-| reset() | QuestionsManager class reset() should reset the question index | passed |
+| constructor() | QuizResultSummary class constructor() initializes with valid arguments | passed |
+| Error handling | QuizResultSummary class constructor() Error handling throws InvalidPlayerNameError for invalid name | passed |
+| Error handling | QuizResultSummary class constructor() Error handling throws InvalidScoreTypeError for invalid score | passed |
+| addCategorySummary() | QuizResultSummary class addCategorySummary() adds a QuizCategorySummary | passed |
+| addCategorySummary() | QuizResultSummary class addCategorySummary() throws error when adding a non-QuizCategorySummary | passed |
+| toString() | QuizResultSummary class toString() returns string representation of summary | passed |
+| toArray() | QuizResultSummary class toArray() returns array representation of summary | passed |
 
 ## QuizQuestions.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
@@ -38,16 +40,14 @@
 | removeQuestion() errors | QuizQuestions class Error handling removeQuestion() errors throws error with non-validated arguments | passed |
 | getQuestion() errors | QuizQuestions class Error handling getQuestion() errors should throw an error with invalid arguments | passed |
 
-## QuizResultSummary.test.js 
+## QuestionsManager.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 
 |--------|---------------|-------------|
-| constructor() | QuizResultSummary class constructor() initializes with valid arguments | passed |
-| Error handling | QuizResultSummary class constructor() Error handling throws InvalidPlayerNameError for invalid name | passed |
-| Error handling | QuizResultSummary class constructor() Error handling throws InvalidScoreTypeError for invalid score | passed |
-| addCategorySummary() | QuizResultSummary class addCategorySummary() adds a QuizCategorySummary | passed |
-| addCategorySummary() | QuizResultSummary class addCategorySummary() throws error when adding a non-QuizCategorySummary | passed |
-| toString() | QuizResultSummary class toString() returns string representation of summary | passed |
-| toArray() | QuizResultSummary class toArray() returns array representation of summary | passed |
+| constructor() | QuestionsManager class constructor() should initialize successfully | passed |
+| constructor() | QuestionsManager class constructor() should throw error on invalid constructor arguments | passed |
+| hasMoreQuestions() | QuestionsManager class hasMoreQuestions() should determine if more questions are available | passed |
+| getQuestion() | QuestionsManager class getQuestion() should retrieve the current question based on index | passed |
+| reset() | QuestionsManager class reset() should reset the question index | passed |
 
 ## QuizResult.test.js 
 | METHOD |   TEST CASE   | TEST RESULT | 

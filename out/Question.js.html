@@ -26,15 +26,21 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** 
- * Represents a question. Contains the question text, different choices and the index of the correct choice
- * in choices.
+            <pre class="prettyprint source linenums"><code>import InvalidQuestionChoiceError from './errors/InvalidQuestionChoiceError.js';
+import InvalidQuestionCategoryError from './errors/InvalidQuestionCategoryError.js';
+
+/**
+ * Represents a question. Contains the question text, different
+ * choices and the index of the correct choice in choices.
  */
 class Question {
   #text;
+
   #choices;
+
   #correctChoice;
-  #category
+
+  #category;
 
   /**
    * Create a question instance.
@@ -44,68 +50,69 @@ class Question {
    * @param {string} arguments.correctChoice - The correct choice.
    * @param {string} [arguments.category] - The category of the question.
    */
-  constructor({text, choices, correctChoice, category = 'undefined'}) {
+  constructor({
+    text, choices, correctChoice, category = 'undefined',
+  }) {
     this.#setText(text);
     this.#setChoices(choices);
     this.#setcorrectChoice(correctChoice);
     this.#setCategory(category);
   }
 
- get text() {  
+  get text() {
     return this.#text;
   }
 
- #setText(text) {
-    if (typeof text !== 'string') {
-      throw new TypeError("Question text must be a string!");
-    }
+  #setText(text) {
+    this.#validateString(text, 'Question text must be a string!');
     this.#text = text;
   }
 
- get choices() {
+  get choices() {
     return this.#choices;
   }
 
- #setChoices(choices) {
+  #setChoices(choices) {
     if (!Array.isArray(choices)) {
-      throw new TypeError("Choices must be an array!");
+      throw new InvalidQuestionChoiceError('Question choices must be an array of strings!');
     }
     choices.forEach((choice) => {
-      if (typeof choice !== 'string') {
-        throw new TypeError("Each choice must be a string!");
-      }
-    })
+      this.#validateString(choice, 'Each choice must be a string!');
+    });
 
     this.#choices = choices;
   }
 
- get correctChoice() {
+  get correctChoice() {
     return this.#correctChoice;
   }
 
- #setcorrectChoice(correctChoice) {
-    if (typeof correctChoice !== 'string') throw new TypeError("The correct choice must be a string!");
-    if (correctChoice.length &lt; 1) throw new RangeError("Correct choice cannot be empty!")
+  #setcorrectChoice(correctChoice) {
+    this.#validateString(correctChoice, 'The correct choice must be a string!');
+    if (correctChoice.length &lt; 1) throw new RangeError('Correct choice cannot be empty!');
     this.#correctChoice = correctChoice;
   }
 
- get category() {
+  get category() {
     return this.#category;
   }
 
- #setCategory(categoryName) {
-    if (typeof categoryName !== 'string') {
-      throw new TypeError('Category must be a string');
-    }
+  #setCategory(categoryName) {
+    this.#validateString(categoryName, 'Category must be a string');
     if (categoryName.length &lt; 1) {
-      throw new RangeError('The name of the category cannot be empty');
+      throw new InvalidQuestionCategoryError('The name of the category cannot be empty');
     }
     this.#category = categoryName;
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  #validateString(value, errorMessage) {
+    if (typeof value !== 'string') throw new TypeError(errorMessage);
+  }
 }
 
-export default Question;</code></pre>
+export default Question;
+</code></pre>
         </article>
     </section>
 
@@ -115,13 +122,13 @@ export default Question;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CustomEventEmitter.html">CustomEventEmitter</a></li><li><a href="CustomMarkdownReporter.html">CustomMarkdownReporter</a></li><li><a href="FilesystemPersistentHighscore.html">FilesystemPersistentHighscore</a></li><li><a href="Highscore.html">Highscore</a></li><li><a href="LocalStoragePersistence.html">LocalStoragePersistence</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionBank.html">QuestionBank</a></li><li><a href="QuestionResult.html">QuestionResult</a></li><li><a href="QuestionsManager.html">QuestionsManager</a></li><li><a href="QuizCategorySummary.html">QuizCategorySummary</a></li><li><a href="QuizEngine.html">QuizEngine</a></li><li><a href="QuizResult.html">QuizResult</a></li><li><a href="QuizResultSummary.html">QuizResultSummary</a></li><li><a href="QuizScore.html">QuizScore</a></li></ul><h3>Events</h3><ul><li><a href="QuizEngine.html#event:correct">correct</a></li><li><a href="QuizEngine.html#event:done">done</a></li><li><a href="QuizEngine.html#event:false">false</a></li><li><a href="QuizEngine.html#event:question">question</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CustomEventEmitter.html">CustomEventEmitter</a></li><li><a href="CustomMarkdownReporter.html">CustomMarkdownReporter</a></li><li><a href="FilesystemPersistentHighscore.html">FilesystemPersistentHighscore</a></li><li><a href="Highscore.html">Highscore</a></li><li><a href="LocalStoragePersistence.html">LocalStoragePersistence</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionResult.html">QuestionResult</a></li><li><a href="QuestionsManager.html">QuestionsManager</a></li><li><a href="QuizCategorySummary.html">QuizCategorySummary</a></li><li><a href="QuizEngine.html">QuizEngine</a></li><li><a href="QuizQuestions.html">QuizQuestions</a></li><li><a href="QuizResult.html">QuizResult</a></li><li><a href="QuizResultSummary.html">QuizResultSummary</a></li><li><a href="QuizScore.html">QuizScore</a></li></ul><h3>Events</h3><ul><li><a href="QuizEngine.html#event:correct">correct</a></li><li><a href="QuizEngine.html#event:done">done</a></li><li><a href="QuizEngine.html#event:false">false</a></li><li><a href="QuizEngine.html#event:question">question</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 21 2023 12:45:29 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Oct 19 2023 18:30:19 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

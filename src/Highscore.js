@@ -38,6 +38,7 @@ class Highscore {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateQuizScore(newQuizScore) {
     if (newQuizScore instanceof QuizScore === false) {
       throw new InvalidQuizScoreError();
@@ -76,6 +77,7 @@ class Highscore {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateJsonString(jsonString) {
     let parsedObject;
     try {
@@ -83,13 +85,14 @@ class Highscore {
     } catch (e) {
       throw new InvalidJSONError();
     }
-    return parsedObject; 
+    return parsedObject;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateHighscoreObject(highscoreObject) {
     if (typeof highscoreObject !== 'object' || highscoreObject === null || Array.isArray(highscoreObject)) {
       throw new UnexpectedJSONStructureError('Expected a non-null object structure');
-    }  
+    }
   }
 
   /**

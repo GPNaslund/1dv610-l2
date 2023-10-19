@@ -30,19 +30,25 @@
 import path from 'path';
 import os from 'os';
 import Highscore from './Highscore.js';
+// eslint-disable-next-line no-unused-vars
 import QuizScore from './QuizScore.js';
+import FileTypeError from './errors/FileTypeError.js';
+import FileSystemWriteError from './errors/FileSystemWriteError.js';
+import FileSystemReadError from './errors/FileSystemReadError.js';
+import PathValidationError from './errors/PathValidationError.js';
 
 /**
  * Class for reading and writing the quiz highscore to local filesystem.
  */
 class FilesystemPersistentHighscore {
-  #persistencePath
+  #persistencePath;
+
   #maxAmountOfScoresToSave;
 
   /**
-   * Initializes the path, if undefined it gets set to a default 
+   * Initializes the path, if undefined it gets set to a default
    * system path.
-   * 
+   *
    * @param {string} persistencePath - The path to the .json file for saving the data.
    */
   constructor(persistencePath = undefined, maxAmountOfScores = 25) {
@@ -52,7 +58,7 @@ class FilesystemPersistentHighscore {
 
   #setMaxAmountOfScoresToSave(maxAmountOfScores) {
     if (typeof maxAmountOfScores !== 'number') throw TypeError('maxAmountOfScores must be a number');
-    if (maxAmountOfScores &lt; 1) throw new RangeError("maxAmountOfScores must be 1 or more");
+    if (maxAmountOfScores &lt; 1) throw new RangeError('maxAmountOfScores must be 1 or more');
     this.#maxAmountOfScoresToSave = maxAmountOfScores;
   }
 
@@ -67,22 +73,23 @@ class FilesystemPersistentHighscore {
 
   /**
    * Method for validating the provided path.
-   * 
+   *
    * @param {string} persistencePath - The path to validate.
    */
+  // eslint-disable-next-line class-methods-use-this
   #validatePath(persistencePath) {
     if (typeof persistencePath !== 'string') {
-      throw new TypeError('The path must be a string');
+      throw new PathValidationError();
     }
     const extensionName = path.extname(persistencePath);
     if (extensionName !== '.json') {
-      throw new Error('File is not a JSON file.');
+      throw new FileTypeError();
     }
   }
 
   /**
    * Method for saving a quiz score.
-   * 
+   *
    * @param {QuizScore} quizScore - The quizScore to save.
    */
   async saveQuizScore(quizScore) {
@@ -91,18 +98,18 @@ class FilesystemPersistentHighscore {
 
   /**
    * Method for getting the stored highscore data.
-   * 
+   *
    * @returns {Promise&lt;Highscore>} - Promise that resolves to a Highscore object.
    */
-
   async getHighscore() {
+    // eslint-disable-next-line no-return-await
     return await this.#filesystemGetHighscore();
   }
-  
+
   /**
-   * Private method for saving the provided QuizScore to 
+   * Private method for saving the provided QuizScore to
    * the highscore file.
-   * 
+   *
    * @param {QuizScore} quizScore - The quizScore to save.
    */
   async #filesystemSaveQuizScore(quizScore) {
@@ -113,11 +120,9 @@ class FilesystemPersistentHighscore {
       highscore.addQuizScore(quizScore);
       highscore.sortQuizScores();
       highscore.limitAmountOfScores(this.#maxAmountOfScoresToSave);
-      console.log("Sorted Scores: ", highscore.toArray());
       await fs.writeFile(this.#persistencePath, highscore.toJSON());
     } catch (e) {
-      console.log(e);
-      throw new Error("Could not write to file system!");
+      throw new FileSystemWriteError();
     }
   }
 
@@ -130,33 +135,33 @@ class FilesystemPersistentHighscore {
     try {
       await this.#directoryExistenceValidation(this.#persistencePath);
       await this.#fileExistenceValidation(this.#persistencePath);
-      const data = await fs.readFile(this.#persistencePath, { encoding: "utf-8" });
+      const data = await fs.readFile(this.#persistencePath, { encoding: 'utf-8' });
       const highscore = new Highscore();
       highscore.fromJSON(data);
       highscore.sortQuizScores();
       return highscore;
     } catch (e) {
-      if (e.code === "ENOENT") {
+      if (e.code === 'ENOENT') {
         return new Highscore();
       }
-      console.log(e);
-      throw Error("Could not read from filesystem!");
+      throw new FileSystemReadError();
     }
   }
 
   /**
    * Private method for validating that the path exists, if not it
    * will create the necessary directories.
-   * 
+   *
    * @param {string} fullPath - The path to the .json file.
    */
+  // eslint-disable-next-line class-methods-use-this
   async #directoryExistenceValidation(fullPath) {
     const directory = path.dirname(fullPath);
     try {
       await fs.access(directory);
     } catch (e) {
-      if (e.code === "ENOENT") {
-        await fs.mkdir(directory, { recursive: true })
+      if (e.code === 'ENOENT') {
+        await fs.mkdir(directory, { recursive: true });
       }
     }
   }
@@ -164,14 +169,15 @@ class FilesystemPersistentHighscore {
   /**
    * Private method for validating the existence of the highscore .json file,
    * if non existing, the file will be created.
-   * 
+   *
    * @param {string} fullPath - The full path to the .json file.
    */
+  // eslint-disable-next-line class-methods-use-this
   async #fileExistenceValidation(fullPath) {
     try {
       await fs.access(fullPath);
     } catch (e) {
-      if (e.code === "ENOENT") {
+      if (e.code === 'ENOENT') {
         await fs.writeFile(fullPath, JSON.stringify({}));
       }
     }
@@ -180,17 +186,18 @@ class FilesystemPersistentHighscore {
   /**
    * Private method for creating a default path to the .json file
    * to save and read highscore data from.
-   * 
+   *
    * @returns {string} - The default path.
    */
+  // eslint-disable-next-line class-methods-use-this
   #getDefaultFilesystemPath() {
     const homeDirectory = os.homedir();
     return path.join(homeDirectory, 'QuizHighscores', 'highscores.json');
   }
-
 }
 
-export default FilesystemPersistentHighscore;</code></pre>
+export default FilesystemPersistentHighscore;
+</code></pre>
         </article>
     </section>
 
@@ -200,13 +207,13 @@ export default FilesystemPersistentHighscore;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CustomEventEmitter.html">CustomEventEmitter</a></li><li><a href="CustomMarkdownReporter.html">CustomMarkdownReporter</a></li><li><a href="FilesystemPersistentHighscore.html">FilesystemPersistentHighscore</a></li><li><a href="Highscore.html">Highscore</a></li><li><a href="LocalStoragePersistence.html">LocalStoragePersistence</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionBank.html">QuestionBank</a></li><li><a href="QuestionResult.html">QuestionResult</a></li><li><a href="QuestionsManager.html">QuestionsManager</a></li><li><a href="QuizCategorySummary.html">QuizCategorySummary</a></li><li><a href="QuizEngine.html">QuizEngine</a></li><li><a href="QuizResult.html">QuizResult</a></li><li><a href="QuizResultSummary.html">QuizResultSummary</a></li><li><a href="QuizScore.html">QuizScore</a></li></ul><h3>Events</h3><ul><li><a href="QuizEngine.html#event:correct">correct</a></li><li><a href="QuizEngine.html#event:done">done</a></li><li><a href="QuizEngine.html#event:false">false</a></li><li><a href="QuizEngine.html#event:question">question</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CustomEventEmitter.html">CustomEventEmitter</a></li><li><a href="CustomMarkdownReporter.html">CustomMarkdownReporter</a></li><li><a href="FilesystemPersistentHighscore.html">FilesystemPersistentHighscore</a></li><li><a href="Highscore.html">Highscore</a></li><li><a href="LocalStoragePersistence.html">LocalStoragePersistence</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionResult.html">QuestionResult</a></li><li><a href="QuestionsManager.html">QuestionsManager</a></li><li><a href="QuizCategorySummary.html">QuizCategorySummary</a></li><li><a href="QuizEngine.html">QuizEngine</a></li><li><a href="QuizQuestions.html">QuizQuestions</a></li><li><a href="QuizResult.html">QuizResult</a></li><li><a href="QuizResultSummary.html">QuizResultSummary</a></li><li><a href="QuizScore.html">QuizScore</a></li></ul><h3>Events</h3><ul><li><a href="QuizEngine.html#event:correct">correct</a></li><li><a href="QuizEngine.html#event:done">done</a></li><li><a href="QuizEngine.html#event:false">false</a></li><li><a href="QuizEngine.html#event:question">question</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 21 2023 12:45:29 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Oct 19 2023 18:30:19 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

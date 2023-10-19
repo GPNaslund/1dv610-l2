@@ -5,7 +5,7 @@ const rl = readline.createInterface({ input, output });
 
 import QuizEngine from "../src/QuizEngine.js";
 import QuizQuestions from '../src/QuizQuestions.js';
-import { quizQuestions } from './appQuestions.js';
+import { mockQuizQuestions } from './appQuestions.js';
 
 
 class App {
@@ -14,7 +14,7 @@ class App {
 
   constructor() {
     this.quizQuestions = new QuizQuestions();
-    quizQuestions.forEach(question => this.quizQuestions.createAndAddQuestion(question));
+    mockQuizQuestions.forEach(question => this.quizQuestions.createAndAddQuestion(question));
   }
 
   async main() {

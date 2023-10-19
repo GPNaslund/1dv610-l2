@@ -1,0 +1,1 @@
+Example browser app using the module.
