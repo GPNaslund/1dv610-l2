@@ -1,6 +1,7 @@
 import { QuizEngine, QuestionBank } from 'gn222gq-quiz-engine';
 // eslint-disable-next-line no-unused-vars
 import AppFactory from './AppFactory';
+import AppFactoryError from './errors/AppFactoryError';
 
 /**
  * The main class for wiring the components together.
@@ -144,10 +145,10 @@ class App {
   // eslint-disable-next-line class-methods-use-this
   #verifyArguments(factory) {
     if (factory === null) {
-      throw new TypeError('Factory instance cannot be null');
+      throw new AppFactoryError();
     }
     if (!(factory instanceof AppFactory)) {
-      throw new TypeError('Factory must be an instance of AppFactory');
+      throw new AppFactoryError('Factory must be an instance of AppFactory');
     }
   }
 }

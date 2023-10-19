@@ -9,6 +9,8 @@ import CleanCodeChapters from '../model/CleanCodeChapters';
 import AppFactory from './AppFactory';
 import cleanCodeQuestionsData from '../model/clean_code_questions.json';
 import CleanCodeQuestions from '../model/CleanCodeQuestions';
+import InvalidChartGeneratorError from './errors/InvalidChartGeneratorError';
+import InvalidCleanCodeChaptersError from './errors/InvalidCleanCodeChaptersError';
 
 /**
  * Represents the default set up for creating necessary dependencies for the application.
@@ -49,16 +51,16 @@ class DefaultAppFactory extends AppFactory {
 
   #verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters) {
     if (chartGenerator === null) {
-      throw new TypeError('Chart generator cannot be null');
+      throw new InvalidChartGeneratorError("Chart generator instance cannot be null");
     }
     if (cleanCodeChapters === null) {
-      throw new TypeError('Clean code chapters cannot be null');
+      throw new InvalidCleanCodeChaptersError("CleanCodeChapters instance cannot be null");
     }
     if (!(chartGenerator instanceof ChartGenerator)) {
-      throw new TypeError('Chart generator must be an instance of ChartGenerator');
+      throw new InvalidChartGeneratorError('Chart generator must be an instance of ChartGenerator');
     }
     if (!(cleanCodeChapters instanceof CleanCodeChapters)) {
-      throw new TypeError('Clean code chapters must be instance of CleanCodeChapters');
+      throw new InvalidCleanCodeChaptersError('Clean code chapters must be instance of CleanCodeChapters');
     }
   }
 }
