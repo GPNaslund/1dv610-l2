@@ -130,7 +130,7 @@ quizQuestions.createAndAddQuestion({text: "text", choices:["choice", "choice2"],
 
 ### Highscore and QuizResultSummary
 ```js
-import {QuizEngine, QuizQuestions, Question} from 'gn222gq-quiz-engine';
+import {QuizEngine, QuizQuestions, Question, QuizEvents} from 'gn222gq-quiz-engine';
 
 // Implemented setup etc..
 
@@ -142,7 +142,16 @@ highscore.toArray() // Returns an array containing the representation of the hig
 // Get the QuizResultSummary object
 const quizResult = await quizEngine.getSummary();
 quizResult.toString() // Returns a string representation of the QuizResultSummary.
+/* 
+"playerName: TestPlayer, score: 10, - categoryName: Category1,  - amount of questions: 20,
+- amount of correct answers: 10,  - percentage of correct answers: 50%"
+*/ 
+
 quizResult.toArray() // Returns an array containing the representation of the QuizResultSummary.
+/* 
+["playerName: TestPlayer", "score: 10", "- categoryName: Category1","  - amount of questions: 20",
+"  - amount of correct answers: 10", "  - percentage of correct answers: 50%"]
+*/
 quizResult.playerName // Gets the players name
 quizResult.score // Gets the players score
 quizResult.allCategorySummaries // Gets an array of QuizCategorySummary
@@ -150,7 +159,13 @@ quizResult.allCategorySummaries // Gets an array of QuizCategorySummary
 // Get a QuizCategorySummary
 const categorySummary = quizResult.allCategorySummaries[0];
 categorySummary.toString() // Returns a string representation of the QuizCategorySummary.
+/*
+  "category: Category1, amount of questions: 20, amount of correct answers: 10, percentage of correct answers: 50%"
+*/
 categorySummary.toArray() // Returns an array containing the representation of the QuizCategorySummary.
+/*
+  ["category: Category1", "amount of questions: 20", "amount of correct answers: 10", "percentage of correct answers: 50%"]
+*/
 categorySummary.nameOfCategory // Gets the name of the category
 categorySummary.amountOfQuestions // Gets the amount of questions for that category
 categorySummary.amountOfCorrectAnswers // Gets the amount of correct answers
