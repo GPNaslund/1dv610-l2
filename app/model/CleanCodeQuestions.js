@@ -21,7 +21,7 @@ class CleanCodeQuestions {
   }
 
   #loadQuestions(questionDataJson) {
-    questionDataJson.questions.forEach((question) => {
+    questionDataJson.questions.forEach((question, index) => {
       this.#validateIndividualQuestion(question, index);
       this.#allQuestions.push(
         new Question({

@@ -50,6 +50,6 @@
   "dependencies": {
     "chart.js": "^4.4.0",
     "electron-squirrel-startup": "^1.0.0",
-    "gn222gq-quiz-engine": "^0.1.4"
+    "gn222gq-quiz-engine": "^1.0.0"
   }
 }

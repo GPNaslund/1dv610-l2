@@ -44,7 +44,7 @@ class QuestionResultPageController extends CustomEventEmitter {
    * @param {String} headerText The text to display.
    */
   addResultHeaderText(headerText) {
-    this.#validateHeaderText();
+    this.#validateHeaderText(headerText);
     this.#questionResultHeader.textContent = headerText;
   }
 

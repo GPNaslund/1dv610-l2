@@ -1,4 +1,4 @@
-import { QuizEngine, QuestionBank } from 'gn222gq-quiz-engine';
+import { QuizEngine, QuizQuestions, QuizEvents } from 'gn222gq-quiz-engine';
 // eslint-disable-next-line no-unused-vars
 import AppFactory from './AppFactory';
 import AppFactoryError from './errors/AppFactoryError';
@@ -48,17 +48,17 @@ class App {
   }
 
   #initQuizEngine() {
-    this.#quizEngine = new QuizEngine(this.#initQuestionBank(), 'Player');
+    this.#quizEngine = new QuizEngine(this.#initQuizQuestions(), 'Player');
     this.#quizEngine.randomizeQuestions();
     this.#addQuizEngineEventHandlers();
   }
 
-  #initQuestionBank() {
-    const questionBank = new QuestionBank();
+  #initQuizQuestions() {
+    const quizQuestions = new QuizQuestions();
     this.#cleanCodeQuestions.allQuestions.forEach((question) => {
-      questionBank.addQuestion(question);
+      quizQuestions.addQuestion(question);
     });
-    return questionBank;
+    return quizQuestions;
   }
 
   #addQuizEngineEventHandlers() {
@@ -69,7 +69,7 @@ class App {
   }
 
   #addQuizEngineOnQuestionEvent() {
-    this.#quizEngine.on('question', (questionData) => {
+    this.#quizEngine.on(QuizEvents.QUESTION, (questionData) => {
       this.#questionResultPageController.hideView();
       this.#questionPageController.addQuestionText(questionData.text);
       this.#questionPageController.addAnswerButtons(questionData.choices);
@@ -78,7 +78,7 @@ class App {
   }
 
   #addQuizEngineOnCorrectEvent() {
-    this.#quizEngine.on('correct', () => {
+    this.#quizEngine.on(QuizEvents.CORRECT, () => {
       this.#questionPageController.hideView();
       this.#questionResultPageController
         .addResultHeaderText(this.#feedbackGenerator.getRandomPositiveFeedbackMessage());
@@ -87,7 +87,7 @@ class App {
   }
 
   #addQuizEngineOnFalseEvent() {
-    this.#quizEngine.on('false', () => {
+    this.#quizEngine.on(QuizEvents.FALSE, () => {
       this.#questionPageController.hideView();
       this.#questionResultPageController
         .addResultHeaderText(this.#feedbackGenerator.getRandomNegativeFeedbackMessage());
@@ -96,7 +96,7 @@ class App {
   }
 
   #addQuizEngineOnDoneEvent() {
-    this.#quizEngine.on('done', async () => {
+    this.#quizEngine.on(QuizEvents.DONE, async () => {
       this.#questionResultPageController.hideView();
       const quizResult = await this.#quizEngine.getSummary();
       this.#summaryPageController.generateSummary(quizResult.allCategorySummaries);
