@@ -16,6 +16,12 @@ import InvalidCleanCodeChaptersError from './errors/InvalidCleanCodeChaptersErro
  * Represents the default set up for creating necessary dependencies for the application.
  */
 class DefaultAppFactory extends AppFactory {
+  #isDevMode
+
+  constructor(isDevMode) {
+    this.#isDevMode = isDevMode;
+  }
+
   createIntroPageController() {
     return new IntroPageController();
   }
@@ -31,6 +37,21 @@ class DefaultAppFactory extends AppFactory {
   createSummaryPageController(chartGenerator, cleanCodeChapters) {
     this.#verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters);
     return new SummaryPageController(chartGenerator, cleanCodeChapters);
+  }
+
+  #verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters) {
+    if (chartGenerator === null) {
+      throw new InvalidChartGeneratorError("Chart generator instance cannot be null");
+    }
+    if (cleanCodeChapters === null) {
+      throw new InvalidCleanCodeChaptersError("CleanCodeChapters instance cannot be null");
+    }
+    if (!(chartGenerator instanceof ChartGenerator)) {
+      throw new InvalidChartGeneratorError('Chart generator must be an instance of ChartGenerator');
+    }
+    if (!(cleanCodeChapters instanceof CleanCodeChapters)) {
+      throw new InvalidCleanCodeChaptersError('Clean code chapters must be instance of CleanCodeChapters');
+    }
   }
 
   createChartGenerator() {
@@ -49,20 +70,11 @@ class DefaultAppFactory extends AppFactory {
     return new CleanCodeQuestions(cleanCodeQuestionsData);
   }
 
-  #verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters) {
-    if (chartGenerator === null) {
-      throw new InvalidChartGeneratorError("Chart generator instance cannot be null");
-    }
-    if (cleanCodeChapters === null) {
-      throw new InvalidCleanCodeChaptersError("CleanCodeChapters instance cannot be null");
-    }
-    if (!(chartGenerator instanceof ChartGenerator)) {
-      throw new InvalidChartGeneratorError('Chart generator must be an instance of ChartGenerator');
-    }
-    if (!(cleanCodeChapters instanceof CleanCodeChapters)) {
-      throw new InvalidCleanCodeChaptersError('Clean code chapters must be instance of CleanCodeChapters');
-    }
+  createDevLogger() {
+    return new DevLogger(this.#isDevMode);
   }
+
+  
 }
 
 export default DefaultAppFactory;
