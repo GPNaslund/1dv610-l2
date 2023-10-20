@@ -23,7 +23,7 @@ npm install gn222gq-quiz-engine
 ## Example
 Since the QuizEngine is the main part of the module, and it uses a event emitting way of communicating to listeners, the module works great for both node.js applications aswell as in browser environment.
 ```js
-import {QuizEngine, QuizQuestions, Question} from 'gn222gq-quiz-engine';
+import {QuizEngine, QuizQuestions, Question, QuizEvents} from 'gn222gq-quiz-engine';
 
 const quizQuestions = new QuizQuestions();
 
@@ -39,7 +39,7 @@ const quizEngine = new QuizEngine(quizQuestions, "PlayerName");
 
 /*      CALLBACKS      */
 
-quizEngine.on('question', (questionData) => {
+quizEngine.on(QuizEvents.QUESTION, (questionData) => {
   /* Your application specific logic */
   // Display question --> Get user input --> call quizEngine.answerQuestion(userInput); for example.
 
@@ -47,7 +47,7 @@ quizEngine.on('question', (questionData) => {
   // questionData.choices is the current question choices.
 })
 
-quizEngine.on('correct', (scoreData) => {
+quizEngine.on(QuizEvents.CORRECT, (scoreData) => {
   /* Your application specific logic */
   // Display information + call quizEngine.continueQuiz() for example.
 
@@ -55,12 +55,12 @@ quizEngine.on('correct', (scoreData) => {
   // scoreData.score is the current players score.
 })
 
-quizEngine.on('false', (scoreData) => {
+quizEngine.on(QuizEvents.FALSE, (scoreData) => {
   /* Your application specific logic */
   // Display information + call quizEngine.continueQuiz() for example.
 })
 
-quizEngine.on('done', (scoreData) => {
+quizEngine.on(QuizEvents.DONE, (scoreData) => {
   /* Your application specific logic */
   // Display information + call quizEngine.getHighscore() to display the persistent highscore
   // if initialized for example.

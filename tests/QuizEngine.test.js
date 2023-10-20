@@ -2,6 +2,7 @@ import QuizEngine from '../src/QuizEngine.js';
 import QuizQuestions from '../src/QuizQuestions.js';
 import InvalidPlayerNameError from '../src/errors/InvalidPlayerNameError.js';
 import InvalidQuizQuestionsError from '../src/errors/InvalidQuizQuestionsError.js';
+import QuizEvents from '../src/QuizEvents.js';
 
 describe("QuizEngine class", () => {
   let quizEngine;
@@ -38,7 +39,7 @@ describe("QuizEngine class", () => {
   describe("QuizEngine events", () => {
     it("should emit 'question' event on startQuiz()", () => {
       let emittedData;
-      quizEngine.on('question', (data) => {
+      quizEngine.on(QuizEvents.QUESTION, (data) => {
         emittedData = data;
       });
       quizEngine.startQuiz();
@@ -48,7 +49,7 @@ describe("QuizEngine class", () => {
   
     it("should emit 'correct' event if answer is correct", () => {
       let emittedData;
-      quizEngine.on('correct', (data) => {
+      quizEngine.on(QuizEvents.CORRECT, (data) => {
         emittedData = data;
       });
       quizEngine.answerQuestion("Yes");
@@ -58,7 +59,7 @@ describe("QuizEngine class", () => {
   
     it("should emit 'false' event if answer is incorrect", () => {
       let emittedData;
-      quizEngine.on('false', (data) => {
+      quizEngine.on(QuizEvents.FALSE, (data) => {
         emittedData = data;
       });
       quizEngine.answerQuestion("No");
@@ -68,7 +69,7 @@ describe("QuizEngine class", () => {
   
     it("should emit 'question' event on continueQuiz()", () => {
       let emittedData;
-      quizEngine.on('question', (data) => {
+      quizEngine.on(QuizEvents.QUESTION, (data) => {
         emittedData = data;
       });
       quizEngine.continueQuiz();
@@ -77,7 +78,7 @@ describe("QuizEngine class", () => {
     });
   
     it("should emit 'done' event on continueQuiz()", done => {
-      quizEngine.on('done', (data) => {
+      quizEngine.on(QuizEvents.DONE, (data) => {
         try {
           expect(data.playerName).toBe("TestPerson");
           expect(data.score).toBe(1);

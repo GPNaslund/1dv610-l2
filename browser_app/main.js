@@ -2,6 +2,7 @@
 import QuizEngine from '../src/QuizEngine.js';
 import QuizQuestions from '../src/QuizQuestions.js';
 import { mockQuizQuestions } from '../console_app/appQuestions.js';
+import QuizEvents from '../src/QuizEvents.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const quizQuestions = new QuizQuestions();
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  quizEngine.on('question', (questionData) => {
+  quizEngine.on(QuizEvents.QUESTION, (questionData) => {
     questionElement.innerText = questionData.text;
     questionData.choices.forEach((choice, index) => {
       const choiceButton = document.createElement('button');
@@ -35,19 +36,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  quizEngine.on('correct', (playerData) => {
+  quizEngine.on(QuizEvents.CORRECT, (playerData) => {
     answerButtons.replaceChildren();
     scoreElement.innerText = playerData.playerName + ': ' + playerData.score + ' points.';
     quizEngine.continueQuiz();
   });
 
-  quizEngine.on('false', (playerData) => {
+  quizEngine.on(QuizEvents.FALSE, (playerData) => {
     answerButtons.replaceChildren();
     scoreElement.innerText = playerData.playerName + ': ' + playerData.score + ' points.';
     quizEngine.continueQuiz();
   })
 
-  quizEngine.on('done', async (playerData) => {
+  quizEngine.on(QuizEvents.DONE, async (playerData) => {
     answerButtons.replaceChildren();
     questionElement.innerText = "QUIZ DONE!";
     scoreElement.innerText = playerData.playerName + ': ' + playerData.score + ' points.';

@@ -6,6 +6,7 @@ const rl = readline.createInterface({ input, output });
 import QuizEngine from "../src/QuizEngine.js";
 import QuizQuestions from '../src/QuizQuestions.js';
 import { mockQuizQuestions } from './appQuestions.js';
+import QuizEvents from '../src/QuizEvents.js';
 
 
 class App {
@@ -23,19 +24,19 @@ class App {
     this.quizEngine = new QuizEngine(this.quizQuestions, username);
     this.quizEngine.initFilesystemStorage();
 
-    this.quizEngine.on('question', async (questionData) => {
+    this.quizEngine.on(QuizEvents.QUESTION, async (questionData) => {
       await this.onQuestion(questionData);
     });
 
-    this.quizEngine.on('correct', async (scoreData) => {
+    this.quizEngine.on(QuizEvents.CORRECT, async (scoreData) => {
       await this.onAnswerFeedback(scoreData, "=== CORRECT ANSWER ===");
     });
 
-    this.quizEngine.on('false', async (scoreData) => {
+    this.quizEngine.on(QuizEvents.FALSE, async (scoreData) => {
       await this.onAnswerFeedback(scoreData, "=== FALSE ANSWER ===");
     });
 
-    this.quizEngine.on('done', async (scoreData) => {
+    this.quizEngine.on(QuizEvents.DONE, async (scoreData) => {
       await this.onDone(scoreData);
     })
     

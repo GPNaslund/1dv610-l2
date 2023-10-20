@@ -12,6 +12,7 @@ import Highscore from './Highscore.js';
 import QuizResultSummary from './QuizResultSummary.js';
 import InvalidQuizQuestionsError from './errors/InvalidQuizQuestionsError.js';
 import InvalidPlayerNameError from './errors/InvalidPlayerNameError.js';
+import QuizEvents from './QuizEvents.js';
 
 /** Handles the coordination and quiz logic */
 class QuizEngine extends CustomEventEmitter {
@@ -90,7 +91,7 @@ class QuizEngine extends CustomEventEmitter {
      * @property {string} text - The question text
      * @property {string[]} choices - The questions choices
      */
-    this.emit('question', { text: firstQuestion.text, choices: firstQuestion.choices });
+    this.emit(QuizEvents.QUESTION, { text: firstQuestion.text, choices: firstQuestion.choices });
   }
 
   /**
@@ -118,7 +119,7 @@ class QuizEngine extends CustomEventEmitter {
        * @property {string} playerName - The current player name.
        * @property {number} score - The current players score.
        */
-      this.emit('correct', { playerName: this.#quizResult.playerName, score: this.#quizResult.score });
+      this.emit(QuizEvents.CORRECT, { playerName: this.#quizResult.playerName, score: this.#quizResult.score });
     } else {
       /**
        * False event
@@ -128,7 +129,7 @@ class QuizEngine extends CustomEventEmitter {
        * @property {string} playerName - The current player name.
        * @property {number} score - The current players score.
        */
-      this.emit('false', { playerName: this.#quizResult.playerName, score: this.#quizResult.score });
+      this.emit(QuizEvents.FALSE, { playerName: this.#quizResult.playerName, score: this.#quizResult.score });
     }
   }
 
@@ -150,7 +151,7 @@ class QuizEngine extends CustomEventEmitter {
      * @property {string} text - The question text
      * @property {string[]} choices - The questions choices
      */
-      this.emit('question', { text: nextQuestion.text, choices: nextQuestion.choices });
+      this.emit(QuizEvents.QUESTION, { text: nextQuestion.text, choices: nextQuestion.choices });
     } else {
       await this.#quizDone();
     }
@@ -215,7 +216,7 @@ class QuizEngine extends CustomEventEmitter {
      * @property {string} playerName - The player name.
      * @property {number} score - The player score.
      */
-    this.emit('done', { playerName, score });
+    this.emit(QuizEvents.DONE, { playerName, score });
   }
 
   /**
