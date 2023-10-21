@@ -11,6 +11,7 @@ import cleanCodeQuestionsData from '../model/clean_code_questions.json';
 import CleanCodeQuestions from '../model/CleanCodeQuestions';
 import InvalidChartGeneratorError from './errors/InvalidChartGeneratorError';
 import InvalidCleanCodeChaptersError from './errors/InvalidCleanCodeChaptersError';
+import DevLogger from '../view/DevLogger';
 
 /**
  * Represents the default set up for creating necessary dependencies for the application.
@@ -19,6 +20,7 @@ class DefaultAppFactory extends AppFactory {
   #isDevMode
 
   constructor(isDevMode) {
+    super();
     this.#isDevMode = isDevMode;
   }
 

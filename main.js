@@ -1,3 +1,5 @@
+const DEV_MODE = false;
+
 const { app, BrowserWindow } = require('electron')
 
 const createWindow = () => {
@@ -6,7 +8,11 @@ const createWindow = () => {
     height: 600
   })
 
-  win.loadFile('index.html')
+  win.loadFile('app/view/index.html')
+
+  if (DEV_MODE) {
+    win.webContents.openDevTools();
+  }
 }
 
 app.whenReady().then(() => {

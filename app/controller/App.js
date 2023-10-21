@@ -25,6 +25,8 @@ class App {
 
   #cleanCodeQuestions;
 
+  #devLogger;
+
   /**
    * Constructs a new instance.
    *
@@ -43,6 +45,7 @@ class App {
     );
     this.#feedbackGenerator = factory.createFeedbackGenerator();
     this.#cleanCodeQuestions = factory.createCleanCodeQuestions();
+    this.#devLogger = factory.createDevLogger();
     this.#initQuizEngine();
     this.#initControllers();
   }
@@ -57,6 +60,7 @@ class App {
     const quizQuestions = new QuizQuestions();
     this.#cleanCodeQuestions.allQuestions.forEach((question) => {
       quizQuestions.addQuestion(question);
+      this.#devLogger.addQuestion(question);
     });
     return quizQuestions;
   }
@@ -74,6 +78,8 @@ class App {
       this.#questionPageController.addQuestionText(questionData.text);
       this.#questionPageController.addAnswerButtons(questionData.choices);
       this.#questionPageController.displayView();
+      this.#devLogger.logQuestionDetails(questionData.text);
+
     });
   }
 
@@ -101,6 +107,7 @@ class App {
       const quizResult = await this.#quizEngine.getSummary();
       this.#summaryPageController.generateSummary(quizResult.allCategorySummaries);
       this.#summaryPageController.displayView();
+      this.#devLogger.logQuizSummary(quizResult);
     });
   }
 

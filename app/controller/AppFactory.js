@@ -37,6 +37,10 @@ class AppFactory {
   createCleanCodeQuestions() {
     throw new Error('This method is abstract and must be implemented');
   }
+
+  createDevLogger() {
+    throw new Error('This method is abstract and must be implemented');
+  }
 }
 
 export default AppFactory;

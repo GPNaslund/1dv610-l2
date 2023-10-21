@@ -3,7 +3,7 @@ import { Question } from 'gn222gq-quiz-engine';
 /**
  * Logger class used for requirement testing.
  */
-class DevLogger { 
+class DevLogger {
   #isDevMode
   #allQuestionData
 
@@ -28,21 +28,23 @@ class DevLogger {
    * @param {String} questionText The question text to match with stored questions.
    */
   logQuestionDetails(questionText) {
-    const question = this.#allQuestionData.find(q => {
-      q.text === questionText;
-    });
-    if (question) {
-      console.log(`text: ${question.text}, choices: ${question.choices}, 
-      correctChoice: ${question.correctChoice}, category: ${question.category}`)
+    if (this.#isDevMode) {
+      const question = this.#allQuestionData.find(q => q.text === questionText);
+      if (question) {
+        console.log(`text: ${question.text}, choices: ${question.choices}, 
+        correctChoice: ${question.correctChoice}, category: ${question.category}`);
+      }
     }
   }
 
   logQuizSummary(quizSummary) {
-    const summaryInfo = quizSummary.toArray();
-    console.log("==== SUMMARY =====");
-    summaryInfo.forEach(string => {
-      console.log(string);
-    })
+    if (this.#isDevMode) {
+      const summaryInfo = quizSummary.toArray();
+      console.log("==== SUMMARY =====");
+      summaryInfo.forEach(string => {
+        console.log(string);
+      })
+    }
   }
 }
 
