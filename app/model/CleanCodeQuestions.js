@@ -12,7 +12,10 @@ class CleanCodeQuestions {
    * Creates a new instance.
    *
    * @param {JSON} questionDataJson The file containing all
-   *                                the question data. Check README for format.
+   *                                the question data.
+   * Should be in this format : { "questions": [{ "text": "example", 
+   * "choices": ["test", "test2, etc.."], 
+   * "correctChoice": "test", "category": "example"}, etc..]}
    */
   constructor(questionDataJson) {
     this.#validateQuestionDataStructure(questionDataJson);

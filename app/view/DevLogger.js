@@ -1,7 +1,7 @@
 import { Question } from 'gn222gq-quiz-engine';
 
 /**
- * Logger class used for requirement testing.
+ * Logger class used for development and testing purposes.
  */
 class DevLogger {
   #isDevMode

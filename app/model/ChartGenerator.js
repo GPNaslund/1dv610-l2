@@ -27,6 +27,16 @@ class ChartGenerator {
     this.#validateCategories(categories);
     this.#validateArrayLengths(scores, categories);
 
+    const paired = categories.map((category, index) => ({ category, score: scores[index] }));
+    paired.sort((a, b) => {
+      const chapterANumber = parseInt(a.category.replace('Chapter ', ''), 10);
+      const chapterBNumber = parseInt(b.category.replace('Chapter ', ''), 10);
+      return chapterANumber - chapterBNumber;
+    });
+
+    const sortedCategories = paired.map(pair => pair.category);
+    const sortedScores = paired.map(pair => pair.score);
+
     const ctx = chartElement.getContext('2d');
 
     if (this.#chartInstance) {
@@ -45,7 +55,7 @@ class ChartGenerator {
     greenGradient.addColorStop(0, '#8ede83');
     greenGradient.addColorStop(1, '#34d058');
 
-    const backgroundColors = scores.map((score) => {
+    const backgroundColors = sortedScores.map((score) => {
       if (score < 50) return redGradient;
       if (score >= 50 && score <= 70) return yellowGradient;
       return greenGradient;
@@ -54,10 +64,10 @@ class ChartGenerator {
     const config = {
       type: 'bar',
       data: {
-        labels: categories,
+        labels: sortedCategories,
         datasets: [{
           label: 'Correct Answers (%)',
-          data: scores,
+          data: sortedScores,
           backgroundColor: backgroundColors,
           borderColor: backgroundColors,
           borderWidth: 1,
@@ -85,7 +95,7 @@ class ChartGenerator {
         scales: {
           x: {
             type: 'category',
-            labels: categories,
+            labels: sortedCategories,
           },
           y: {
             type: 'linear',
@@ -98,6 +108,7 @@ class ChartGenerator {
 
     this.#chartInstance = new Chart(ctx, config);
   }
+
 
   // eslint-disable-next-line class-methods-use-this
   #validateChartElement(chartElement) {

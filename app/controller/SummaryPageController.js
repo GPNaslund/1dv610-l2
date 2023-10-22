@@ -118,7 +118,9 @@ class SummaryPageController extends CustomEventEmitter {
     headerElement.innerText = 'You really need to read up on these chapters: ';
     this.#redRecommendations.appendChild(headerElement);
 
-    redCategories.forEach((categorySummary) => {
+    const sortedRedCategories = this.#sortCategoriesByChapterNumber(redCategories);
+
+    sortedRedCategories.forEach((categorySummary) => {
       const pElement = document.createElement('p');
       const chapterNumber = parseInt(categorySummary.nameOfCategory.split(' ')[1], 10);
       const chapter = this.#cleanCodeChapters.findChapterByNumber(chapterNumber);
@@ -137,7 +139,9 @@ class SummaryPageController extends CustomEventEmitter {
     headerElement.innerText = 'You probably should brush up on these chapter: ';
     this.#yellowRecommendations.appendChild(headerElement);
 
-    yellowCategories.forEach((categorySummary) => {
+    const sortedYellowCategories = this.#sortCategoriesByChapterNumber(yellowCategories);
+
+    sortedYellowCategories.forEach((categorySummary) => {
       const pElement = document.createElement('p');
       const chapterNumber = parseInt(categorySummary.nameOfCategory.split(' ')[1], 10);
       const chapter = this.#cleanCodeChapters.findChapterByNumber(chapterNumber);
@@ -148,6 +152,14 @@ class SummaryPageController extends CustomEventEmitter {
         pElement.innerText = `${categorySummary.nameOfCategory}: Page information not available.`;
       }
       this.#yellowRecommendations.appendChild(pElement);
+    });
+  }
+
+  #sortCategoriesByChapterNumber(categories) {
+    return [...categories].sort((a, b) => {
+      const chapterANumber = parseInt(a.nameOfCategory.split(' ')[1], 10);
+      const chapterBNumber = parseInt(b.nameOfCategory.split(' ')[1], 10);
+      return chapterANumber - chapterBNumber;
     });
   }
 

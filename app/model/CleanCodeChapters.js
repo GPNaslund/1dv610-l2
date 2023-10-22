@@ -5,7 +5,7 @@ import InvalidChapterNumberError from './errors/InvalidChapterNumberError.js';
 
 
 /**
- * Data holding class, for holding data of all the chapters of Clean Code.
+ * Dataholding class, for holding data of all the chapters of Clean Code.
  */
 class CleanCodeChapters {
   #allChapters;
