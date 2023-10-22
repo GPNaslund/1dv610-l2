@@ -2,7 +2,7 @@
 
 This module is a standalone quiz engine built with the intent to be integrated into games or educational platforms. 
 
-See [API Documentation](https://gpnaslund.github.io/1dv610-l2-quiz-engine/)
+See [API Documentation](./DOCUMENTATION.md)
 
 ## FEATURES
 ### Quiz Result

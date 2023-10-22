@@ -2,7 +2,7 @@ const QuizEvents = {
   QUESTION: 'question',
   CORRECT: 'correct',
   FALSE: 'false',
-  DONE: 'done'
+  DONE: 'done',
 };
 
 Object.freeze(QuizEvents);

@@ -29,7 +29,6 @@ class QuizCategorySummary {
     this.#percentageOfCorrectAnswers = percentageOfCorrectAnswers;
   }
 
- 
   get nameOfCategory() {
     return this.#nameOfCategory;
   }

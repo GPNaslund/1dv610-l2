@@ -12,6 +12,6 @@
 
 ## JSDOC
 - JSDOC is used throughout the module
-- Run jsdoc ./ to generate HTML with all the documentation
+- Run ./node_modules/.bin/jsdoc2md "src/**/*.js" > DOCUMENTATION.md to generate a markdown document with the documentation.
 - Enable JSDOC in your IDE (possibly through extension) to get helpful information in your IDE regarding the classes, methods etc.
 

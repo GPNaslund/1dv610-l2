@@ -3,7 +3,7 @@ import InvalidQuestionCategoryError from './errors/InvalidQuestionCategoryError.
 
 /**
  * Represents a question. Contains the question text, different
- * choices and the index of the correct choice in choices.
+ * choices, the correct choice and the category of a question.
  */
 class Question {
   #text;

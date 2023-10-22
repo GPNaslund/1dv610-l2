@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-/** Reporter to use with Jest to generate an .md file with the results */
+/** Reporter to use with Jest to generate an .md file with the testresults */
 class CustomMarkdownReporter {
   #globalConfig;
 

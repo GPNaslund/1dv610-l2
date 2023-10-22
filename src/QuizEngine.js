@@ -119,7 +119,10 @@ class QuizEngine extends CustomEventEmitter {
        * @property {string} playerName - The current player name.
        * @property {number} score - The current players score.
        */
-      this.emit(QuizEvents.CORRECT, { playerName: this.#quizResult.playerName, score: this.#quizResult.score });
+      this.emit(
+        QuizEvents.CORRECT,
+        { playerName: this.#quizResult.playerName, score: this.#quizResult.score },
+      );
     } else {
       /**
        * False event
@@ -129,7 +132,10 @@ class QuizEngine extends CustomEventEmitter {
        * @property {string} playerName - The current player name.
        * @property {number} score - The current players score.
        */
-      this.emit(QuizEvents.FALSE, { playerName: this.#quizResult.playerName, score: this.#quizResult.score });
+      this.emit(
+        QuizEvents.FALSE,
+        { playerName: this.#quizResult.playerName, score: this.#quizResult.score },
+      );
     }
   }
 
@@ -199,7 +205,7 @@ class QuizEngine extends CustomEventEmitter {
   }
 
   /**
-   * Method for finalize the quiz. If highscore persistence is initialized,
+   * Method for finalizing the quiz. If highscore persistence is initialized,
    * the final score will be saved to it.
    *
    * @emits QuizEngine#done
