@@ -1,0 +1,21 @@
+# DEVELOPER README
+
+## App structure
+The application is built by applying the MVC pattern. Source code files can be found in the app folder. 
+The documentation for the classes can be found in the [documentation](./documentation.md)
+
+## Dev tools for testing
+- Inside *main.js* there is a DEV_MODE variable declared with a boolean value. Setting this to true will open the devtools inside of the electron window to get access to the console for printing more detailed information during the quiz.
+- Inside *index.js* there is a DEV_MODE variable declared with a boolean value. Setting this to true will active the DevLoggers functionality. The DevLogger will print all the details of each quesiton presented and the summary details that is the base for the visual performance summary and reading recommendations.
+- The purpose of activating these is to be able to perform the tests outlined in testreport.md. Since the quiz is randomized each time, more automatic or detailed tests is hard.
+### Note on usage of local variable
+I aimed to implement .env functionality or using a more electron specific implementation, but ran in to various webpack/babel/electron compatibility issus. This implementation is due to lack of knowledge and time to implement the feature more robust, the feature was essential for testing and had to be integrated.
+
+## How to start app with DEV_MODE
+1) Open main.js and set DEV_MODE=true
+2) Open index.js and set DEV_MODE=true
+3) Open the terminal from the root the project
+4) run: npm install
+5) run: npm run build
+6) run: npm run package
+7) open executable from out folder
