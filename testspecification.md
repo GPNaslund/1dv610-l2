@@ -28,7 +28,7 @@ The application is started.
 2) Answer questions until the quiz is done.<br>
 #### Expected result
 A clear visual bar chart should display performance metrics per chapter.
-### 2.1 Performance Chart Accuracy
+### 2.2 Performance Chart Accuracy
 #### Preconditions
 The application has been started with DEV_MODE=true.
 #### Steps
@@ -49,7 +49,7 @@ The application is started.
 Chapters where performance was below 50% should have strong reading recommendations displayed with
 page numbers displayed. Chapters where performance was 50-70% should have medium strong reading recommendations
 with page numbers displayed.
-### 3.1 Recommendation accuracy
+### 3.2 Recommendation accuracy
 #### Preconditions
 The application has been started with DEV_MODE=true.
 #### Steps
