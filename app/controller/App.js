@@ -79,7 +79,6 @@ class App {
       this.#questionPageController.addAnswerButtons(questionData.choices);
       this.#questionPageController.displayView();
       this.#devLogger.logQuestionDetails(questionData.text);
-
     });
   }
 

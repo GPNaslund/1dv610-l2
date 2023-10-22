@@ -1,8 +1,7 @@
 import Chart from 'chart.js/auto';
-import InvalidElementError from './errors/InvalidElementError.js';
-import InvalidArrayContentError from './errors/InvalidArrayContentError.js';
-import LengthMismatchError from './errors/LengthMismatchError.js';
-
+import InvalidElementError from './errors/InvalidElementError';
+import InvalidArrayContentError from './errors/InvalidArrayContentError';
+import LengthMismatchError from './errors/LengthMismatchError';
 
 /**
  * Represents a chart generator.
@@ -34,8 +33,8 @@ class ChartGenerator {
       return chapterANumber - chapterBNumber;
     });
 
-    const sortedCategories = paired.map(pair => pair.category);
-    const sortedScores = paired.map(pair => pair.score);
+    const sortedCategories = paired.map((pair) => pair.category);
+    const sortedScores = paired.map((pair) => pair.score);
 
     const ctx = chartElement.getContext('2d');
 
@@ -109,7 +108,6 @@ class ChartGenerator {
     this.#chartInstance = new Chart(ctx, config);
   }
 
-
   // eslint-disable-next-line class-methods-use-this
   #validateChartElement(chartElement) {
     if (!(chartElement instanceof HTMLCanvasElement)) {
@@ -130,6 +128,7 @@ class ChartGenerator {
       throw new InvalidArrayContentError('categories must be an array of strings');
     }
   }
+
   // eslint-disable-next-line class-methods-use-this
   #validateArrayLengths(scores, categories) {
     if (scores.length !== categories.length) {

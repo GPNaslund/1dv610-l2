@@ -1,8 +1,6 @@
 import Chapter from './Chapter';
-import ChapterNotFoundError from './errors/ChapterNotFoundError.js';
-import InvalidChapterNumberError from './errors/InvalidChapterNumberError.js';
-
-
+import ChapterNotFoundError from './errors/ChapterNotFoundError';
+import InvalidChapterNumberError from './errors/InvalidChapterNumberError';
 
 /**
  * Dataholding class, for holding data of all the chapters of Clean Code.
@@ -39,7 +37,9 @@ class CleanCodeChapters {
    */
   findChapterByNumber(chapterNum) {
     this.#validateChapterNumber(chapterNum);
-    const chapter = this.#allChapters.find((chapter) => chapter.chapterNumber === chapterNum);
+    const chapter = this.#allChapters.find(
+      (eachChapter) => eachChapter.chapterNumber === chapterNum,
+    );
     if (!chapter) {
       throw new ChapterNotFoundError(chapterNum);
     }

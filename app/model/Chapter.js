@@ -1,5 +1,5 @@
-import InvalidPageOrderError from './errors/InvalidPageOrderError.js';
-import InvalidTypeError from './errors/InvalidTypeError.js';
+import InvalidPageOrderError from './errors/InvalidPageOrderError';
+import InvalidTypeError from './errors/InvalidTypeError';
 
 /**
  * Represents a Chapter.
@@ -23,7 +23,7 @@ class Chapter {
     this.#validateNumber('First page', firstPage);
     this.#validateNumber('Last page', lastPage);
     this.#validatePageOrder(firstPage, lastPage);
-    
+
     this.#chapterNumber = chapterNumber;
     this.#firstPage = firstPage;
     this.#lastPage = lastPage;
@@ -54,7 +54,6 @@ class Chapter {
   get chapterNumber() {
     return this.#chapterNumber;
   }
-
 }
 
 export default Chapter;

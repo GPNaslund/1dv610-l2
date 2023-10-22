@@ -1,4 +1,4 @@
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 const { app, BrowserWindow } = require('electron')
 

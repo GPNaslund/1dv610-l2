@@ -1,4 +1,4 @@
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 import App from "./app/controller/App.js";
 import DefaultAppFactory from './app/controller/DefaultAppFactory';

@@ -1,6 +1,6 @@
 import { Question } from 'gn222gq-quiz-engine';
-import InvalidQuestionDataError from './errors/InvalidQuestionDataError.js';
-import QuestionFormatError from './errors/QuestionFormatError.js';
+import InvalidQuestionDataError from './errors/InvalidQuestionDataError';
+import QuestionFormatError from './errors/QuestionFormatError';
 
 /**
  * Class that holds and constructs all the questions for the quiz.
@@ -13,8 +13,8 @@ class CleanCodeQuestions {
    *
    * @param {JSON} questionDataJson The file containing all
    *                                the question data.
-   * Should be in this format : { "questions": [{ "text": "example", 
-   * "choices": ["test", "test2, etc.."], 
+   * Should be in this format : { "questions": [{ "text": "example",
+   * "choices": ["test", "test2, etc.."],
    * "correctChoice": "test", "category": "example"}, etc..]}
    */
   constructor(questionDataJson) {

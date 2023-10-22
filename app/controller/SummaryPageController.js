@@ -155,6 +155,7 @@ class SummaryPageController extends CustomEventEmitter {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #sortCategoriesByChapterNumber(categories) {
     return [...categories].sort((a, b) => {
       const chapterANumber = parseInt(a.nameOfCategory.split(' ')[1], 10);

@@ -1,6 +1,7 @@
 /**
  * Represents a questions generator, built for development and testing purposes.
  */
+// eslint-disable-next-line no-unused-vars
 class QuestionsGenerator {
   /**
  * Utility function that creates mock questions.
@@ -30,6 +31,7 @@ class QuestionsGenerator {
     return questions;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   #validateGenerateChapterQuestionsArguments(amountOfChapters, amountOfQuestions) {
     if (typeof amountOfChapters !== 'number' || amountOfChapters <= 0 || !Number.isInteger(amountOfChapters)) {
       throw new TypeError('amountOfChapters must be a positive integer');
@@ -39,5 +41,4 @@ class QuestionsGenerator {
       throw new TypeError('amountOfQuestions must be a positive integer');
     }
   }
-
 }

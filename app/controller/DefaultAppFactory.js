@@ -17,7 +17,7 @@ import DevLogger from '../view/DevLogger';
  * Represents the default set up for creating necessary dependencies for the application.
  */
 class DefaultAppFactory extends AppFactory {
-  #isDevMode
+  #isDevMode;
 
   constructor(isDevMode) {
     super();
@@ -43,10 +43,10 @@ class DefaultAppFactory extends AppFactory {
 
   #verifySummaryPageControllerArguments(chartGenerator, cleanCodeChapters) {
     if (chartGenerator === null) {
-      throw new InvalidChartGeneratorError("Chart generator instance cannot be null");
+      throw new InvalidChartGeneratorError('Chart generator instance cannot be null');
     }
     if (cleanCodeChapters === null) {
-      throw new InvalidCleanCodeChaptersError("CleanCodeChapters instance cannot be null");
+      throw new InvalidCleanCodeChaptersError('CleanCodeChapters instance cannot be null');
     }
     if (!(chartGenerator instanceof ChartGenerator)) {
       throw new InvalidChartGeneratorError('Chart generator must be an instance of ChartGenerator');
@@ -75,8 +75,6 @@ class DefaultAppFactory extends AppFactory {
   createDevLogger() {
     return new DevLogger(this.#isDevMode);
   }
-
-  
 }
 
 export default DefaultAppFactory;
