@@ -1,6 +1,6 @@
 {
   "name": "l3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Application for lab 3 using the module",
   "main": "main.js",
   "scripts": {
